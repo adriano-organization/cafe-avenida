@@ -39,6 +39,17 @@ Site estático (HTML/CSS/JS) reutilizável: todo o conteúdo do estabelecimento 
 
 Definido em `config.js` → `openingHours`. O site mostra **Aberto agora** / **Fechado** com fuso `Europe/Lisbon`, incluindo encerramento após meia-noite.
 
+## Regenerar o mapa ilustrado
+
+O mapa da secção «Onde estamos» é um SVG gerado a partir do OpenStreetMap (como no Cafe-Preguiça):
+
+```bash
+cd scripts
+npm run mapa
+# se o Overpass falhar, repetir; ou usar dados em cache:
+npm run mapa:cache
+```
+
 ## Gerar QR codes
 
 ```bash

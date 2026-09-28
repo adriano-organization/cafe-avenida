@@ -23,26 +23,52 @@ window.__i18n.en = {
     sections: {
       about: "The café",
       gallery: "Gallery",
+      reviews: "Reviews",
+      suggestions: "Suggestions",
       location: "Find us",
     },
   },
   hero: {
     ctaMenu: "View menu",
-    ctaContact: "Get in touch",
+    ctaLocation: "Find us",
   },
   about: {
+    eyebrow: "The café",
     title: "About us",
   },
   gallery: {
+    eyebrow: "The space",
     title: "Gallery",
     playVideo: "Play video",
   },
+  lightbox: {
+    open: "Enlarge photo",
+    prev: "Previous photo",
+    next: "Next photo",
+    close: "Close",
+  },
+  reviews: {
+    eyebrow: "From our guests",
+    title: "Reviews",
+    lead: "What people say about us on Google.",
+    count: "{count} Google reviews",
+    outOf: "{rating} out of 5 stars",
+    write: "Write a review",
+  },
+  suggestions: {
+    eyebrow: "From the kitchen",
+    title: "Suggestions",
+    lead: "Three house dishes worth trying.",
+    photoSoon: "Photo soon",
+  },
   hours: {
     title: "Opening hours",
+    eyebrow: "Opening hours",
     openNow: "Open now",
     closedNow: "Closed",
     dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
     closed: "Closed",
+    overnightNote: "* Closes in the early hours of the next day.",
   },
   contact: {
     title: "Contact",
@@ -54,7 +80,10 @@ window.__i18n.en = {
   },
   location: {
     title: "Location",
+    eyebrow: "Find us",
     directions: "Get directions",
+    openMaps: "Open in Google Maps",
+    mapCredit: "Map © OpenStreetMap",
   },
   footer: {
     rights: "All rights reserved.",
@@ -63,7 +92,9 @@ window.__i18n.en = {
   menuPage: {
     title: "Menu",
     subtitle: "Tap a category to browse",
-    exampleNotice: "Sample items — replace in menu.json",
+    comingSoon: "Coming soon: coffee, pastries and desserts.",
+    sizes: { small: "Small", medium: "Medium" },
+    sizesShort: { small: "S", medium: "M" },
     tags: {
       vegetarian: "Vegetarian",
       glutenFree: "Gluten-free",

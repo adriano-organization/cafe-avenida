@@ -21,6 +21,7 @@
     document.querySelectorAll("[data-config]").forEach((el) => {
       const key = el.getAttribute("data-config");
       if (key === "name") el.textContent = cfg.name;
+      if (key === "areaLabel") el.textContent = localized(cfg.areaLabel);
       if (key === "tagline") el.textContent = localized(cfg.tagline);
       if (key === "about") el.textContent = localized(cfg.about);
       if (key === "address") el.textContent = cfg.address.full;
@@ -28,23 +29,21 @@
       if (key === "email") el.textContent = cfg.email;
     });
 
-    const tel = document.querySelector("[data-tel-link]");
-    if (tel) tel.href = `tel:${cfg.phone.replace(/\s/g, "")}`;
+    const telHref = `tel:${cfg.phone.replace(/\s/g, "")}`;
+    document.querySelectorAll("[data-tel-link]").forEach((el) => {
+      el.href = telHref;
+    });
 
-    const mail = document.querySelector("[data-mail-link]");
-    if (mail) mail.href = `mailto:${cfg.email}`;
+    document.querySelectorAll("[data-mail-link]").forEach((el) => {
+      el.href = `mailto:${cfg.email}`;
+    });
 
-    const directions = document.querySelector("[data-directions-link]");
-    if (directions) {
-      const q = encodeURIComponent(cfg.address.full);
-      directions.href = `https://www.google.com/maps/dir/?api=1&destination=${q}`;
-    }
+    const placeLabel = encodeURIComponent(`${cfg.name}, ${cfg.address.full}`);
+    const mapsPlace = `https://www.google.com/maps/search/?api=1&query=${placeLabel}`;
 
-    const mapFrame = document.querySelector("[data-map-frame]");
-    if (mapFrame) {
-      const { lat, lng } = cfg.coordinates;
-      mapFrame.src = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3000!2d${lng}!3d${lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zM!5e0!3m2!1spt-PT!2spt!4v1&q=${encodeURIComponent(cfg.address.full)}`;
-    }
+    document.querySelectorAll("[data-maps-open]").forEach((el) => {
+      el.href = mapsPlace;
+    });
 
     document.querySelectorAll("[data-social]").forEach((a) => {
       const network = a.getAttribute("data-social");
@@ -65,11 +64,126 @@
     }
   }
 
+  function stars(rating) {
+    const n = Math.min(5, Math.max(0, Math.round(rating)));
+    return "★".repeat(n) + "☆".repeat(5 - n);
+  }
+
+  function buildReviewsSummary() {
+    const summary = document.querySelector("[data-reviews-summary]");
+    const google = cfg.googleReviews;
+    if (!summary) return;
+    if (!google) {
+      summary.hidden = true;
+      return;
+    }
+    const locale = i18n.getLang() === "pt" ? "pt-PT" : "en-GB";
+    const score = new Intl.NumberFormat(locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(
+      google.rating
+    );
+    const outOf = i18n.t("reviews.outOf").replace("{rating}", score);
+
+    summary.querySelector("[data-reviews-score]").textContent = score;
+
+    const starsEl = summary.querySelector("[data-reviews-stars]");
+    starsEl.setAttribute("role", "img");
+    starsEl.setAttribute("aria-label", outOf);
+    starsEl.innerHTML = "";
+    const fill = document.createElement("span");
+    fill.className = "reviews-summary__stars-fill";
+    fill.style.width = `${(Math.min(5, Math.max(0, google.rating)) / 5) * 100}%`;
+    fill.textContent = "★★★★★";
+    const base = document.createElement("span");
+    base.textContent = "★★★★★";
+    starsEl.append(base, fill);
+
+    const placeQuery = google.placeId
+      ? `https://www.google.com/maps/place/?q=place_id:${google.placeId}`
+      : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${cfg.name}, ${cfg.address.full}`)}`;
+
+    const all = summary.querySelector("[data-reviews-all]");
+    all.href = placeQuery;
+    all.textContent = i18n.t("reviews.count").replace("{count}", google.count.toLocaleString(locale));
+
+    const write = summary.querySelector("[data-reviews-write]");
+    write.href = google.placeId
+      ? `https://search.google.com/local/writereview?placeid=${google.placeId}`
+      : placeQuery;
+  }
+
+  function buildReviews() {
+    buildReviewsSummary();
+    const grid = document.querySelector("[data-reviews]");
+    if (!grid) return;
+    grid.innerHTML = "";
+    (cfg.reviews || []).forEach((item) => {
+      const card = document.createElement("article");
+      card.className = "review-card";
+      if (item.rating) {
+        const starsEl = document.createElement("p");
+        starsEl.className = "review-card__stars";
+        starsEl.setAttribute("aria-label", i18n.t("reviews.outOf").replace("{rating}", item.rating));
+        starsEl.textContent = stars(item.rating);
+        card.appendChild(starsEl);
+      }
+      const text = document.createElement("p");
+      text.className = "review-card__text";
+      text.textContent = localized(item.text);
+      const author = document.createElement("p");
+      author.className = "review-card__author";
+      author.textContent = typeof item.author === "string" ? item.author : localized(item.author);
+      card.append(text, author);
+      grid.appendChild(card);
+    });
+  }
+
+  function buildSuggestions() {
+    const grid = document.querySelector("[data-suggestions]");
+    if (!grid) return;
+    const photoLabel = i18n.t("suggestions.photoSoon");
+    grid.innerHTML = "";
+    (cfg.suggestions || []).forEach((item) => {
+      const card = document.createElement("article");
+      card.className = "suggestion-card";
+      const media = document.createElement("div");
+      media.className = "suggestion-card__media";
+      if (item.image) {
+        const img = document.createElement("img");
+        img.src = item.image;
+        img.alt = localized(item.name);
+        img.loading = "lazy";
+        img.decoding = "async";
+        if (item.imagePosition) img.style.objectPosition = item.imagePosition;
+        media.appendChild(img);
+        media.classList.add("is-zoomable");
+        window.CafeLightbox?.bind(
+          media,
+          () => window.CafeLightbox.open([{ src: item.image, alt: localized(item.name) }]),
+          localized(item.name)
+        );
+      } else {
+        media.textContent = photoLabel;
+      }
+      const name = document.createElement("h3");
+      name.className = "suggestion-card__name";
+      name.textContent = localized(item.name);
+      const desc = document.createElement("p");
+      desc.className = "suggestion-card__desc";
+      desc.textContent = localized(item.description);
+      card.append(media, name, desc);
+      grid.appendChild(card);
+    });
+  }
+
   function buildGallery() {
     const grid = document.querySelector("[data-gallery]");
     if (!grid) return;
     grid.innerHTML = "";
-    (cfg.media?.gallery || []).forEach((item, index) => {
+    const gallery = cfg.media?.gallery || [];
+    const photos = gallery
+      .filter((item) => item.type !== "video")
+      .map((item) => ({ src: item.src, alt: localized(item.alt) }));
+    gallery.forEach((item, index) => {
       const figure = document.createElement("figure");
       figure.className = "gallery__item";
 
@@ -94,14 +208,36 @@
         img.width = 800;
         img.height = 600;
         figure.appendChild(img);
+        figure.classList.add("is-zoomable");
+        const photoIndex = photos.findIndex((p) => p.src === item.src);
+        window.CafeLightbox?.bind(figure, () => window.CafeLightbox.open(photos, photoIndex), img.alt);
       }
       grid.appendChild(figure);
     });
   }
 
+  function initReveal() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!("IntersectionObserver" in window)) return;
+    const targets = document.querySelectorAll(".section__inner");
+    if (!targets.length) return;
+    document.documentElement.classList.add("js-reveal");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting && entry.boundingClientRect.top > 0) return;
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        });
+      },
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.08 }
+    );
+    targets.forEach((el) => observer.observe(el));
+  }
+
   function refreshHours() {
-    window.CafeHours.renderHoursTable(
-      document.querySelector("[data-hours]"),
+    window.CafeHours.renderHoursPanel(
+      document.querySelector("[data-hours-panel]"),
       cfg.openingHours,
       i18n
     );
@@ -113,16 +249,23 @@
     fillConfigText();
     buildHero();
     buildGallery();
+    buildReviews();
+    buildSuggestions();
     window.CafeBarra?.init();
     refreshHours();
+    window.CafeMapa?.init(cfg);
     window.CafeSeo.applyPageMeta(cfg, i18n, "home");
+    initReveal();
 
     window.addEventListener("cafe:langchange", () => {
       fillConfigText();
       buildHero();
       buildGallery();
+      buildReviews();
+      buildSuggestions();
       window.CafeBarra?.init();
       refreshHours();
+      window.CafeMapa?.init(cfg);
       window.CafeSeo.applyPageMeta(cfg, i18n, "home");
     });
 

@@ -22,9 +22,6 @@
     document.querySelectorAll("[data-phone-display]").forEach((el) => {
       el.textContent = cfg.phoneDisplay;
     });
-
-    const tel = document.querySelector(".pg-acao[data-tel-link]");
-    if (tel) tel.href = `tel:${cfg.phone.replace(/\s/g, "")}`;
   }
 
   window.CafeBarra = { init: initBarra };

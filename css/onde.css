@@ -1,0 +1,293 @@
+/* Onde estamos — mapa grande + cartão (inspirado em Cafe-Preguiça) */
+
+.pg-onde {
+  scroll-margin-top: var(--barra-height, 4.35rem);
+  position: relative;
+  display: grid;
+  border-top: 1px solid color-mix(in srgb, var(--color-primary) 28%, transparent);
+}
+
+.pg-onde__mapa {
+  position: relative;
+  overflow: hidden;
+  height: clamp(18rem, 45vh, 26rem);
+  background: #cfc5b8;
+  grid-area: 1 / 1;
+  z-index: 0;
+}
+
+.pg-onde__mapa-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 58% 48%;
+  display: block;
+}
+
+/* Alfinete (cabeça + ponta) — a ponta marca o sítio no mapa */
+.pg-onde__alfinete {
+  position: absolute;
+  left: 58%;
+  top: 52%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: clamp(2.85rem, 4.6vw, 3.85rem);
+  translate: -50% calc(-100% - 0.15rem);
+  z-index: 2;
+  pointer-events: none;
+  filter: drop-shadow(0 6px 14px rgba(26, 18, 12, 0.32));
+}
+
+.pg-onde__alfinete-cabeca {
+  width: 100%;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--color-surface);
+  border: 2.5px solid var(--color-primary);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-primary) 45%, transparent);
+  animation: pg-halo 3.2s ease-out infinite;
+}
+
+.pg-onde__alfinete-ponta {
+  width: 0;
+  height: 0;
+  margin-top: -1px;
+  border-left: 0.62rem solid transparent;
+  border-right: 0.62rem solid transparent;
+  border-top: 0.95rem solid var(--color-primary);
+}
+
+.pg-onde__alfinete-cabeca img {
+  width: 74%;
+  height: auto;
+  object-fit: contain;
+}
+
+@keyframes pg-halo {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-primary) 48%, transparent);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 1.2rem transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pg-onde__alfinete-cabeca {
+    animation: none;
+  }
+}
+
+.pg-onde__cartao {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  padding: clamp(1.5rem, 4vw, 2.25rem);
+  background: var(--color-surface);
+  border-top: 1px solid color-mix(in srgb, var(--color-primary) 35%, transparent);
+  grid-area: 1 / 1;
+  z-index: 1;
+}
+
+.pg-onde__olho {
+  margin-top: 0.85rem;
+  font-size: 0.8125rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.pg-onde__olho--horario {
+  font-size: 0.9375rem;
+  letter-spacing: 0.18em;
+}
+
+.pg-onde__olho:first-child {
+  margin-top: 0;
+}
+
+.pg-onde__nome {
+  font-family: var(--font-display);
+  font-size: clamp(2.1rem, 3.4vw, 2.75rem);
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  line-height: 1.05;
+  margin: 0;
+  color: var(--color-secondary);
+}
+
+.pg-onde__morada {
+  margin: 0;
+  color: color-mix(in srgb, var(--color-text) 88%, transparent);
+  font-size: 0.98rem;
+  max-width: 28ch;
+}
+
+.pg-onde__status {
+  display: inline-block;
+  margin: 0.35rem 0 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+}
+
+.pg-onde__status.is-open {
+  background: color-mix(in srgb, var(--color-accent) 22%, var(--color-surface));
+  color: var(--color-secondary);
+}
+
+.pg-onde__status.is-closed {
+  background: color-mix(in srgb, var(--color-primary) 14%, var(--color-surface));
+  color: var(--color-primary);
+}
+
+.pg-onde__contactos {
+  margin: 0.55rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.35rem;
+  font-size: 1.02rem;
+}
+
+.pg-onde__contactos a {
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.pg-onde__contactos a:hover,
+.pg-onde__contactos a:focus-visible {
+  color: var(--color-primary);
+}
+
+.pg-onde__horario {
+  margin: 0.15rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.25rem;
+  width: min(20rem, 100%);
+  font-size: 0.94rem;
+}
+
+.pg-onde__horario li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.25rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.pg-onde__horario li span:first-child {
+  color: color-mix(in srgb, var(--color-text) 82%, transparent);
+}
+
+.pg-onde__horario li span:last-child {
+  color: color-mix(in srgb, var(--color-text) 92%, transparent);
+}
+
+.pg-onde__horario li.is-today span {
+  font-weight: inherit;
+  color: inherit;
+}
+
+.pg-onde__nota {
+  margin: 0.5rem 0 0;
+  font-size: 0.78rem;
+  color: color-mix(in srgb, var(--color-text) 65%, transparent);
+  max-width: 22rem;
+}
+
+.pg-onde__botoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.pg-onde__credito {
+  margin: 0.75rem 0 0;
+  font-size: 0.68rem;
+  color: color-mix(in srgb, var(--color-text) 55%, transparent);
+}
+
+.pg-onde__credito a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.pg-onde__credito a:hover,
+.pg-onde__credito a:focus-visible {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.pg-botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 1.2rem;
+  border: 1px solid color-mix(in srgb, var(--color-primary) 55%, transparent);
+  border-radius: 999px;
+  color: var(--color-primary);
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 220ms ease, color 220ms ease, border-color 220ms ease;
+}
+
+.pg-botao:hover,
+.pg-botao:focus-visible {
+  background: var(--color-primary);
+  color: #1a1410;
+  border-color: var(--color-primary);
+}
+
+.pg-botao--cheio {
+  background: linear-gradient(165deg, #e4c078 0%, var(--color-primary) 55%, #a67c3a 100%);
+  color: #1a1410;
+  border-color: var(--color-primary);
+}
+
+.pg-botao--cheio:hover,
+.pg-botao--cheio:focus-visible {
+  background: color-mix(in srgb, var(--color-primary) 75%, #fff);
+  border-color: color-mix(in srgb, var(--color-primary) 75%, #fff);
+  color: #1a1410;
+}
+
+@media (max-width: 51.99rem) {
+  .pg-onde__alfinete {
+    top: clamp(9rem, 22vh, 13rem);
+    translate: -50% calc(-100% - 0.1rem);
+  }
+}
+
+@media (min-width: 52rem) {
+  .pg-onde__mapa {
+    height: clamp(34rem, 85vh, 46rem);
+  }
+
+  .pg-onde__cartao {
+    align-self: center;
+    justify-self: start;
+    width: min(26rem, 42vw);
+    margin-inline-start: clamp(1.25rem, 5vw, 5rem);
+    border: 1px solid color-mix(in srgb, var(--color-primary) 32%, transparent);
+    border-radius: 8px;
+    border-top: 1px solid color-mix(in srgb, var(--color-primary) 32%, transparent);
+    background: color-mix(in srgb, var(--color-surface) 97%, var(--color-secondary) 3%);
+    box-shadow: 0 28px 56px -18px rgba(26, 18, 12, 0.62);
+    backdrop-filter: blur(8px);
+  }
+}

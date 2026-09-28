@@ -23,26 +23,52 @@ window.__i18n.pt = {
     sections: {
       about: "O café",
       gallery: "Galeria",
+      reviews: "Opiniões",
+      suggestions: "Sugestões",
       location: "Onde estamos",
     },
   },
   hero: {
     ctaMenu: "Ver ementa",
-    ctaContact: "Contactar",
+    ctaLocation: "Onde estamos",
   },
   about: {
+    eyebrow: "O café",
     title: "Sobre nós",
   },
   gallery: {
+    eyebrow: "O espaço",
     title: "Galeria",
     playVideo: "Reproduzir vídeo",
   },
+  lightbox: {
+    open: "Ampliar foto",
+    prev: "Foto anterior",
+    next: "Foto seguinte",
+    close: "Fechar",
+  },
+  reviews: {
+    eyebrow: "Quem nos visita",
+    title: "Opiniões",
+    lead: "O que dizem de nós no Google.",
+    count: "{count} críticas no Google",
+    outOf: "{rating} de 5 estrelas",
+    write: "Deixar uma avaliação",
+  },
+  suggestions: {
+    eyebrow: "Da casa",
+    title: "Sugestões",
+    lead: "Três pratos da casa que vale a pena provar.",
+    photoSoon: "Foto em breve",
+  },
   hours: {
     title: "Horário",
+    eyebrow: "Horário",
     openNow: "Aberto agora",
     closedNow: "Fechado",
     dayNames: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"],
     closed: "Encerrado",
+    overnightNote: "* Encerramento na madrugada do dia seguinte.",
   },
   contact: {
     title: "Contactos",
@@ -54,7 +80,10 @@ window.__i18n.pt = {
   },
   location: {
     title: "Localização",
+    eyebrow: "Onde estamos",
     directions: "Como chegar",
+    openMaps: "Abrir no Google Maps",
+    mapCredit: "Mapa © OpenStreetMap",
   },
   footer: {
     rights: "Todos os direitos reservados.",
@@ -63,7 +92,9 @@ window.__i18n.pt = {
   menuPage: {
     title: "Ementa",
     subtitle: "Toque numa categoria para navegar",
-    exampleNotice: "Itens de exemplo — substitua em menu.json",
+    comingSoon: "Em breve: cafetaria, pastelaria e sobremesas.",
+    sizes: { small: "Pequena", medium: "Média" },
+    sizesShort: { small: "PQ", medium: "MD" },
     tags: {
       vegetarian: "Vegetariano",
       glutenFree: "Sem glúten",

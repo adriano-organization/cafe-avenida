@@ -1,129 +1,417 @@
 {
   "categories": [
     {
-      "id": "cafe",
-      "name": { "pt": "Café", "en": "Coffee" },
+      "id": "entradas",
+      "name": { "pt": "Entradas", "en": "Starters" },
+      "items": [
+        { "id": "donut-queijo", "name": { "pt": "Donut de queijo", "en": "Cheese doughnut" }, "price": 6.0 },
+        { "id": "bolas-alheira", "name": { "pt": "Bolas de alheira", "en": "Alheira sausage balls" }, "price": 5.0 },
+        { "id": "tiras-frango", "name": { "pt": "Tiras de frango", "en": "Chicken strips" }, "price": 6.0 },
+        { "id": "ovos-rotos", "name": { "pt": "Ovos rotos", "en": "Broken eggs with fries" }, "price": 7.0 }
+      ]
+    },
+    {
+      "id": "baguetes",
+      "name": { "pt": "Baguetes", "en": "Baguettes" },
+      "figures": ["images/ementa/baguete.jpg"],
       "items": [
         {
-          "id": "expresso",
-          "name": { "pt": "[EXEMPLO] Café expresso", "en": "[SAMPLE] Espresso" },
-          "description": {
-            "pt": "Blend da casa, curto e intenso.",
-            "en": "House blend, short and intense."
-          },
-          "price": 1.2,
-          "tags": []
+          "id": "baguete-americana",
+          "name": { "pt": "Baguete americana", "en": "American baguette" },
+          "description": { "pt": "Queijo, fiambre, alface, tomate e ovo cozido", "en": "Cheese, ham, lettuce, tomato and boiled egg" },
+          "price": 5.0
         },
         {
-          "id": "galao",
-          "name": { "pt": "[EXEMPLO] Galão", "en": "[SAMPLE] Galão (latte)" },
-          "description": {
-            "pt": "Café com leite vaporizado.",
-            "en": "Coffee with steamed milk."
-          },
-          "price": 1.8,
-          "tags": ["vegetarian"]
+          "id": "baguete-atum",
+          "name": { "pt": "Baguete de atum", "en": "Tuna baguette" },
+          "description": { "pt": "Atum, alface, tomate e ovo cozido", "en": "Tuna, lettuce, tomato and boiled egg" },
+          "price": 5.0
         },
         {
-          "id": "abatanado",
-          "name": { "pt": "[EXEMPLO] Abatanado", "en": "[SAMPLE] Long black" },
-          "description": {
-            "pt": "Café alongado.",
-            "en": "Long espresso."
-          },
-          "price": 1.4,
-          "tags": []
+          "id": "baguete-panado",
+          "name": { "pt": "Baguete de panado", "en": "Breaded chicken baguette" },
+          "description": { "pt": "Panado, alface e tomate", "en": "Breaded chicken, lettuce and tomato" },
+          "price": 5.0
+        },
+        {
+          "id": "baguete-lombo",
+          "name": { "pt": "Baguete de lombo", "en": "Pork loin baguette" },
+          "description": { "pt": "Lombo, bacon, queijo e cogumelos", "en": "Pork loin, bacon, cheese and mushrooms" },
+          "price": 5.0
+        },
+        {
+          "id": "baguete-marisco",
+          "name": { "pt": "Baguete de marisco", "en": "Seafood baguette" },
+          "description": { "pt": "Delícias do mar, alface e tomate", "en": "Seafood sticks, lettuce and tomato" },
+          "price": 5.0
+        },
+        {
+          "id": "baguete-presunto",
+          "name": { "pt": "Baguete de presunto", "en": "Cured ham baguette" },
+          "description": { "pt": "Presunto e queijo", "en": "Cured ham and cheese" },
+          "price": 5.0
         }
       ]
     },
     {
-      "id": "pastelaria",
-      "name": { "pt": "Pastelaria", "en": "Pastry" },
+      "id": "saladas",
+      "name": { "pt": "Saladas", "en": "Salads" },
+      "figures": ["images/ementa/salada.jpg"],
       "items": [
         {
-          "id": "croissant",
-          "name": { "pt": "[EXEMPLO] Croissant manteiga", "en": "[SAMPLE] Butter croissant" },
+          "id": "salada-frango",
+          "name": { "pt": "Salada de frango", "en": "Chicken salad" },
           "description": {
-            "pt": "Folhado dourado, assado diariamente.",
-            "en": "Golden flaky pastry, baked daily."
+            "pt": "Frango grelhado, alface roxa, tomate cherry, alface, queijo parmesão e crutons — molho César",
+            "en": "Grilled chicken, red lettuce, cherry tomatoes, lettuce, parmesan and croutons — Caesar dressing"
           },
-          "price": 1.5,
-          "tags": ["vegetarian"],
-          "allergens": { "pt": "Glúten, lactose", "en": "Gluten, lactose" }
+          "price": 7.5
         },
         {
-          "id": "bolo-arroz",
-          "name": { "pt": "[EXEMPLO] Bolo de arroz", "en": "[SAMPLE] Rice muffin" },
+          "id": "salada-tropical",
+          "name": { "pt": "Salada tropical / verão", "en": "Tropical / summer salad" },
           "description": {
-            "pt": "Receita tradicional portuguesa.",
-            "en": "Traditional Portuguese recipe."
+            "pt": "Alface, azeitonas, ananás, milho, pepino, cenoura, pimento, crutons e massa fria — molho de iogurte",
+            "en": "Lettuce, olives, pineapple, sweetcorn, cucumber, carrot, pepper, croutons and cold pasta — yoghurt dressing"
           },
-          "price": 1.3,
-          "tags": ["vegetarian"]
+          "price": 7.5
+        },
+        {
+          "id": "salada-mar",
+          "name": { "pt": "Salada do mar", "en": "Seafood salad" },
+          "description": {
+            "pt": "Delícias do mar, camarão, alface roxa, ananás, tomate e milho — molho cocktail",
+            "en": "Seafood sticks, prawns, red lettuce, pineapple, tomato and sweetcorn — cocktail sauce"
+          },
+          "price": 7.5
+        },
+        {
+          "id": "salada-atum",
+          "name": { "pt": "Salada de atum", "en": "Tuna salad" },
+          "description": {
+            "pt": "Atum, cebola, ovo cozido, alface, tomate, pimento e azeitona — vinagrete ou maionese",
+            "en": "Tuna, onion, boiled egg, lettuce, tomato, pepper and olives — vinaigrette or mayonnaise"
+          },
+          "price": 7.5
         }
       ]
     },
     {
-      "id": "tostas",
-      "name": { "pt": "Tostas", "en": "Toasts" },
+      "id": "massas",
+      "name": { "pt": "Massas", "en": "Pasta" },
+      "figures": ["images/ementa/massa.jpg", "images/ementa/camarao.jpg"],
       "items": [
-        {
-          "id": "mista",
-          "name": { "pt": "[EXEMPLO] Tosta mista", "en": "[SAMPLE] Ham & cheese toast" },
-          "description": {
-            "pt": "Queijo e fiambre em pão torrado.",
-            "en": "Cheese and ham on toasted bread."
-          },
-          "price": 3.5,
-          "tags": []
-        },
-        {
-          "id": "veggie",
-          "name": { "pt": "[EXEMPLO] Tosta vegetariana", "en": "[SAMPLE] Veggie toast" },
-          "description": {
-            "pt": "Queijo, tomate e oregãos.",
-            "en": "Cheese, tomato and oregano."
-          },
-          "price": 3.8,
-          "tags": ["vegetarian"]
-        }
+        { "id": "massa-frango", "name": { "pt": "Massa de frango", "en": "Chicken pasta" }, "price": 7.5 },
+        { "id": "massa-camarao", "name": { "pt": "Massa de camarão", "en": "Prawn pasta" }, "price": 7.5 },
+        { "id": "esparguete-bolonhesa", "name": { "pt": "Esparguete à bolonhesa", "en": "Spaghetti bolognese" }, "price": 7.5 }
       ]
     },
     {
-      "id": "bebidas",
-      "name": { "pt": "Bebidas", "en": "Drinks" },
+      "id": "pizzas",
+      "name": { "pt": "Pizzas", "en": "Pizzas" },
+      "figures": ["images/ementa/pizza.jpg", "images/ementa/pao-alho.jpg"],
+      "note": { "pt": "Tamanhos pequena e média.", "en": "Small and medium sizes." },
       "items": [
         {
-          "id": "agua",
-          "name": { "pt": "[EXEMPLO] Água 50cl", "en": "[SAMPLE] Water 50cl" },
-          "description": {
-            "pt": "Natural ou com gás.",
-            "en": "Still or sparkling."
-          },
-          "price": 1.0,
-          "tags": ["vegetarian", "glutenFree"]
+          "id": "pizza-margarita",
+          "name": { "pt": "Pizza Margarita", "en": "Margherita pizza" },
+          "description": { "pt": "Molho de tomate, queijo e orégãos", "en": "Tomato sauce, cheese and oregano" },
+          "prices": [{ "size": "small", "value": 6.5 }, { "size": "medium", "value": 8.6 }]
         },
         {
-          "id": "sumo-laranja",
-          "name": { "pt": "[EXEMPLO] Sumo de laranja natural", "en": "[SAMPLE] Fresh orange juice" },
-          "description": {
-            "pt": "Espremido na hora.",
-            "en": "Freshly squeezed."
-          },
-          "price": 2.5,
-          "tags": ["vegetarian", "glutenFree"]
+          "id": "pizza-prosciutto",
+          "name": { "pt": "Pizza Prosciutto", "en": "Prosciutto pizza" },
+          "description": { "pt": "Molho de tomate, queijo, fiambre e orégãos", "en": "Tomato sauce, cheese, ham and oregano" },
+          "prices": [{ "size": "small", "value": 7.6 }, { "size": "medium", "value": 8.9 }]
         },
         {
-          "id": "cerveja",
-          "name": { "pt": "[EXEMPLO] Cerveja 33cl", "en": "[SAMPLE] Beer 33cl" },
+          "id": "pizza-prosciutto-cogumelos",
+          "name": { "pt": "Pizza Prosciutto com cogumelos", "en": "Prosciutto & mushroom pizza" },
+          "description": { "pt": "Molho de tomate, queijo, fiambre, cogumelos e orégãos", "en": "Tomato sauce, cheese, ham, mushrooms and oregano" },
+          "prices": [{ "size": "small", "value": 7.9 }, { "size": "medium", "value": 10.0 }]
+        },
+        {
+          "id": "pizza-chourico",
+          "name": { "pt": "Pizza de chouriço", "en": "Chouriço pizza" },
+          "description": { "pt": "Molho de tomate, queijo, chouriço e orégãos", "en": "Tomato sauce, cheese, chouriço and oregano" },
+          "prices": [{ "size": "small", "value": 7.5 }, { "size": "medium", "value": 9.9 }]
+        },
+        {
+          "id": "pizza-calzone",
+          "name": { "pt": "Pizza Calzone", "en": "Calzone" },
           "description": {
-            "pt": "Marca a definir.",
-            "en": "Brand TBD."
+            "pt": "Molho de tomate, queijo, fiambre, ananás, chouriço, cogumelos e orégãos",
+            "en": "Tomato sauce, cheese, ham, pineapple, chouriço, mushrooms and oregano"
           },
-          "price": 2.0,
-          "tags": ["glutenFree"],
-          "allergens": { "pt": "Glúten", "en": "Gluten" }
-        }
+          "prices": [{ "size": "small", "value": 7.9 }, { "size": "medium", "value": 10.9 }]
+        },
+        {
+          "id": "pizza-mar",
+          "name": { "pt": "Pizza do Mar", "en": "Seafood pizza" },
+          "description": {
+            "pt": "Molho de tomate, queijo, camarão, delícias do mar, ananás e orégãos",
+            "en": "Tomato sauce, cheese, prawns, seafood sticks, pineapple and oregano"
+          },
+          "prices": [{ "size": "small", "value": 7.9 }, { "size": "medium", "value": 10.9 }]
+        },
+        {
+          "id": "pizza-atum",
+          "name": { "pt": "Pizza de atum", "en": "Tuna pizza" },
+          "description": {
+            "pt": "Molho de tomate, queijo, cebola, atum, azeitonas, pimentos e orégãos",
+            "en": "Tomato sauce, cheese, onion, tuna, olives, peppers and oregano"
+          },
+          "prices": [{ "size": "small", "value": 6.9 }, { "size": "medium", "value": 10.9 }]
+        },
+        {
+          "id": "pizza-4-estacoes",
+          "name": { "pt": "Pizza 4 Estações", "en": "Four seasons pizza" },
+          "description": {
+            "pt": "Molho de tomate, queijo, fiambre, chouriço, pimentos, cogumelos e orégãos",
+            "en": "Tomato sauce, cheese, ham, chouriço, peppers, mushrooms and oregano"
+          },
+          "prices": [{ "size": "small", "value": 7.95 }, { "size": "medium", "value": 10.9 }]
+        },
+        {
+          "id": "pizza-kebab",
+          "name": { "pt": "Pizza Kebab", "en": "Kebab pizza" },
+          "description": { "pt": "Molho de tomate, queijo, carne de kebab e orégãos", "en": "Tomato sauce, cheese, kebab meat and oregano" },
+          "prices": [{ "size": "small", "value": 8.0 }, { "size": "medium", "value": 11.7 }]
+        },
+        {
+          "id": "pizza-cafe-avenida",
+          "name": { "pt": "Pizza Café Avenida", "en": "Café Avenida pizza" },
+          "description": {
+            "pt": "Molho de tomate, mozzarella, salame picante pepperoni, lascas de parmesão e tomate semi-seco",
+            "en": "Tomato sauce, mozzarella, spicy pepperoni, parmesan shavings and semi-dried tomatoes"
+          },
+          "prices": [{ "size": "small", "value": 8.0 }, { "size": "medium", "value": 12.0 }]
+        },
+        {
+          "id": "pizza-presunto",
+          "name": { "pt": "Pizza de presunto", "en": "Cured ham pizza" },
+          "description": {
+            "pt": "Molho de tomate, queijo, presunto, cogumelos e orégãos",
+            "en": "Tomato sauce, cheese, cured ham, mushrooms and oregano"
+          },
+          "prices": [{ "size": "small", "value": 8.8 }, { "size": "medium", "value": 11.7 }]
+        },
+        {
+          "id": "pizza-cachorro",
+          "name": { "pt": "Pizza Cachorro", "en": "Hot dog pizza" },
+          "description": {
+            "pt": "Molho de tomate, queijo, fiambre, salsicha e batata palha",
+            "en": "Tomato sauce, cheese, ham, sausage and shoestring potatoes"
+          },
+          "prices": [{ "size": "small", "value": 8.4 }, { "size": "medium", "value": 10.3 }]
+        },
+        {
+          "id": "pizza-bolonhesa",
+          "name": { "pt": "Pizza Bolonhesa", "en": "Bolognese pizza" },
+          "description": { "pt": "Molho de tomate, queijo e carne à bolonhesa", "en": "Tomato sauce, cheese and bolognese meat" },
+          "prices": [{ "size": "small", "value": 8.0 }, { "size": "medium", "value": 11.7 }]
+        },
+        { "id": "pao-alho-queijo", "name": { "pt": "Pão de alho com queijo", "en": "Garlic bread with cheese" }, "price": 2.5 },
+        { "id": "pao-alho-bacon-queijo", "name": { "pt": "Pão de alho, bacon e queijo", "en": "Garlic bread, bacon and cheese" }, "price": 3.0 },
+        { "id": "pao-chourico", "name": { "pt": "Pão com chouriço", "en": "Chouriço bread" }, "price": 3.0 },
+        { "id": "pao-chourico-queijo", "name": { "pt": "Pão com chouriço e queijo", "en": "Chouriço and cheese bread" }, "price": 4.0 },
+        {
+          "id": "pao-a-la-joy",
+          "name": { "pt": "Pão à la Joy", "en": "Pão à la Joy" },
+          "description": { "pt": "Chouriço, queijo e salsicha picante", "en": "Chouriço, cheese and spicy sausage" },
+          "price": 5.0
+        },
+        { "id": "ingrediente-extra", "name": { "pt": "Ingrediente extra", "en": "Extra topping" }, "price": 1.0 }
+      ]
+    },
+    {
+      "id": "hamburgueres",
+      "name": { "pt": "Hambúrgueres", "en": "Burgers" },
+      "figures": ["images/ementa/hamburguer.jpg"],
+      "items": [
+        {
+          "id": "hamburguer-normal",
+          "name": { "pt": "Hambúrguer normal", "en": "Classic burger" },
+          "description": { "pt": "Hambúrguer, queijo, fiambre, alface e tomate", "en": "Beef patty, cheese, ham, lettuce and tomato" },
+          "price": 5.0
+        },
+        {
+          "id": "cheese-bacon",
+          "name": { "pt": "Cheese bacon", "en": "Cheese bacon" },
+          "description": {
+            "pt": "Hambúrguer, queijo, fiambre, alface, tomate, ovo e bacon",
+            "en": "Beef patty, cheese, ham, lettuce, tomato, egg and bacon"
+          },
+          "price": 6.0
+        },
+        {
+          "id": "av-burger",
+          "name": { "pt": "Av. Burger", "en": "Av. Burger" },
+          "description": {
+            "pt": "Hambúrguer, queijo, alface, tomate, cebola, cogumelos e bacon",
+            "en": "Beef patty, cheese, lettuce, tomato, onion, mushrooms and bacon"
+          },
+          "price": 6.0
+        },
+        {
+          "id": "hamburguer-especial",
+          "name": { "pt": "Hambúrguer especial", "en": "Special burger" },
+          "description": {
+            "pt": "Hambúrguer, queijo, fiambre, batata e molho de francesinha",
+            "en": "Beef patty, cheese, ham, fries and francesinha sauce"
+          },
+          "price": 7.0
+        },
+        {
+          "id": "hamburguer-frango",
+          "name": { "pt": "Hambúrguer de frango", "en": "Chicken burger" },
+          "description": {
+            "pt": "Hambúrguer de frango, queijo, fiambre, alface e tomate",
+            "en": "Chicken patty, cheese, ham, lettuce and tomato"
+          },
+          "price": 4.0
+        },
+        { "id": "crazy", "name": { "pt": "Crazy", "en": "Crazy" }, "price": 4.0 }
+      ]
+    },
+    {
+      "id": "francesinhas",
+      "name": { "pt": "Francesinhas & cachorros", "en": "Francesinhas & hot dogs" },
+      "figures": ["images/ementa/cachorro.jpg", "images/ementa/francesinha.jpg"],
+      "items": [
+        {
+          "id": "francesinha-normal",
+          "name": { "pt": "Francesinha normal", "en": "Classic francesinha" },
+          "description": { "pt": "Bife, salsicha ou linguiça, queijo e fiambre", "en": "Steak, sausage or linguiça, cheese and ham" },
+          "price": 8.0
+        },
+        {
+          "id": "francesinha-especial",
+          "name": { "pt": "Francesinha especial", "en": "Special francesinha" },
+          "description": {
+            "pt": "Bife, salsicha, linguiça, queijo, fiambre, ovo e batata",
+            "en": "Steak, sausage, linguiça, cheese, ham, egg and fries"
+          },
+          "price": 10.0
+        },
+        {
+          "id": "francesinha-frango",
+          "name": { "pt": "Francesinha de frango", "en": "Chicken francesinha" },
+          "description": {
+            "pt": "Bife de frango, queijo, fiambre, ovo e batata",
+            "en": "Chicken breast, cheese, ham, egg and fries"
+          },
+          "price": 10.0
+        },
+        {
+          "id": "francesinha-avenida",
+          "name": { "pt": "Francesinha Avenida", "en": "Avenida francesinha" },
+          "description": {
+            "pt": "Bife, salsicha, linguiça, criolo, queijo, fiambre, ovo e batata",
+            "en": "Steak, sausage, linguiça, criolo, cheese, ham, egg and fries"
+          },
+          "price": 10.0
+        },
+        {
+          "id": "cachorro-normal",
+          "name": { "pt": "Cachorro normal", "en": "Classic hot dog" },
+          "description": {
+            "pt": "Pão de baguete, salsicha, queijo, fiambre, alface e tomate",
+            "en": "Baguette, sausage, cheese, ham, lettuce and tomato"
+          },
+          "price": 5.0
+        },
+        {
+          "id": "cachorro-especial",
+          "name": { "pt": "Cachorro especial", "en": "Special hot dog" },
+          "description": {
+            "pt": "Pão de baguete, queijo, fiambre, batata e molho de francesinha",
+            "en": "Baguette, cheese, ham, fries and francesinha sauce"
+          },
+          "price": 6.0
+        },
+        {
+          "id": "sr-cachorro",
+          "name": { "pt": "Sr. Cachorro", "en": "Sr. Cachorro" },
+          "description": {
+            "pt": "Pão de baguete grande, queijo, fiambre, batata, molho de francesinha e batata palha",
+            "en": "Large baguette, cheese, ham, fries, francesinha sauce and shoestring potatoes"
+          },
+          "price": 8.0
+        },
+        { "id": "tosta-mista-especial", "name": { "pt": "Tosta mista especial", "en": "Special ham & cheese toastie" }, "price": 4.0 }
+      ]
+    },
+    {
+      "id": "omeletes",
+      "name": { "pt": "Omeletes", "en": "Omelettes" },
+      "note": { "pt": "Arroz em todos os pratos.", "en": "All dishes served with rice." },
+      "items": [
+        { "id": "omelete-mista", "name": { "pt": "Omelete mista", "en": "Mixed omelette" }, "price": 6.5 },
+        { "id": "omelete-queijo", "name": { "pt": "Omelete de queijo", "en": "Cheese omelette" }, "price": 5.2 },
+        { "id": "omelete-fiambre", "name": { "pt": "Omelete de fiambre", "en": "Ham omelette" }, "price": 5.2 },
+        { "id": "omelete-presunto", "name": { "pt": "Omelete de presunto", "en": "Cured ham omelette" }, "price": 6.0 },
+        { "id": "omelete-bacon", "name": { "pt": "Omelete de bacon", "en": "Bacon omelette" }, "price": 6.0 }
+      ]
+    },
+    {
+      "id": "pratos",
+      "name": { "pt": "Pratos", "en": "Mains" },
+      "figures": ["images/ementa/pratos.jpg"],
+      "items": [
+        {
+          "id": "asas-frango",
+          "name": { "pt": "Asas de frango", "en": "Chicken wings" },
+          "description": { "pt": "Com salada e batata frita, molho agridoce", "en": "With salad and fries, sweet and sour sauce" },
+          "price": 7.5
+        },
+        { "id": "prego-prato", "name": { "pt": "Prego no prato", "en": "Steak on a plate" }, "price": 9.0 },
+        { "id": "fevera-prato", "name": { "pt": "Fêvera no prato", "en": "Pork steak on a plate" }, "price": 8.0 },
+        {
+          "id": "sr-panado",
+          "name": { "pt": "Sr. Panado", "en": "Sr. Panado" },
+          "description": { "pt": "Com batata rústica", "en": "Breaded chicken with rustic potatoes" },
+          "price": 7.0
+        },
+        {
+          "id": "naco-carne",
+          "name": { "pt": "Naco de carne", "en": "Beef steak" },
+          "description": { "pt": "Com salada e batata", "en": "With salad and potatoes" },
+          "price": 17.0
+        },
+        {
+          "id": "posta",
+          "name": { "pt": "Posta", "en": "Posta (beef steak)" },
+          "description": { "pt": "Arroz, salada e batata", "en": "Rice, salad and potatoes" },
+          "price": 17.0
+        },
+        { "id": "pica-pau", "name": { "pt": "Pica-pau", "en": "Pica-pau (beef bites)" }, "price": 9.0 },
+        {
+          "id": "bacalhau-cebolada",
+          "name": { "pt": "Bacalhau com cebolada", "en": "Cod with onion sauce" },
+          "description": { "pt": "Com batata frita", "en": "With fries" },
+          "price": 12.0
+        },
+        { "id": "prego-pao", "name": { "pt": "Prego no pão", "en": "Steak sandwich" }, "price": 4.0 },
+        { "id": "pires-batatas", "name": { "pt": "Pires de batatas", "en": "Side of fries" }, "price": 2.4 },
+        { "id": "pires-batatas-queijo", "name": { "pt": "Pires de batatas com queijo", "en": "Cheesy fries" }, "price": 3.4 },
+        { "id": "salsicha-ovo-batata", "name": { "pt": "Salsicha, ovo e batata", "en": "Sausage, egg and fries" }, "price": 4.0 }
+      ]
+    },
+    {
+      "id": "espetadas",
+      "name": { "pt": "Espetadas", "en": "Skewers" },
+      "figures": ["images/72a46fa8-8dee-4799-8f0f-1dbab267ffb4.JPG", "images/espetada-alcatra.jpg"],
+      "note": { "pt": "Salada e batata em todos os pratos.", "en": "All dishes served with salad and fries." },
+      "items": [
+        { "id": "espetada-frango", "name": { "pt": "Espetada de frango", "en": "Chicken skewer" }, "price": 9.0 },
+        {
+          "id": "espetada-mar",
+          "name": { "pt": "Espetada do mar", "en": "Seafood skewer" },
+          "description": { "pt": "Camarão e lulas", "en": "Prawns and squid" },
+          "price": 12.0
+        },
+        { "id": "espetada-alcatra", "name": { "pt": "Espetada de alcatra", "en": "Rump steak skewer" }, "price": 10.0 }
       ]
     }
   ]

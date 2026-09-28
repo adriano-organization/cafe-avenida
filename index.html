@@ -1,22 +1,94 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt-PT" class="ca-loading">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#4B2C20" />
+    <style id="ca-critical">
+      html.ca-loading {
+        background: #dad2c6;
+        overflow: hidden;
+      }
+      html.ca-loading body > :not(#ca-transicao) {
+        display: none !important;
+      }
+      #ca-transicao {
+        position: fixed;
+        inset: 0;
+        z-index: 10000;
+        background: #dad2c6;
+      }
+      #ca-transicao .ca-tr__logo-slot {
+        opacity: 0;
+      }
+      #ca-transicao .ca-tr__vidro {
+        transform: translateX(0);
+      }
+    </style>
+    <link rel="stylesheet" href="css/transicao.css" />
+    <script>
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        document.documentElement.classList.remove("ca-loading");
+        document.documentElement.classList.add("ca-page-ready");
+      }
+    </script>
+    <meta name="theme-color" content="#DAD2C6" />
     <title>Café Avenida</title>
     <link rel="icon" href="images/logo.png" type="image/png" />
     <meta name="description" content="Café local" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Plus+Jakarta+Sans:wght@600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Outfit:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/barra.css" />
+    <link rel="stylesheet" href="css/onde.css" />
   </head>
   <body data-page="home">
+    <div id="ca-transicao" class="ca-tr ca-tr--portas" aria-hidden="true">
+      <div class="ca-tr__cena ca-tr__cena--portas">
+        <div class="ca-tr__caixilho ca-tr__caixilho--sup" aria-hidden="true"></div>
+        <div class="ca-tr__caixilho ca-tr__caixilho--lat ca-tr__caixilho--lat-esq" aria-hidden="true"></div>
+        <div class="ca-tr__caixilho ca-tr__caixilho--lat ca-tr__caixilho--lat-dir" aria-hidden="true"></div>
+        <div class="ca-tr__soleira" aria-hidden="true"></div>
+        <div class="ca-tr__logo-vao">
+          <div class="ca-tr__logo-slot">
+            <img class="ca-tr__logo" src="" alt="" width="160" height="160" data-src="images/logo.png" />
+          </div>
+        </div>
+        <div class="ca-tr__vidro ca-tr__vidro--esq" aria-hidden="true">
+          <span class="ca-tr__puxador"></span>
+        </div>
+        <div class="ca-tr__vidro ca-tr__vidro--dir" aria-hidden="true">
+          <span class="ca-tr__puxador"></span>
+        </div>
+      </div>
+      <div class="ca-tr__cena ca-tr__cena--panfleto">
+        <div class="ca-panfleto" aria-hidden="true">
+          <div class="ca-panfleto__folha ca-panfleto__folha--esq">
+            <p class="ca-panfleto__titulo">Cafés</p>
+            <div class="ca-panfleto__linhas">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+          <div class="ca-panfleto__folha ca-panfleto__folha--meio">
+            <p class="ca-panfleto__titulo">Ementa</p>
+            <div class="ca-panfleto__linhas">
+              <span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+          <div class="ca-panfleto__folha ca-panfleto__folha--dir">
+            <p class="ca-panfleto__titulo">Petiscos</p>
+            <div class="ca-panfleto__linhas">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/transicao.js"></script>
+
     <a class="skip-link" href="#main" data-i18n="nav.skipToContent">Saltar para o conteúdo</a>
 
     <header class="pg-barra">
@@ -27,6 +99,8 @@
       <nav class="pg-indice" data-i18n-attr="aria-label:nav.main" aria-label="Navegação principal">
         <a class="pg-indice__seccao" href="#sobre" data-section-hash="#sobre" data-i18n="nav.sections.about">O café</a>
         <a class="pg-indice__seccao" href="#galeria" data-section-hash="#galeria" data-i18n="nav.sections.gallery">Galeria</a>
+        <a class="pg-indice__seccao" href="#sugestoes" data-section-hash="#sugestoes" data-i18n="nav.sections.suggestions">Sugestões</a>
+        <a class="pg-indice__seccao" href="#opinioes" data-section-hash="#opinioes" data-i18n="nav.sections.reviews">Opiniões</a>
         <a class="pg-indice__seccao" href="#localizacao" data-section-hash="#localizacao" data-i18n="nav.sections.location"
           >Onde estamos</a
         >
@@ -44,7 +118,7 @@
       <a class="pg-acao" data-tel-link href="tel:+351255619414">
         <span class="pg-barra__curto" data-i18n="nav.callShort">Ligar</span>
         <span class="pg-barra__longo"
-          ><span data-i18n="nav.callLong">Ligar</span> · <span data-phone-display>255 619 414</span></span
+          ><span data-i18n="nav.callLong">Ligar</span> · <span data-config="phone">255 619 414</span></span
         >
       </a>
     </header>
@@ -66,82 +140,128 @@
             />
             <span class="visually-hidden" data-config="name">Café Avenida</span>
           </h1>
+          <p class="hero__area" data-config="areaLabel">Alpendurada · Marco de Canaveses</p>
           <p class="hero__tagline" data-config="tagline"></p>
           <div class="hero__actions">
             <a class="btn btn--primary" href="ementa.html" data-href-ementa data-i18n="hero.ctaMenu">Ver ementa</a>
-            <a class="btn btn--ghost" href="#contactos" data-i18n="hero.ctaContact">Contactar</a>
+            <a class="btn btn--ghost btn--arrow" href="#localizacao">
+              <span data-i18n="hero.ctaLocation">Onde estamos</span>
+              <svg class="btn__icon" width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                <path
+                  d="M9 4v9M5.5 10.5 9 14 12.5 10.5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </a>
           </div>
         </div>
       </section>
 
-      <section class="section" id="sobre" aria-labelledby="about-title">
+      <section class="section section--about" id="sobre" aria-labelledby="about-title">
         <div class="section__inner">
-          <h2 class="section__title" id="about-title" data-i18n="about.title">Sobre nós</h2>
+          <div>
+            <p class="section__eyebrow" data-i18n="about.eyebrow">O café</p>
+            <h2 class="section__title" id="about-title" data-i18n="about.title">Sobre nós</h2>
+          </div>
           <p class="about__text" data-config="about"></p>
         </div>
       </section>
 
-      <section class="section" id="galeria" aria-labelledby="gallery-title">
+      <section class="section section--surface" id="galeria" aria-labelledby="gallery-title">
         <div class="section__inner">
+          <p class="section__eyebrow" data-i18n="gallery.eyebrow">O espaço</p>
           <h2 class="section__title" id="gallery-title" data-i18n="gallery.title">Galeria</h2>
           <div class="gallery" data-gallery></div>
         </div>
       </section>
 
-      <section class="section" id="horario" aria-labelledby="hours-title">
+      <section class="section" id="sugestoes" aria-labelledby="suggestions-title">
         <div class="section__inner">
-          <h2 class="section__title" id="hours-title" data-i18n="hours.title">Horário</h2>
-          <div class="hours-card" data-hours>
-            <p class="hours-status" data-hours-status aria-live="polite"></p>
-            <table class="hours-table">
-              <tbody data-hours-body></tbody>
-            </table>
-            <p class="hours-note" data-hours-note hidden></p>
-          </div>
+          <p class="section__eyebrow" data-i18n="suggestions.eyebrow">Da casa</p>
+          <h2 class="section__title" id="suggestions-title" data-i18n="suggestions.title">Sugestões</h2>
+          <p class="section__lead" data-i18n="suggestions.lead">Três pratos da casa que vale a pena provar.</p>
+          <div class="suggestions" data-suggestions></div>
         </div>
       </section>
 
-      <section class="section" id="contactos" aria-labelledby="contact-title">
+      <section class="section section--surface" id="opinioes" aria-labelledby="reviews-title">
         <div class="section__inner">
-          <h2 class="section__title" id="contact-title" data-i18n="contact.title">Contactos</h2>
-          <div class="contact-grid">
-            <div class="contact-card">
-              <h3 data-i18n="contact.phone">Telefone</h3>
-              <p data-config="phone"></p>
-              <a class="btn btn--secondary" data-tel-link href="tel:+351255619414" data-i18n="contact.call">Ligar</a>
+          <p class="section__eyebrow" data-i18n="reviews.eyebrow">Quem nos visita</p>
+          <h2 class="section__title" id="reviews-title" data-i18n="reviews.title">Opiniões</h2>
+          <p class="section__lead" data-i18n="reviews.lead">O que dizem de nós no Google.</p>
+          <div class="reviews-summary" data-reviews-summary>
+            <p class="reviews-summary__score" data-reviews-score></p>
+            <div class="reviews-summary__meta">
+              <p class="reviews-summary__stars" data-reviews-stars></p>
+              <a class="reviews-summary__count" data-reviews-all target="_blank" rel="noopener noreferrer"></a>
             </div>
-            <div class="contact-card">
-              <h3 data-i18n="contact.email">Email</h3>
-              <p data-config="email"></p>
-              <a class="btn btn--secondary" data-mail-link href="#" data-i18n="contact.write">Enviar email</a>
-            </div>
-            <div class="contact-card">
-              <h3 data-i18n="contact.follow">Redes sociais</h3>
-              <div class="social-links">
-                <a href="#" data-social="instagram" rel="noopener noreferrer">Instagram</a>
-                <a href="#" data-social="facebook" rel="noopener noreferrer">Facebook</a>
-              </div>
-            </div>
+            <a class="btn btn--primary reviews-summary__cta" data-reviews-write target="_blank" rel="noopener noreferrer" data-i18n="reviews.write">Deixar uma avaliação</a>
           </div>
+          <div class="reviews" data-reviews></div>
         </div>
       </section>
 
-      <section class="section" id="localizacao" aria-labelledby="location-title">
-        <div class="section__inner">
-          <h2 class="section__title" id="location-title" data-i18n="location.title">Localização</h2>
-          <p data-config="address"></p>
-          <div class="map-wrap">
-            <iframe
-              data-map-frame
-              title="Mapa"
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              allowfullscreen
-            ></iframe>
+      <section class="pg-onde" id="localizacao" aria-labelledby="onde-title">
+        <div class="pg-onde__mapa">
+          <img
+            class="pg-onde__mapa-img"
+            data-map-img
+            src="mapa/alpendurada.svg"
+            width="1600"
+            height="820"
+            alt="Mapa — Café Avenida"
+            loading="lazy"
+          />
+        </div>
+
+        <aside class="pg-onde__cartao" data-hours-panel>
+          <p class="pg-onde__olho" data-i18n="location.eyebrow">Onde estamos</p>
+          <h2 class="pg-onde__nome" id="onde-title" data-config="name">Café Avenida</h2>
+          <p class="pg-onde__morada" data-config="address"></p>
+
+          <p class="pg-onde__status" data-hours-status aria-live="polite"></p>
+
+          <ul class="pg-onde__contactos">
+            <li>
+              <a data-tel-link href="tel:+351255619414"><span data-config="phone">255 619 414</span></a>
+            </li>
+            <li>
+              <a data-mail-link href="#"><span data-config="email"></span></a>
+            </li>
+          </ul>
+
+          <p class="pg-onde__olho pg-onde__olho--horario" data-i18n="hours.eyebrow">Horário</p>
+          <ul class="pg-onde__horario" data-hours-list></ul>
+          <p class="pg-onde__nota" data-hours-note hidden></p>
+
+          <div class="pg-onde__botoes">
+            <a
+              class="pg-botao pg-botao--cheio"
+              data-maps-open
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-i18n="location.openMaps"
+              >Abrir no Google Maps <span aria-hidden="true">↗</span></a
+            >
           </div>
-          <a class="btn btn--primary" data-directions-link href="#" target="_blank" rel="noopener noreferrer" data-i18n="location.directions"
-            >Como chegar</a
-          >
+
+          <p class="pg-onde__credito">
+            <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer" data-i18n="location.mapCredit"
+              >Mapa © OpenStreetMap</a
+            >
+          </p>
+        </aside>
+
+        <div class="pg-onde__alfinete" data-map-pin role="img" aria-label="Café Avenida">
+          <span class="pg-onde__alfinete-cabeca">
+            <img data-map-pin-logo src="images/logo.png" alt="" width="64" height="64" />
+          </span>
+          <span class="pg-onde__alfinete-ponta" aria-hidden="true"></span>
         </div>
       </section>
     </main>
@@ -165,6 +285,8 @@
     <script src="js/hours.js"></script>
     <script src="js/barra.js"></script>
     <script src="js/seo.js"></script>
+    <script src="js/mapa.js"></script>
+    <script src="js/lightbox.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>

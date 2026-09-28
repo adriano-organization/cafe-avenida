@@ -46,7 +46,13 @@
       if (node == null) return path;
       node = node[p];
     }
-    return typeof node === "string" ? node : path;
+    if (typeof node === "string" || Array.isArray(node)) return node;
+    return path;
+  }
+
+  function dayNames() {
+    const names = window.__i18n?.[currentLang]?.hours?.dayNames;
+    return Array.isArray(names) ? names : [];
   }
 
   function applyTranslations(root) {
@@ -54,6 +60,7 @@
     scope.querySelectorAll("[data-i18n]").forEach((el) => {
       const key = el.getAttribute("data-i18n");
       const value = t(key);
+      if (Array.isArray(value)) return;
       if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
         el.placeholder = value;
       } else {
@@ -117,6 +124,7 @@
   window.CafeI18n = {
     getLang: () => currentLang,
     t,
+    dayNames,
     setLang,
     applyTranslations,
     bindLangButtons,

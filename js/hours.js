@@ -57,17 +57,21 @@
     return minutes >= openMin && minutes < closeMin;
   }
 
+  /** Ordem segunda → domingo (como Cafe-Preguiça). Índices = Date.getDay(). */
+  const DISPLAY_DAYS = [1, 2, 3, 4, 5, 6, 0];
+
   function formatSlot(slot, closedLabel) {
     if (!slot) return closedLabel;
-    return `${slot.open} – ${slot.close}${slot.closeNextDay ? "*" : ""}`;
+    return `${slot.open} – ${slot.close}`;
   }
 
-  function renderHoursTable(container, schedule, i18n) {
+  function renderHoursPanel(container, schedule, i18n) {
     if (!container) return;
     const { day: todayIndex } = lisbonParts();
     const open = isOpenNow(schedule);
     const statusEl = container.querySelector("[data-hours-status]");
     const tbody = container.querySelector("[data-hours-body]");
+    const list = container.querySelector("[data-hours-list]");
 
     if (statusEl) {
       statusEl.textContent = open ? i18n.t("hours.openNow") : i18n.t("hours.closedNow");
@@ -75,26 +79,43 @@
       statusEl.classList.toggle("is-closed", !open);
     }
 
-    if (!tbody) return;
-    tbody.innerHTML = "";
-    for (let d = 0; d < 7; d++) {
-      const tr = document.createElement("tr");
-      if (d === todayIndex) tr.classList.add("is-today");
-      const dayName = i18n.t("hours.dayNames")[d] ?? String(d);
-      const slot = slotForDay(schedule, d);
-      tr.innerHTML = `<th scope="row">${dayName}</th><td>${formatSlot(slot, i18n.t("hours.closed"))}</td>`;
-      tbody.appendChild(tr);
+    if (list) {
+      list.innerHTML = "";
+      DISPLAY_DAYS.forEach((d) => {
+        const li = document.createElement("li");
+        if (d === todayIndex) li.classList.add("is-today");
+        const names = i18n.dayNames?.() ?? [];
+        const dayName = names[d] ?? String(d);
+        const slot = slotForDay(schedule, d);
+        li.innerHTML = `<span>${dayName}</span><span>${formatSlot(slot, i18n.t("hours.closed"))}</span>`;
+        list.appendChild(li);
+      });
+    }
+
+    if (tbody) {
+      tbody.innerHTML = "";
+      for (let d = 0; d < 7; d++) {
+        const tr = document.createElement("tr");
+        if (d === todayIndex) tr.classList.add("is-today");
+        const names = i18n.dayNames?.() ?? [];
+        const dayName = names[d] ?? String(d);
+        const slot = slotForDay(schedule, d);
+        tr.innerHTML = `<th scope="row">${dayName}</th><td>${formatSlot(slot, i18n.t("hours.closed"))}</td>`;
+        tbody.appendChild(tr);
+      }
     }
 
     const note = container.querySelector("[data-hours-note]");
     if (note) {
       note.hidden = false;
-      note.textContent =
-        i18n.getLang() === "pt"
-          ? "* Encerramento na madrugada do dia seguinte."
-          : "* Closes in the early hours of the next day.";
+      note.textContent = i18n.t("hours.overnightNote");
     }
   }
 
-  window.CafeHours = { isOpenNow, renderHoursTable, lisbonParts };
+  /** @deprecated use renderHoursPanel */
+  function renderHoursTable(container, schedule, i18n) {
+    renderHoursPanel(container, schedule, i18n);
+  }
+
+  window.CafeHours = { isOpenNow, renderHoursPanel, renderHoursTable, lisbonParts };
 })();
