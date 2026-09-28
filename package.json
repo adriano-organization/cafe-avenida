@@ -1,0 +1,12 @@
+{
+  "name": "cafe-avenida",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.5",
+    "vite": "^6.3.5"
+  }
+}

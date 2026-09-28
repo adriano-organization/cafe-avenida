@@ -1,0 +1,130 @@
+{
+  "categories": [
+    {
+      "id": "cafe",
+      "name": { "pt": "Café", "en": "Coffee" },
+      "items": [
+        {
+          "id": "expresso",
+          "name": { "pt": "[EXEMPLO] Café expresso", "en": "[SAMPLE] Espresso" },
+          "description": {
+            "pt": "Blend da casa, curto e intenso.",
+            "en": "House blend, short and intense."
+          },
+          "price": 1.2,
+          "tags": []
+        },
+        {
+          "id": "galao",
+          "name": { "pt": "[EXEMPLO] Galão", "en": "[SAMPLE] Galão (latte)" },
+          "description": {
+            "pt": "Café com leite vaporizado.",
+            "en": "Coffee with steamed milk."
+          },
+          "price": 1.8,
+          "tags": ["vegetarian"]
+        },
+        {
+          "id": "abatanado",
+          "name": { "pt": "[EXEMPLO] Abatanado", "en": "[SAMPLE] Long black" },
+          "description": {
+            "pt": "Café alongado.",
+            "en": "Long espresso."
+          },
+          "price": 1.4,
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "pastelaria",
+      "name": { "pt": "Pastelaria", "en": "Pastry" },
+      "items": [
+        {
+          "id": "croissant",
+          "name": { "pt": "[EXEMPLO] Croissant manteiga", "en": "[SAMPLE] Butter croissant" },
+          "description": {
+            "pt": "Folhado dourado, assado diariamente.",
+            "en": "Golden flaky pastry, baked daily."
+          },
+          "price": 1.5,
+          "tags": ["vegetarian"],
+          "allergens": { "pt": "Glúten, lactose", "en": "Gluten, lactose" }
+        },
+        {
+          "id": "bolo-arroz",
+          "name": { "pt": "[EXEMPLO] Bolo de arroz", "en": "[SAMPLE] Rice muffin" },
+          "description": {
+            "pt": "Receita tradicional portuguesa.",
+            "en": "Traditional Portuguese recipe."
+          },
+          "price": 1.3,
+          "tags": ["vegetarian"]
+        }
+      ]
+    },
+    {
+      "id": "tostas",
+      "name": { "pt": "Tostas", "en": "Toasts" },
+      "items": [
+        {
+          "id": "mista",
+          "name": { "pt": "[EXEMPLO] Tosta mista", "en": "[SAMPLE] Ham & cheese toast" },
+          "description": {
+            "pt": "Queijo e fiambre em pão torrado.",
+            "en": "Cheese and ham on toasted bread."
+          },
+          "price": 3.5,
+          "tags": []
+        },
+        {
+          "id": "veggie",
+          "name": { "pt": "[EXEMPLO] Tosta vegetariana", "en": "[SAMPLE] Veggie toast" },
+          "description": {
+            "pt": "Queijo, tomate e oregãos.",
+            "en": "Cheese, tomato and oregano."
+          },
+          "price": 3.8,
+          "tags": ["vegetarian"]
+        }
+      ]
+    },
+    {
+      "id": "bebidas",
+      "name": { "pt": "Bebidas", "en": "Drinks" },
+      "items": [
+        {
+          "id": "agua",
+          "name": { "pt": "[EXEMPLO] Água 50cl", "en": "[SAMPLE] Water 50cl" },
+          "description": {
+            "pt": "Natural ou com gás.",
+            "en": "Still or sparkling."
+          },
+          "price": 1.0,
+          "tags": ["vegetarian", "glutenFree"]
+        },
+        {
+          "id": "sumo-laranja",
+          "name": { "pt": "[EXEMPLO] Sumo de laranja natural", "en": "[SAMPLE] Fresh orange juice" },
+          "description": {
+            "pt": "Espremido na hora.",
+            "en": "Freshly squeezed."
+          },
+          "price": 2.5,
+          "tags": ["vegetarian", "glutenFree"]
+        },
+        {
+          "id": "cerveja",
+          "name": { "pt": "[EXEMPLO] Cerveja 33cl", "en": "[SAMPLE] Beer 33cl" },
+          "description": {
+            "pt": "Marca a definir.",
+            "en": "Brand TBD."
+          },
+          "price": 2.0,
+          "tags": ["glutenFree"],
+          "allergens": { "pt": "Glúten", "en": "Gluten" }
+        }
+      ]
+    }
+  ]
+}

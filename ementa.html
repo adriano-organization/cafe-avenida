@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#4B2C20" />
+    <title>Ementa — Café Avenida</title>
+    <link rel="icon" href="images/logo.png" type="image/png" />
+    <meta name="description" content="Ementa digital" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700&family=Plus+Jakarta+Sans:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/barra.css" />
+    <link rel="stylesheet" href="css/ementa.css" />
+  </head>
+  <body data-page="ementa">
+    <a class="skip-link" href="#menu-sections" data-i18n="nav.skipToContent">Saltar para o conteúdo</a>
+
+    <header class="pg-barra">
+      <a class="pg-barra__marca" href="index.html">
+        <img data-logo src="images/logo.png" alt="Café Avenida" width="527" height="535" />
+      </a>
+
+      <nav class="pg-indice" data-i18n-attr="aria-label:nav.main" aria-label="Navegação principal">
+        <a class="pg-indice__seccao" href="index.html#sobre" data-section-hash="#sobre" data-i18n="nav.sections.about">O café</a>
+        <a class="pg-indice__seccao" href="index.html#galeria" data-section-hash="#galeria" data-i18n="nav.sections.gallery">Galeria</a>
+        <a class="pg-indice__seccao" href="index.html#localizacao" data-section-hash="#localizacao" data-i18n="nav.sections.location"
+          >Onde estamos</a
+        >
+        <span aria-current="page" data-i18n="nav.menu">Ementa</span>
+      </nav>
+
+      <div class="pg-barra__idioma">
+        <div class="lang-switch" role="group" aria-label="Idioma">
+          <button type="button" data-lang-btn="pt" aria-pressed="true">PT</button>
+          <span class="lang-switch__sep" aria-hidden="true">|</span>
+          <button type="button" data-lang-btn="en" aria-pressed="false">EN</button>
+        </div>
+      </div>
+
+      <a class="pg-acao" data-tel-link href="tel:+351255619414">
+        <span class="pg-barra__curto" data-i18n="nav.callShort">Ligar</span>
+        <span class="pg-barra__longo"
+          ><span data-i18n="nav.callLong">Ligar</span> · <span data-phone-display>255 619 414</span></span
+        >
+      </a>
+    </header>
+
+    <header class="menu-header">
+      <h1 class="visually-hidden" data-config="name">Café Avenida</h1>
+      <p class="menu-notice" data-i18n="menuPage.exampleNotice">Itens de exemplo — substitua em menu.json</p>
+      <p class="menu-header__subtitle" data-i18n="menuPage.subtitle">Toque numa categoria para navegar</p>
+      <nav class="menu-nav" data-menu-nav aria-label="Categorias da ementa"></nav>
+    </header>
+
+    <div class="menu-page" id="menu-sections" data-menu-sections></div>
+
+    <script src="config.js"></script>
+    <script src="js/branding.js"></script>
+    <script src="i18n/pt.js"></script>
+    <script src="i18n/en.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/barra.js"></script>
+    <script src="js/seo.js"></script>
+    <script src="js/ementa.js"></script>
+  </body>
+</html>

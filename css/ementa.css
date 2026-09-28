@@ -1,0 +1,141 @@
+@import url("main.css");
+
+/* Ementa: navegação fixa e tipografia mobile-first */
+.menu-header {
+  position: sticky;
+  top: 4rem;
+  z-index: 40;
+  background: var(--color-surface);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+  padding: 0.75rem 1rem;
+}
+
+.menu-header__subtitle {
+  margin: 0 0 0.75rem;
+  font-size: 0.875rem;
+  opacity: 0.85;
+}
+
+.menu-notice {
+  margin: 0 0 0.75rem;
+  font-size: 0.8125rem;
+  padding: 0.5rem 0.75rem;
+  background: color-mix(in srgb, var(--color-primary) 12%, white);
+  border-radius: 8px;
+  color: var(--color-text);
+}
+
+.menu-nav {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.menu-nav__link {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  background: var(--color-background);
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.menu-nav__link.is-active {
+  background: var(--color-secondary);
+  color: #fff;
+}
+
+.menu-page {
+  padding: 1rem 1rem 3rem;
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+.menu-section {
+  padding: 1.5rem 0;
+  scroll-margin-top: 11rem;
+}
+
+.menu-section__title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--color-primary);
+  margin: 0 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid color-mix(in srgb, var(--color-primary) 35%, transparent);
+}
+
+.menu-item {
+  padding: 1rem 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
+}
+
+.menu-item__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.menu-item__name {
+  margin: 0;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  flex: 1;
+}
+
+.menu-item__price {
+  font-weight: 700;
+  color: var(--color-primary);
+  white-space: nowrap;
+}
+
+.menu-item__desc {
+  margin: 0.35rem 0 0;
+  font-size: 0.9375rem;
+  opacity: 0.88;
+}
+
+.menu-item__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+}
+
+.menu-tag {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 0.2rem 0.45rem;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--color-accent) 22%, white);
+  color: var(--color-secondary);
+}
+
+.menu-tag--allergens {
+  background: color-mix(in srgb, var(--color-primary) 15%, white);
+  color: var(--color-primary);
+}
+
+.menu-empty {
+  opacity: 0.7;
+  font-style: italic;
+}
+
+.menu-back {
+  display: inline-flex;
+  margin: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+}

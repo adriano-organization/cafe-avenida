@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#4B2C20" />
+    <title>Café Avenida</title>
+    <link rel="icon" href="images/logo.png" type="image/png" />
+    <meta name="description" content="Café local" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Plus+Jakarta+Sans:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/barra.css" />
+  </head>
+  <body data-page="home">
+    <a class="skip-link" href="#main" data-i18n="nav.skipToContent">Saltar para o conteúdo</a>
+
+    <header class="pg-barra">
+      <a class="pg-barra__marca" href="#main">
+        <img data-logo src="images/logo.png" alt="Café Avenida" width="527" height="535" />
+      </a>
+
+      <nav class="pg-indice" data-i18n-attr="aria-label:nav.main" aria-label="Navegação principal">
+        <a class="pg-indice__seccao" href="#sobre" data-section-hash="#sobre" data-i18n="nav.sections.about">O café</a>
+        <a class="pg-indice__seccao" href="#galeria" data-section-hash="#galeria" data-i18n="nav.sections.gallery">Galeria</a>
+        <a class="pg-indice__seccao" href="#localizacao" data-section-hash="#localizacao" data-i18n="nav.sections.location"
+          >Onde estamos</a
+        >
+        <a href="ementa.html" data-href-ementa data-i18n="nav.menu">Ementa</a>
+      </nav>
+
+      <div class="pg-barra__idioma">
+        <div class="lang-switch" role="group" aria-label="Idioma">
+          <button type="button" data-lang-btn="pt" aria-pressed="true">PT</button>
+          <span class="lang-switch__sep" aria-hidden="true">|</span>
+          <button type="button" data-lang-btn="en" aria-pressed="false">EN</button>
+        </div>
+      </div>
+
+      <a class="pg-acao" data-tel-link href="tel:+351255619414">
+        <span class="pg-barra__curto" data-i18n="nav.callShort">Ligar</span>
+        <span class="pg-barra__longo"
+          ><span data-i18n="nav.callLong">Ligar</span> · <span data-phone-display>255 619 414</span></span
+        >
+      </a>
+    </header>
+
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__media">
+          <img data-hero-img src="" alt="" width="1920" height="1080" />
+        </div>
+        <div class="hero__content">
+          <h1 class="hero__title" id="hero-title" data-logo-replace>
+            <img
+              class="hero__logo"
+              data-logo
+              src="images/logo.png"
+              alt="Café Avenida"
+              width="527"
+              height="535"
+            />
+            <span class="visually-hidden" data-config="name">Café Avenida</span>
+          </h1>
+          <p class="hero__tagline" data-config="tagline"></p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="ementa.html" data-href-ementa data-i18n="hero.ctaMenu">Ver ementa</a>
+            <a class="btn btn--ghost" href="#contactos" data-i18n="hero.ctaContact">Contactar</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="sobre" aria-labelledby="about-title">
+        <div class="section__inner">
+          <h2 class="section__title" id="about-title" data-i18n="about.title">Sobre nós</h2>
+          <p class="about__text" data-config="about"></p>
+        </div>
+      </section>
+
+      <section class="section" id="galeria" aria-labelledby="gallery-title">
+        <div class="section__inner">
+          <h2 class="section__title" id="gallery-title" data-i18n="gallery.title">Galeria</h2>
+          <div class="gallery" data-gallery></div>
+        </div>
+      </section>
+
+      <section class="section" id="horario" aria-labelledby="hours-title">
+        <div class="section__inner">
+          <h2 class="section__title" id="hours-title" data-i18n="hours.title">Horário</h2>
+          <div class="hours-card" data-hours>
+            <p class="hours-status" data-hours-status aria-live="polite"></p>
+            <table class="hours-table">
+              <tbody data-hours-body></tbody>
+            </table>
+            <p class="hours-note" data-hours-note hidden></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="contactos" aria-labelledby="contact-title">
+        <div class="section__inner">
+          <h2 class="section__title" id="contact-title" data-i18n="contact.title">Contactos</h2>
+          <div class="contact-grid">
+            <div class="contact-card">
+              <h3 data-i18n="contact.phone">Telefone</h3>
+              <p data-config="phone"></p>
+              <a class="btn btn--secondary" data-tel-link href="tel:+351255619414" data-i18n="contact.call">Ligar</a>
+            </div>
+            <div class="contact-card">
+              <h3 data-i18n="contact.email">Email</h3>
+              <p data-config="email"></p>
+              <a class="btn btn--secondary" data-mail-link href="#" data-i18n="contact.write">Enviar email</a>
+            </div>
+            <div class="contact-card">
+              <h3 data-i18n="contact.follow">Redes sociais</h3>
+              <div class="social-links">
+                <a href="#" data-social="instagram" rel="noopener noreferrer">Instagram</a>
+                <a href="#" data-social="facebook" rel="noopener noreferrer">Facebook</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="localizacao" aria-labelledby="location-title">
+        <div class="section__inner">
+          <h2 class="section__title" id="location-title" data-i18n="location.title">Localização</h2>
+          <p data-config="address"></p>
+          <div class="map-wrap">
+            <iframe
+              data-map-frame
+              title="Mapa"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen
+            ></iframe>
+          </div>
+          <a class="btn btn--primary" data-directions-link href="#" target="_blank" rel="noopener noreferrer" data-i18n="location.directions"
+            >Como chegar</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <p><span data-config="name"></span> — <span data-config="address"></span></p>
+        <p>
+          <a href="ementa.html" data-href-ementa data-i18n="footer.menuQr">Ementa digital</a>
+          · © <span data-config="name"></span>
+          <span data-i18n="footer.rights">Todos os direitos reservados.</span>
+        </p>
+      </div>
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="js/branding.js"></script>
+    <script src="i18n/pt.js"></script>
+    <script src="i18n/en.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/hours.js"></script>
+    <script src="js/barra.js"></script>
+    <script src="js/seo.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

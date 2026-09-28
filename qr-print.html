@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>QR — Ementa</title>
+    <link rel="stylesheet" href="css/qr-print.css" />
+  </head>
+  <body>
+    <p class="no-print">
+      <button type="button" onclick="window.print()">Imprimir cartão</button>
+    </p>
+
+    <article class="print-sheet" id="qr-card">
+      <img class="print-logo" data-logo src="images/logo.png" alt="Café Avenida" width="527" height="535" />
+      <h1 class="visually-hidden" data-config="name">Café Avenida</h1>
+      <p class="bilingual"><span data-i18n="qrPrint.menuLabel">Ementa</span> / Menu</p>
+      <img id="qr-image" src="qr/ementa-pt.png" alt="QR code ementa" width="512" height="512" />
+      <p data-i18n="qrPrint.scanHint">Aponte a câmara para o código</p>
+    </article>
+
+    <script src="config.js"></script>
+    <script src="js/branding.js"></script>
+    <script src="i18n/pt.js"></script>
+    <script src="i18n/en.js"></script>
+    <script src="js/i18n.js"></script>
+    <script>
+      (function () {
+        function init() {
+          window.CafeI18n.init();
+          window.CafeBranding.apply(window.CAFE_CONFIG);
+          const lang = window.CafeI18n.getLang();
+          const img = document.getElementById("qr-image");
+          if (img) img.src = `qr/ementa-${lang}.png`;
+          window.addEventListener("cafe:langchange", (e) => {
+            if (img) img.src = `qr/ementa-${e.detail.lang}.png`;
+            window.CafeI18n.applyTranslations();
+          });
+        }
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", init);
+        } else {
+          init();
+        }
+      })();
+    </script>
+  </body>
+</html>

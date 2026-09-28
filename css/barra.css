@@ -1,0 +1,152 @@
+/* Barra global — inspirada em Cafe-Preguica (pg-barra) */
+
+.pg-barra {
+  position: sticky;
+  top: 0;
+  box-sizing: border-box;
+  height: 4rem;
+  z-index: 25;
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 2.5vw, 1.5rem);
+  padding: 0.75rem clamp(1rem, 4vw, 3rem);
+  background: color-mix(in srgb, var(--color-background) 82%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-primary) 28%, transparent);
+}
+
+.pg-barra__marca {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  text-decoration: none;
+  line-height: 0;
+}
+
+.pg-barra__marca img {
+  height: clamp(2rem, 3.8vw, 2.65rem);
+  width: auto;
+  object-fit: contain;
+}
+
+.pg-indice {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: color-mix(in srgb, var(--color-text) 72%, transparent);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.pg-indice::-webkit-scrollbar {
+  display: none;
+}
+
+.pg-indice a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.pg-indice a:hover,
+.pg-indice a:focus-visible,
+.pg-indice [aria-current="page"] {
+  color: var(--color-primary);
+}
+
+.pg-indice__seccao {
+  display: none;
+}
+
+@media (min-width: 58rem) {
+  .pg-indice__seccao {
+    display: inline;
+  }
+}
+
+.pg-barra__idioma {
+  margin-inline-start: auto;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.pg-barra__idioma .lang-switch {
+  gap: 0.35rem;
+}
+
+.pg-barra__idioma .lang-switch button {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--color-primary) 40%, transparent);
+  background: transparent;
+  color: var(--color-primary);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 220ms ease, color 220ms ease;
+}
+
+.pg-barra__idioma .lang-switch button.is-active {
+  background: var(--color-primary);
+  color: var(--color-surface);
+  border-color: var(--color-primary);
+}
+
+.pg-barra__idioma .lang-switch button:hover:not(.is-active),
+.pg-barra__idioma .lang-switch button:focus-visible:not(.is-active) {
+  background: color-mix(in srgb, var(--color-primary) 12%, transparent);
+}
+
+.pg-barra__idioma .lang-switch__sep {
+  display: none;
+}
+
+.pg-acao {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  text-decoration: none;
+  border: 1px solid color-mix(in srgb, var(--color-primary) 55%, transparent);
+  color: var(--color-primary);
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: background-color 220ms ease, color 220ms ease;
+}
+
+.pg-acao:hover,
+.pg-acao:focus-visible {
+  background: var(--color-primary);
+  color: var(--color-surface);
+}
+
+.pg-barra__curto {
+  display: inline;
+}
+
+.pg-barra__longo {
+  display: none;
+}
+
+@media (min-width: 64rem) {
+  .pg-acao .pg-barra__curto {
+    display: none;
+  }
+
+  .pg-acao .pg-barra__longo {
+    display: inline;
+  }
+}
