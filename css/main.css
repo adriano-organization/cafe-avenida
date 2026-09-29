@@ -347,7 +347,7 @@ a:hover {
 /* About */
 .about__text {
   font-family: var(--font-display);
-  font-size: clamp(1.35rem, 2.2vw, 1.7rem);
+  font-size: 1.28rem;
   font-weight: 500;
   line-height: 1.45;
   max-width: 44ch;
@@ -634,6 +634,7 @@ a:hover {
     padding: 1.6rem 1.3rem 1.25rem;
   }
 
+  .about__text,
   .review-card__text {
     font-size: 1.15rem;
   }

@@ -412,3 +412,18 @@
     height: auto;
   }
 }
+
+/* Redes sociais integradas nos contactos. */
+.pg-onde__redes-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem 1rem;
+}
+.pg-onde__redes-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  min-height: 1.75rem;
+  font-size: .85rem;
+}
+.pg-onde__redes-links svg { flex-shrink: 0; }

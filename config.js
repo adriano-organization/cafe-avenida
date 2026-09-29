@@ -46,8 +46,8 @@ window.CAFE_CONFIG = {
   /** Domínio público do site (sem barra final) — usado em QR codes e meta tags */
   domain: "https://NOME_DO_DOMINIO.example",
   social: {
-    instagram: "https://instagram.com/INSTAGRAM_DO_CAFÉ",
-    facebook: "https://facebook.com/FACEBOOK_DO_CAFÉ",
+    instagram: "https://www.instagram.com/cafeavenidasnack/",
+    facebook: "https://www.facebook.com/AvenidaCafeBar/",
   },
   colors: {
     primary: "#D4A85A",
