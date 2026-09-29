@@ -15,11 +15,11 @@
       pinImg.src = new URL(cfg.logo.src, window.location.href).href;
     }
 
-    const pin = document.querySelector("[data-map-pin]");
+    const frame = document.querySelector("[data-map-pin]")?.parentElement;
     const pos = cfg.map?.pinPosition ?? { x: "64%", y: "50%" };
-    if (pin) {
-      pin.style.left = pos.x;
-      pin.style.top = pos.y;
+    if (frame) {
+      frame.style.setProperty("--pin-x", parseFloat(pos.x) / 100);
+      frame.style.setProperty("--pin-y", parseFloat(pos.y) / 100);
     }
   }
 

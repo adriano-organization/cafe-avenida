@@ -38,7 +38,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Outfit:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Manrope:wght@400..700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/main.css" />
@@ -109,13 +109,21 @@
 
       <div class="pg-barra__idioma">
         <div class="lang-switch" role="group" aria-label="Idioma">
-          <button type="button" data-lang-btn="pt" aria-pressed="true">PT</button>
-          <span class="lang-switch__sep" aria-hidden="true">|</span>
-          <button type="button" data-lang-btn="en" aria-pressed="false">EN</button>
+          <button type="button" class="is-active" data-lang-btn="pt" aria-pressed="true" lang="pt-PT" aria-label="Português">
+            <img src="images/bandeiras/pt.svg" alt="" width="24" height="16" /><span aria-hidden="true">PT</span>
+          </button>
+          <button type="button" data-lang-btn="en" aria-pressed="false" lang="en" aria-label="English">
+            <img src="images/bandeiras/en.svg" alt="" width="24" height="16" /><span aria-hidden="true">EN</span>
+          </button>
         </div>
       </div>
 
       <a class="pg-acao" data-tel-link href="tel:+351255619414">
+        <svg class="pg-acao__icone" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"
+          />
+        </svg>
         <span class="pg-barra__curto" data-i18n="nav.callShort">Ligar</span>
         <span class="pg-barra__longo"
           ><span data-i18n="nav.callLong">Ligar</span> · <span data-config="phone">255 619 414</span></span
@@ -205,63 +213,72 @@
         </div>
       </section>
 
-      <section class="pg-onde" id="localizacao" aria-labelledby="onde-title">
-        <div class="pg-onde__mapa">
-          <img
-            class="pg-onde__mapa-img"
-            data-map-img
-            src="mapa/alpendurada.svg"
-            width="1600"
-            height="820"
-            alt="Mapa — Café Avenida"
-            loading="lazy"
-          />
-          <div class="pg-onde__alfinete" data-map-pin role="img" aria-label="Café Avenida">
-            <span class="pg-onde__alfinete-cabeca">
-              <img data-map-pin-logo src="images/logo.png" alt="" width="64" height="64" />
-            </span>
-            <span class="pg-onde__alfinete-ponta" aria-hidden="true"></span>
+      <section class="section pg-onde" id="localizacao" aria-labelledby="onde-title">
+        <div class="section__inner pg-onde__inner" data-hours-panel>
+          <header class="pg-onde__topo">
+            <div class="pg-onde__identidade">
+              <p class="section__eyebrow" data-i18n="location.eyebrow">Onde estamos</p>
+              <div class="pg-onde__titulo">
+                <h2 class="pg-onde__nome" id="onde-title" data-config="name">Café Avenida</h2>
+                <p class="pg-onde__status" data-hours-status aria-live="polite"></p>
+              </div>
+              <p class="pg-onde__morada" data-config="address"></p>
+            </div>
+
+            <div class="pg-onde__acoes">
+              <dl class="pg-onde__contactos">
+                <div>
+                  <dt data-i18n="contact.phone">Telefone</dt>
+                  <dd><a data-tel-link href="tel:+351255619414"><span data-config="phone">255 619 414</span></a></dd>
+                </div>
+                <div>
+                  <dt data-i18n="contact.email">Email</dt>
+                  <dd><a data-mail-link href="#"><span data-config="email"></span></a></dd>
+                </div>
+              </dl>
+              <div class="pg-onde__botoes">
+                <a
+                  class="pg-botao pg-botao--cheio"
+                  data-maps-open
+                  href="#"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-i18n="location.openMaps"
+                  >Abrir no Google Maps <span aria-hidden="true">↗</span></a
+                >
+              </div>
+            </div>
+          </header>
+
+          <figure class="pg-onde__mapa">
+            <img
+              class="pg-onde__mapa-img"
+              data-map-img
+              src="mapa/alpendurada.svg"
+              width="1600"
+              height="820"
+              alt="Mapa — Café Avenida"
+              loading="lazy"
+            />
+            <div class="pg-onde__alfinete" data-map-pin role="img" aria-label="Café Avenida">
+              <span class="pg-onde__alfinete-cabeca">
+                <img data-map-pin-logo src="images/logo.png" alt="" width="64" height="64" />
+              </span>
+              <span class="pg-onde__alfinete-ponta" aria-hidden="true"></span>
+            </div>
+            <figcaption class="pg-onde__credito">
+              <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer" data-i18n="location.mapCredit"
+                >Mapa © OpenStreetMap</a
+              >
+            </figcaption>
+          </figure>
+
+          <div class="pg-onde__horas">
+            <p class="pg-onde__olho" data-i18n="hours.eyebrow">Horário</p>
+            <ul class="pg-onde__horario" data-hours-list></ul>
+            <p class="pg-onde__nota" data-hours-note hidden></p>
           </div>
         </div>
-
-        <aside class="pg-onde__cartao" data-hours-panel>
-          <p class="pg-onde__olho" data-i18n="location.eyebrow">Onde estamos</p>
-          <h2 class="pg-onde__nome" id="onde-title" data-config="name">Café Avenida</h2>
-          <p class="pg-onde__morada" data-config="address"></p>
-
-          <p class="pg-onde__status" data-hours-status aria-live="polite"></p>
-
-          <ul class="pg-onde__contactos">
-            <li>
-              <a data-tel-link href="tel:+351255619414"><span data-config="phone">255 619 414</span></a>
-            </li>
-            <li>
-              <a data-mail-link href="#"><span data-config="email"></span></a>
-            </li>
-          </ul>
-
-          <p class="pg-onde__olho pg-onde__olho--horario" data-i18n="hours.eyebrow">Horário</p>
-          <ul class="pg-onde__horario" data-hours-list></ul>
-          <p class="pg-onde__nota" data-hours-note hidden></p>
-
-          <div class="pg-onde__botoes">
-            <a
-              class="pg-botao pg-botao--cheio"
-              data-maps-open
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              data-i18n="location.openMaps"
-              >Abrir no Google Maps <span aria-hidden="true">↗</span></a
-            >
-          </div>
-
-          <p class="pg-onde__credito">
-            <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer" data-i18n="location.mapCredit"
-              >Mapa © OpenStreetMap</a
-            >
-          </p>
-        </aside>
       </section>
     </main>
 

@@ -117,6 +117,8 @@
     document.querySelectorAll("[data-lang-btn]").forEach((btn) => {
       btn.addEventListener("click", () => {
         setLang(btn.getAttribute("data-lang-btn"));
+        // Só o botão do outro idioma fica visível; o foco passa para ele.
+        btn.parentElement?.querySelector("[data-lang-btn]:not(.is-active)")?.focus();
       });
     });
   }

@@ -7,14 +7,22 @@
   --color-text: #3d3229;
   --color-surface: #ebe5dc;
   --color-espresso: #6b4a34;
-  --font-sans: "Outfit", system-ui, -apple-system, sans-serif;
-  --font-display: "Cormorant Garamond", "Times New Roman", serif;
-  --barra-height: 4.35rem;
+  --font-sans: "Manrope", system-ui, -apple-system, sans-serif;
+  --font-display: "Fraunces", Georgia, serif;
+  --barra-alto: 3.7rem;
+  --barra-afast: 2.15rem;
+  --barra-height: calc(var(--barra-afast) + var(--barra-alto) + 1.35rem);
   --radius: 12px;
   --shadow: 0 10px 32px rgba(61, 45, 32, 0.12);
   --max-w: 92rem;
   --page-pad: clamp(1.25rem, 5vw, 4.5rem);
   --hero-pad-x: clamp(1.5rem, 6vw, 5.5rem);
+}
+
+@media (max-width: 57.99rem) {
+  :root {
+    --barra-alto: 3.4rem;
+  }
 }
 
 *,
@@ -165,6 +173,7 @@ a:hover {
   min-height: min(92vh, 820px);
   display: grid;
   align-items: end;
+  padding-top: var(--barra-height);
   color: #fff;
   overflow: hidden;
 }

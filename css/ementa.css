@@ -1,27 +1,49 @@
 @import url("main.css");
 
-/* Ementa: navegação fixa e tipografia mobile-first */
+body[data-page="ementa"] {
+  --menu-nav-top: calc(var(--barra-afast) + var(--barra-alto) + 0.45rem);
+}
+
+body[data-page="ementa"] .pg-barra {
+  margin-bottom: 0.45rem;
+}
+
+/* Categorias: ilha flutuante, no mesmo estilo da barra do site */
 .menu-header {
   position: sticky;
-  top: var(--barra-height, 4.35rem);
+  top: var(--menu-nav-top);
   z-index: 40;
-  background: color-mix(in srgb, var(--color-surface) 94%, transparent);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-bottom: 1px solid color-mix(in srgb, var(--color-primary) 22%, transparent);
-  padding: 0.7rem var(--page-pad);
+  display: flex;
+  justify-content: center;
+  max-width: var(--max-w);
+  margin: 0 max(clamp(0.65rem, 3vw, 2.5rem), (100% - var(--max-w)) / 2);
+  padding: 0;
+  background: none;
+  border: 0;
 }
 
 .menu-nav {
   display: flex;
-  gap: 0.5rem;
-  max-width: 64rem;
-  margin: 0 auto;
+  align-items: center;
+  gap: 0.15rem;
+  width: max-content;
+  max-width: 100%;
+  margin: 0;
+  padding: 0.3rem 0.55rem;
   overflow-x: auto;
-  padding-bottom: 0.2rem;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, #fff 45%, transparent), transparent 70%),
+    color-mix(in srgb, #f1e9dd 88%, transparent);
+  backdrop-filter: blur(16px) saturate(1.15);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 50%, transparent);
+  box-shadow:
+    inset 0 0 0 3px color-mix(in srgb, #f1e9dd 55%, transparent),
+    inset 0 0 0 4px color-mix(in srgb, var(--color-primary) 18%, transparent),
+    0 10px 26px -12px rgba(26, 18, 12, 0.4);
 }
 
 .menu-nav::-webkit-scrollbar {
@@ -29,35 +51,60 @@
 }
 
 .menu-nav__link {
+  position: relative;
   flex: 0 0 auto;
   scroll-snap-align: start;
-  padding: 0.5rem 1rem;
+  padding: 0.55rem 0.85rem;
+  border: 0;
   border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--color-primary) 30%, transparent);
-  background: var(--color-background);
-  color: var(--color-text);
+  background: none;
+  color: color-mix(in srgb, var(--color-text) 72%, transparent);
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.85rem;
-  letter-spacing: 0.02em;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   white-space: nowrap;
-  transition: background-color 200ms ease, border-color 200ms ease;
+  transition: color 220ms ease, background-color 220ms ease;
 }
 
-.menu-nav__link:hover {
-  border-color: var(--color-primary);
+.menu-nav__link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0.28rem;
+  width: 1.15rem;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-primary);
+  translate: -50% 0;
+  scale: 0 1;
+  transition: scale 260ms ease;
+}
+
+.menu-nav__link:hover,
+.menu-nav__link:focus-visible {
+  color: #9c7331;
+}
+
+.menu-nav__link:hover::after,
+.menu-nav__link:focus-visible::after,
+.menu-nav__link.is-active::after {
+  scale: 1 1;
 }
 
 .menu-nav__link.is-active {
-  background: linear-gradient(165deg, #e4c078 0%, var(--color-primary) 55%, #a67c3a 100%) border-box;
-  border-color: transparent;
-  color: #1a1410;
+  color: #9c7331;
 }
 
 .menu-page {
   max-width: 64rem;
   margin: 0 auto;
   padding: 2.5rem var(--page-pad) 4.5rem;
+}
+
+.menu-section:last-child {
+  min-height: calc(100svh - var(--menu-nav-top) - 3.6rem - 4.5rem);
 }
 
 .menu-intro {
@@ -103,7 +150,7 @@
 
 .menu-section {
   position: relative;
-  scroll-margin-top: calc(var(--barra-height, 4.35rem) + 5.5rem);
+  scroll-margin-top: calc(var(--menu-nav-top) + 3.6rem);
 }
 
 .menu-section + .menu-section::before,
@@ -364,5 +411,76 @@
     flex-direction: column;
     align-items: flex-end;
     gap: 0.15rem;
+  }
+}
+
+/* Telemóvel: ementa mais afastada, com margens laterais */
+@media (max-width: 39.99rem) {
+  .menu-page {
+    padding: 1.35rem 1.85rem 3.25rem;
+  }
+
+  .menu-intro {
+    margin-bottom: 1.6rem;
+  }
+
+  .menu-intro__title {
+    font-size: clamp(2rem, 8.5vw, 2.45rem);
+  }
+
+  .menu-intro__notice {
+    margin-top: 0.65rem;
+    font-size: 0.98rem;
+  }
+
+  .menu-sections {
+    --menu-sep: 3.25rem;
+    padding-top: 0.5rem;
+  }
+
+  .menu-section__title {
+    font-size: clamp(1.45rem, 6.2vw, 1.8rem);
+  }
+
+  .menu-item {
+    padding: 0.7rem 0;
+  }
+
+  .menu-item__name {
+    font-size: 1.05rem;
+  }
+
+  .menu-item__price {
+    font-size: 0.88rem;
+  }
+
+  .menu-item__desc {
+    font-size: 0.8rem;
+  }
+
+  .menu-section--figs-1 .menu-section__head {
+    min-height: 3.4rem;
+    padding-right: 4.6rem;
+  }
+
+  .menu-section--figs-2 .menu-section__head {
+    min-height: 4.2rem;
+    padding-right: 7.4rem;
+  }
+
+  .menu-figura {
+    width: 3.7rem;
+  }
+
+  .menu-figura + .menu-figura {
+    width: 3.15rem;
+    margin-left: -0.85rem;
+    margin-top: 1.15rem;
+  }
+
+  .menu-nav__link {
+    padding: 0.48rem 0.7rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
   }
 }

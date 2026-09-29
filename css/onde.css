@@ -1,39 +1,174 @@
-/* Onde estamos — mapa grande + cartão (inspirado em Cafe-Preguiça) */
+/* Onde estamos — cabeçalho com contactos, mapa emoldurado e faixa de horário */
 
 .pg-onde {
   scroll-margin-top: var(--barra-height, 4.35rem);
-  position: relative;
-  display: grid;
-  border-top: 1px solid color-mix(in srgb, var(--color-primary) 28%, transparent);
 }
 
+.pg-onde__inner {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+/* Cabeçalho */
+.pg-onde__topo {
+  display: grid;
+  gap: 1.5rem;
+  align-items: end;
+}
+
+.pg-onde__titulo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+}
+
+.pg-onde__nome {
+  font-family: var(--font-display);
+  font-size: clamp(2.1rem, 4.6vw, 3rem);
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  line-height: 1.05;
+  margin: 0;
+  color: var(--color-secondary);
+}
+
+.pg-onde__morada {
+  margin: 0.55rem 0 0;
+  color: color-mix(in srgb, var(--color-text) 80%, transparent);
+  font-size: 1.05rem;
+}
+
+.pg-onde__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+}
+
+.pg-onde__status::before {
+  content: "";
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.pg-onde__status.is-open {
+  background: color-mix(in srgb, #5e8a4f 16%, var(--color-surface));
+  color: #3f6a33;
+}
+
+.pg-onde__status.is-closed {
+  background: color-mix(in srgb, var(--color-primary) 14%, var(--color-surface));
+  color: var(--color-espresso);
+}
+
+.pg-onde__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1.25rem 2rem;
+}
+
+.pg-onde__contactos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  margin: 0;
+}
+
+.pg-onde__contactos dt {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-primary) 70%, var(--color-espresso));
+}
+
+.pg-onde__contactos dd {
+  margin: 0.15rem 0 0;
+  font-size: 1.05rem;
+}
+
+.pg-onde__contactos a {
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.pg-onde__contactos a:hover,
+.pg-onde__contactos a:focus-visible {
+  color: var(--color-primary);
+}
+
+.pg-onde__botoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+/* Mapa emoldurado */
 .pg-onde__mapa {
+  --pin-x: 0.58;
+  --pin-y: 0.52;
+  --pin-w: clamp(2.85rem, 4.6vw, 3.85rem);
   position: relative;
+  container-type: size;
+  margin: 0;
+  height: clamp(15rem, 42vw, 30rem);
   overflow: hidden;
-  height: clamp(18rem, 45vh, 26rem);
+  border-radius: var(--radius);
   background: #cfc5b8;
-  grid-area: 1 / 1;
-  z-index: 0;
+  border: 1px solid color-mix(in srgb, var(--color-primary) 35%, transparent);
+  box-shadow: var(--shadow);
+}
+
+.pg-onde__mapa::after {
+  content: "";
+  position: absolute;
+  inset: 0.6rem;
+  border: 1px solid color-mix(in srgb, #fff 55%, transparent);
+  border-radius: calc(var(--radius) - 5px);
+  pointer-events: none;
+}
+
+/* O café (--pin-x/--pin-y do SVG, 1600×820) fica ao centro da moldura, com o alfinete inteiro centrado. */
+.pg-onde__mapa-img,
+.pg-onde__alfinete {
+  --foco-y: calc(50cqh + (var(--pin-w) + 0.95rem) / 2);
 }
 
 .pg-onde__mapa-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 58% 48%;
+  --map-w: max(
+    calc(50cqw / min(var(--pin-x), 1 - var(--pin-x))),
+    calc((50cqh + var(--pin-w)) * 1.951 / min(var(--pin-y), 1 - var(--pin-y)))
+  );
+  position: absolute;
+  left: calc(50cqw - var(--pin-x) * var(--map-w));
+  top: calc(var(--foco-y) - var(--pin-y) * var(--map-w) / 1.951);
+  width: var(--map-w);
+  max-width: none;
+  height: auto;
+  aspect-ratio: 1600 / 820;
   display: block;
 }
 
 /* Alfinete (cabeça + ponta) — a ponta marca o sítio no mapa */
 .pg-onde__alfinete {
   position: absolute;
-  left: 58%;
-  top: 52%;
+  left: 50%;
+  top: var(--foco-y);
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: clamp(2.85rem, 4.6vw, 3.85rem);
-  translate: -50% calc(-100% - 0.15rem);
+  width: var(--pin-w);
+  translate: -50% calc(-100% - 0.1rem);
   z-index: 2;
   pointer-events: none;
   filter: drop-shadow(0 6px 14px rgba(26, 18, 12, 0.32));
@@ -82,141 +217,16 @@
   }
 }
 
-.pg-onde__cartao {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.35rem;
-  padding: clamp(1.5rem, 4vw, 2.25rem);
-  background: var(--color-surface);
-  border-top: 1px solid color-mix(in srgb, var(--color-primary) 35%, transparent);
-  grid-area: 1 / 1;
-  z-index: 1;
-}
-
-.pg-onde__olho {
-  margin-top: 0.85rem;
-  font-size: 0.8125rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--color-primary);
-  font-weight: 600;
-}
-
-.pg-onde__olho--horario {
-  font-size: 0.9375rem;
-  letter-spacing: 0.18em;
-}
-
-.pg-onde__olho:first-child {
-  margin-top: 0;
-}
-
-.pg-onde__nome {
-  font-family: var(--font-display);
-  font-size: clamp(2.1rem, 3.4vw, 2.75rem);
-  font-weight: 600;
-  letter-spacing: 0.005em;
-  line-height: 1.05;
-  margin: 0;
-  color: var(--color-secondary);
-}
-
-.pg-onde__morada {
-  margin: 0;
-  color: color-mix(in srgb, var(--color-text) 88%, transparent);
-  font-size: 0.98rem;
-  max-width: 28ch;
-}
-
-.pg-onde__status {
-  display: inline-block;
-  margin: 0.35rem 0 0;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 0.3rem 0.65rem;
-  border-radius: 999px;
-}
-
-.pg-onde__status.is-open {
-  background: color-mix(in srgb, var(--color-accent) 22%, var(--color-surface));
-  color: var(--color-secondary);
-}
-
-.pg-onde__status.is-closed {
-  background: color-mix(in srgb, var(--color-primary) 14%, var(--color-surface));
-  color: var(--color-primary);
-}
-
-.pg-onde__contactos {
-  margin: 0.55rem 0 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  gap: 0.35rem;
-  font-size: 1.02rem;
-}
-
-.pg-onde__contactos a {
-  text-decoration: none;
-  color: var(--color-text);
-}
-
-.pg-onde__contactos a:hover,
-.pg-onde__contactos a:focus-visible {
-  color: var(--color-primary);
-}
-
-.pg-onde__horario {
-  margin: 0.15rem 0 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  gap: 0.25rem;
-  width: min(20rem, 100%);
-  font-size: 0.94rem;
-}
-
-.pg-onde__horario li {
-  display: flex;
-  justify-content: space-between;
-  gap: 1.25rem;
-  font-variant-numeric: tabular-nums;
-}
-
-.pg-onde__horario li span:first-child {
-  color: color-mix(in srgb, var(--color-text) 82%, transparent);
-}
-
-.pg-onde__horario li span:last-child {
-  color: color-mix(in srgb, var(--color-text) 92%, transparent);
-}
-
-.pg-onde__horario li.is-today span {
-  font-weight: inherit;
-  color: inherit;
-}
-
-.pg-onde__nota {
-  margin: 0.5rem 0 0;
-  font-size: 0.78rem;
-  color: color-mix(in srgb, var(--color-text) 65%, transparent);
-  max-width: 22rem;
-}
-
-.pg-onde__botoes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  margin-top: 1rem;
-}
-
 .pg-onde__credito {
-  margin: 0.75rem 0 0;
+  position: absolute;
+  right: 1.1rem;
+  bottom: 1rem;
+  z-index: 2;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-surface) 85%, transparent);
   font-size: 0.68rem;
-  color: color-mix(in srgb, var(--color-text) 55%, transparent);
+  color: color-mix(in srgb, var(--color-text) 65%, transparent);
 }
 
 .pg-onde__credito a {
@@ -230,6 +240,78 @@
   text-decoration: underline;
 }
 
+/* Faixa de horário */
+.pg-onde__olho {
+  margin: 0 0 0.85rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--color-primary) 70%, var(--color-espresso));
+}
+
+.pg-onde__horario {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.pg-onde__horario li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1rem 0.9rem 1.05rem;
+  background: var(--color-surface);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
+  border-radius: var(--radius);
+  font-variant-numeric: tabular-nums;
+  overflow: hidden;
+}
+
+.pg-onde__horario li span:first-child {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-text) 70%, transparent);
+}
+
+.pg-onde__horario li span:last-child {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--color-secondary);
+}
+
+.pg-onde__horario li.is-today {
+  border-color: var(--color-primary);
+  box-shadow: 0 10px 26px -12px color-mix(in srgb, var(--color-primary) 70%, transparent);
+}
+
+.pg-onde__horario li.is-today::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, #e4c078, var(--color-primary), #a67c3a);
+}
+
+.pg-onde__horario li.is-today span:first-child {
+  color: color-mix(in srgb, var(--color-primary) 70%, var(--color-espresso));
+}
+
+.pg-onde__nota {
+  margin: 0.75rem 0 0;
+  font-size: 0.78rem;
+  color: color-mix(in srgb, var(--color-text) 65%, transparent);
+}
+
+/* Botões */
 .pg-botao {
   display: inline-flex;
   align-items: center;
@@ -266,40 +348,62 @@
   color: #1a1410;
 }
 
-@media (max-width: 51.99rem) {
-  .pg-onde__mapa {
-    height: clamp(15rem, 62vw, 22rem);
+@media (min-width: 64rem) {
+  .pg-onde__topo {
+    grid-template-columns: 1fr auto;
   }
+}
 
-  .pg-onde__cartao {
-    grid-area: 2 / 1;
+/* Tablet: 4 + 3 dias */
+@media (max-width: 63.99rem) {
+  .pg-onde__horario {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
+}
 
-  .pg-onde__alfinete {
-    translate: -50% calc(-100% - 0.1rem);
-  }
-
+/* Telemóvel: horário em lista dentro de um cartão */
+@media (max-width: 39.99rem) {
+  .pg-onde__acoes,
   .pg-onde__botoes,
   .pg-onde__botoes > * {
     width: 100%;
   }
-}
 
-@media (min-width: 52rem) {
-  .pg-onde__mapa {
-    height: clamp(34rem, 85vh, 46rem);
+  .pg-onde__horario {
+    display: block;
+    padding: 0.35rem 1.1rem;
+    background: var(--color-surface);
+    border: 1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
+    border-radius: var(--radius);
   }
 
-  .pg-onde__cartao {
-    align-self: center;
-    justify-self: start;
-    width: min(26rem, 42vw);
-    margin-inline-start: clamp(1.25rem, 5vw, 5rem);
-    border: 1px solid color-mix(in srgb, var(--color-primary) 32%, transparent);
-    border-radius: 8px;
-    border-top: 1px solid color-mix(in srgb, var(--color-primary) 32%, transparent);
-    background: color-mix(in srgb, var(--color-surface) 97%, var(--color-secondary) 3%);
-    box-shadow: 0 28px 56px -18px rgba(26, 18, 12, 0.62);
-    backdrop-filter: blur(8px);
+  .pg-onde__horario li {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.7rem 0;
+    background: none;
+    border: 0;
+    border-radius: 0;
+    overflow: visible;
+  }
+
+  .pg-onde__horario li + li {
+    border-top: 1px solid color-mix(in srgb, var(--color-primary) 18%, transparent);
+  }
+
+  .pg-onde__horario li span:last-child {
+    font-size: 1.15rem;
+  }
+
+  .pg-onde__horario li.is-today {
+    border-color: color-mix(in srgb, var(--color-primary) 18%, transparent);
+    box-shadow: none;
+  }
+
+  .pg-onde__horario li.is-today::before {
+    inset: 0.55rem auto 0.55rem -1.1rem;
+    width: 3px;
+    height: auto;
   }
 }

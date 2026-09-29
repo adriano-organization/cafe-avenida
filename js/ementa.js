@@ -123,21 +123,61 @@
     bindCategoryNav();
   }
 
+  let navCleanup = null;
+
   function bindCategoryNav() {
-    const links = document.querySelectorAll("[data-menu-nav] .menu-nav__link");
+    navCleanup?.();
+
+    const nav = document.querySelector("[data-menu-nav]");
+    const links = [...document.querySelectorAll("[data-menu-nav] .menu-nav__link")];
     const sections = [...document.querySelectorAll(".menu-section")];
+    if (!nav || !links.length) return;
+
+    let currentId = links[0]?.getAttribute("href")?.slice(1) ?? "";
+
+    const setActive = (id) => {
+      if (!id || id === currentId) return;
+      currentId = id;
+      let active = null;
+      links.forEach((l) => {
+        const on = l.getAttribute("href") === `#${id}`;
+        l.classList.toggle("is-active", on);
+        if (on) active = l;
+      });
+      if (!active) return;
+      const left = active.offsetLeft;
+      const right = left + active.offsetWidth;
+      const viewLeft = nav.scrollLeft;
+      const viewRight = viewLeft + nav.clientWidth;
+      if (left < viewLeft + 12 || right > viewRight - 12) {
+        active.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      }
+    };
 
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          const id = entry.target.id;
-          links.forEach((l) => l.classList.toggle("is-active", l.getAttribute("href") === `#${id}`));
-        });
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActive(visible.target.id);
       },
-      { rootMargin: "-30% 0px -55% 0px", threshold: 0 }
+      { rootMargin: "-28% 0px -58% 0px", threshold: [0, 0.15, 0.4] }
     );
     sections.forEach((s) => observer.observe(s));
+
+    const atBottom = () => {
+      const last = sections[sections.length - 1];
+      if (!last) return;
+      if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 8) {
+        setActive(last.id);
+      }
+    };
+    window.addEventListener("scroll", atBottom, { passive: true });
+
+    navCleanup = () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", atBottom);
+    };
   }
 
   async function loadMenu() {
