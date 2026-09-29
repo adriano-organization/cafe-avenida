@@ -1156,8 +1156,8 @@ html.lightbox-open body {
 }
 .lightbox__brand {
   position: absolute;
-  top: clamp(1rem, 2vh, 1.5rem);
-  left: clamp(1rem, 2vw, 1.75rem);
+  top: calc(clamp(1rem, 2vh, 1.5rem) + .75rem);
+  left: calc(clamp(1rem, 2vw, 1.75rem) + .75rem);
   width: clamp(6rem, 12vw, 9rem);
   height: auto;
   pointer-events: none;
@@ -1167,6 +1167,11 @@ html::-webkit-scrollbar { width: 7px; }
 html::-webkit-scrollbar-track { background: #dad2c6; }
 html::-webkit-scrollbar-thumb { background: #aa8b60; border-radius: 8px; }
 @media (max-width: 40rem) {
+  .lightbox__brand {
+    top: clamp(0.75rem, 2vh, 1.5rem);
+    height: 3rem;
+    object-fit: contain;
+  }
   html { scrollbar-width: none; }
   html::-webkit-scrollbar { display: none; }
 }
