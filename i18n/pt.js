@@ -102,6 +102,8 @@ window.__i18n.pt = {
       allergens: "Alergénios",
     },
     empty: "Sem itens nesta categoria.",
+    collapse: "Comprimir categoria",
+    expand: "Expandir categoria",
   },
   qrPrint: {
     menuLabel: "Ementa",

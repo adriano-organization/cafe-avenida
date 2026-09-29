@@ -714,7 +714,7 @@ a:hover {
     padding: 0.35rem var(--page-pad) 1.25rem;
     overflow-x: auto;
     overscroll-behavior-x: contain;
-    scroll-snap-type: x mandatory;
+    scroll-snap-type: none;
     scroll-padding-inline: var(--page-pad);
     scrollbar-width: none;
   }
@@ -723,6 +723,13 @@ a:hover {
   .suggestions::-webkit-scrollbar,
   .reviews::-webkit-scrollbar {
     display: none;
+  }
+
+  .gallery.is-auto-scrolling,
+  .suggestions.is-auto-scrolling,
+  .reviews.is-auto-scrolling {
+    scroll-snap-type: none;
+    scroll-behavior: auto;
   }
 
   .gallery > *,

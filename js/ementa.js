@@ -109,18 +109,78 @@
       if (figCount) section.classList.add(`menu-section--figs-${figCount}`);
       if ((cat.items?.length || 0) > 4) section.classList.add("menu-section--cols");
       const note = localized(cat.note);
+      const bodyId = `${id}-body`;
       section.innerHTML = `
         ${renderFigures(cat)}
-        <div class="menu-section__head">
-          <p class="menu-section__num" aria-hidden="true">${String(index + 1).padStart(2, "0")}</p>
-          <h2 class="menu-section__title">${localized(cat.name)}</h2>
-        </div>
-        ${note ? `<p class="menu-section__note">${note}</p>` : ""}
-        <div class="menu-section__items">${renderItems(cat)}</div>`;
+        <button type="button" class="menu-section__head" aria-expanded="true" aria-controls="${bodyId}" data-menu-toggle>
+          <span class="menu-section__head-text">
+            <span class="menu-section__num" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span>
+            <h2 class="menu-section__title">${localized(cat.name)}</h2>
+          </span>
+          <span class="menu-section__chevron" aria-hidden="true"></span>
+        </button>
+        <div class="menu-section__body" id="${bodyId}">
+          <div class="menu-section__body-inner">
+            ${note ? `<p class="menu-section__note">${note}</p>` : ""}
+            <div class="menu-section__items">${renderItems(cat)}</div>
+          </div>
+        </div>`;
       sections.appendChild(section);
     });
 
     bindCategoryNav();
+    bindCollapse();
+  }
+
+  function setCollapsed(section, collapsed, instant) {
+    if (!section) return;
+    const head = section.querySelector("[data-menu-toggle]");
+    const body = section.querySelector(".menu-section__body");
+    if (!head || !body) return;
+
+    const reduce = instant || window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (collapsed) {
+      if (reduce) {
+        section.classList.add("is-collapsed");
+        body.style.height = "0px";
+      } else {
+        const start = body.getBoundingClientRect().height || body.scrollHeight;
+        body.style.height = `${start}px`;
+        body.getBoundingClientRect();
+        section.classList.add("is-collapsed");
+        body.style.height = "0px";
+      }
+    } else {
+      section.classList.remove("is-collapsed");
+      if (reduce) {
+        body.style.height = "";
+      } else {
+        body.style.height = "0px";
+        const target = body.scrollHeight;
+        body.getBoundingClientRect();
+        body.style.height = `${target}px`;
+        const clear = (e) => {
+          if (e.propertyName !== "height") return;
+          if (!section.classList.contains("is-collapsed")) body.style.height = "";
+          body.removeEventListener("transitionend", clear);
+        };
+        body.addEventListener("transitionend", clear);
+      }
+    }
+
+    head.setAttribute("aria-expanded", collapsed ? "false" : "true");
+    head.setAttribute("aria-label", collapsed ? i18n.t("menuPage.expand") : i18n.t("menuPage.collapse"));
+  }
+
+  function bindCollapse() {
+    document.querySelectorAll("[data-menu-toggle]").forEach((btn) => {
+      const section = btn.closest(".menu-section");
+      setCollapsed(section, false, true);
+      btn.addEventListener("click", () => {
+        setCollapsed(section, !section.classList.contains("is-collapsed"));
+      });
+    });
   }
 
   let navCleanup = null;
@@ -174,9 +234,21 @@
     };
     window.addEventListener("scroll", atBottom, { passive: true });
 
+    const onNavClick = (e) => {
+      const link = e.target.closest(".menu-nav__link");
+      if (!link) return;
+      const id = link.getAttribute("href")?.slice(1);
+      const section = id ? document.getElementById(id) : null;
+      if (section?.classList.contains("is-collapsed")) {
+        setCollapsed(section, false);
+      }
+    };
+    nav.addEventListener("click", onNavClick);
+
     navCleanup = () => {
       observer.disconnect();
       window.removeEventListener("scroll", atBottom);
+      nav.removeEventListener("click", onNavClick);
     };
   }
 

@@ -102,6 +102,8 @@ window.__i18n.en = {
       allergens: "Allergens",
     },
     empty: "No items in this category.",
+    collapse: "Collapse category",
+    expand: "Expand category",
   },
   qrPrint: {
     menuLabel: "Menu",
