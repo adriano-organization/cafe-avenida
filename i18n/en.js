@@ -88,6 +88,7 @@ window.__i18n.en = {
   footer: {
     rights: "All rights reserved.",
     menuQr: "Digital menu",
+    madeBy: "Made by",
   },
   menuPage: {
     title: "Menu",

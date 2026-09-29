@@ -38,7 +38,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Manrope:wght@400..700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,500;1,600&family=Manrope:wght@400..700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/main.css" />
@@ -73,6 +73,8 @@
             </div>
           </div>
           <div class="ca-panfleto__folha ca-panfleto__folha--meio">
+            <p class="ca-panfleto__marca">Café Avenida</p>
+            <img class="ca-panfleto__selo" src="images/logo.png" alt="" width="64" height="64" />
             <p class="ca-panfleto__titulo">Ementa</p>
             <div class="ca-panfleto__linhas">
               <span></span><span></span><span></span><span></span><span></span><span></span>
@@ -137,16 +139,14 @@
           <img data-hero-img src="" alt="" width="1920" height="1080" />
         </div>
         <div class="hero__content">
-          <h1 class="hero__title" id="hero-title" data-logo-replace>
+          <h1 class="hero__title" id="hero-title">
             <img
-              class="hero__logo"
-              data-logo
-              src="images/logo.png"
+              class="hero__wordmark"
+              src="images/logo-linha.png"
               alt="Café Avenida"
-              width="527"
-              height="535"
+              width="2200"
+              height="637"
             />
-            <span class="visually-hidden" data-config="name">Café Avenida</span>
           </h1>
           <p class="hero__area" data-config="areaLabel">Alpendurada · Marco de Canaveses</p>
           <p class="hero__tagline" data-config="tagline"></p>
@@ -171,7 +171,7 @@
 
       <section class="section section--about" id="sobre" aria-labelledby="about-title">
         <div class="section__inner">
-          <div>
+          <div class="about__heading">
             <p class="section__eyebrow" data-i18n="about.eyebrow">O café</p>
             <h2 class="section__title" id="about-title" data-i18n="about.title">Sobre nós</h2>
           </div>
@@ -287,8 +287,9 @@
         <p><span data-config="name"></span> — <span data-config="address"></span></p>
         <p>
           <a href="ementa.html" data-href-ementa data-i18n="footer.menuQr">Ementa digital</a>
-          · © <span data-config="name"></span>
-          <span data-i18n="footer.rights">Todos os direitos reservados.</span>
+          · © <span data-config="name"></span> <span data-i18n="footer.rights">Todos os direitos reservados.</span>
+          · <span data-i18n="footer.madeBy">Feito por</span>
+          <a href="https://devplus.pt" target="_blank" rel="noopener noreferrer">DevPlus</a>
         </p>
       </div>
     </footer>

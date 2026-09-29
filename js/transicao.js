@@ -1,8 +1,8 @@
 /**
  * Transições Avenida:
  * - Início / refresh → portas de vidro + logo
- * - Ir à ementa → panfleto abre
- * - Voltar do início → panfleto fecha (sem portas ao chegar)
+ * - Ir à ementa → panfleto abre na página actual e dissolve-se na ementa
+ * - Voltar ao início → panfleto fecha e desaparece, sem as portas
  */
 (function () {
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -63,7 +63,17 @@
   }
 
   function resetOverlay(overlay) {
-    overlay.classList.remove("is-done", "ca-tr--anim", "ca-tr--portas", "ca-tr--panfleto", "ca-tr--abre", "ca-tr--fecha");
+    overlay.classList.remove(
+      "is-done",
+      "ca-tr--anim",
+      "ca-tr--portas",
+      "ca-tr--panfleto",
+      "ca-tr--abre",
+      "ca-tr--fecha",
+      "ca-tr--revela",
+      "ca-tr--saida",
+      "ca-tr--cobre"
+    );
     overlay.removeAttribute("data-saltar");
     overlay.style.opacity = "";
     overlay.style.visibility = "";
@@ -74,7 +84,11 @@
     if (scene === "portas") {
       overlay.classList.add("ca-tr--portas");
     } else {
-      overlay.classList.add("ca-tr--panfleto", variant === "fecha" ? "ca-tr--fecha" : "ca-tr--abre");
+      overlay.classList.add("ca-tr--panfleto");
+      if (variant === "fecha") overlay.classList.add("ca-tr--fecha");
+      else if (variant === "revela") overlay.classList.add("ca-tr--revela");
+      else if (variant === "saida") overlay.classList.add("ca-tr--abre", "ca-tr--saida");
+      else overlay.classList.add("ca-tr--abre");
     }
   }
 
@@ -106,12 +120,6 @@
     activeTimer = window.setTimeout(done, ms);
   }
 
-  function shouldSkipEntryAnimation(nav) {
-    if (isHistoryNavigation()) return true;
-    if (nav === "from-ementa" || nav === "to-ementa-played") return true;
-    return false;
-  }
-
   function initEntry() {
     const overlay = document.getElementById("ca-transicao");
     const page = document.body.dataset.page;
@@ -122,22 +130,42 @@
       return;
     }
 
-    if (shouldSkipEntryAnimation(nav)) {
+    if (isHistoryNavigation()) {
       finishOverlay(overlay);
       return;
     }
 
     loadLogo(overlay);
 
+    const uncover = () => {
+      document.documentElement.classList.remove("ca-loading");
+      document.documentElement.classList.add("ca-page-ready");
+      document.documentElement.style.overflow = "hidden";
+      overlay.style.visibility = "visible";
+      overlay.style.opacity = "1";
+    };
+
     if (page === "home") {
+      if (nav === "from-ementa") {
+        setScene(overlay, "panfleto", "saida");
+        uncover();
+        runTimed(overlay, 560, () => finishOverlay(overlay));
+        return;
+      }
       setScene(overlay, "portas");
       runTimed(overlay, 1650, () => finishOverlay(overlay));
       return;
     }
 
     if (page === "ementa") {
+      if (nav === "to-ementa-played") {
+        setScene(overlay, "panfleto", "revela");
+        uncover();
+        runTimed(overlay, 920, () => finishOverlay(overlay));
+        return;
+      }
       setScene(overlay, "panfleto", "abre");
-      runTimed(overlay, 1580, () => finishOverlay(overlay));
+      runTimed(overlay, 1480, () => finishOverlay(overlay));
     }
   }
 
@@ -148,14 +176,12 @@
       return;
     }
 
-    document.documentElement.classList.add("ca-loading");
-    document.documentElement.classList.remove("ca-page-ready");
     sessionStorage.setItem(NAV_KEY, flag);
     loadLogo(overlay);
 
     setScene(overlay, scene, variant);
-    overlay.classList.remove("is-done");
-    overlay.style.opacity = "1";
+    overlay.classList.add("ca-tr--cobre");
+    overlay.style.opacity = "";
     overlay.style.visibility = "visible";
 
     runTimed(overlay, duration, () => {
@@ -187,7 +213,7 @@
           scene: "panfleto",
           variant: "abre",
           flag: "to-ementa-played",
-          duration: 1520,
+          duration: 1480,
         });
         return;
       }
@@ -197,7 +223,7 @@
           scene: "panfleto",
           variant: "fecha",
           flag: "from-ementa",
-          duration: 1380,
+          duration: 1320,
         });
       }
     });
