@@ -267,9 +267,21 @@
 }
 
 @media (max-width: 51.99rem) {
+  .pg-onde__mapa {
+    height: clamp(15rem, 62vw, 22rem);
+  }
+
+  .pg-onde__cartao {
+    grid-area: 2 / 1;
+  }
+
   .pg-onde__alfinete {
-    top: clamp(9rem, 22vh, 13rem);
     translate: -50% calc(-100% - 0.1rem);
+  }
+
+  .pg-onde__botoes,
+  .pg-onde__botoes > * {
+    width: 100%;
   }
 }
 
