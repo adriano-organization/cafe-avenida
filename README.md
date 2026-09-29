@@ -1,87 +1,144 @@
-# Template de site para café local
+# Café Avenida
 
-Site estático (HTML/CSS/JS) reutilizável: todo o conteúdo do estabelecimento vive em **`config.js`**, **`menu.json`** e na pasta **`images/`**.
+Site estático do **Café Avenida** (Alpendurada · Marco de Canaveses) — HTML, CSS e JavaScript vanilla, sem framework.
 
-## Estrutura
+O conteúdo do estabelecimento vive em **`config.js`**, **`menu.json`** e **`images/`**. Serve para GitHub Pages ou Netlify sem passo de build.
 
-```
-├── index.html          # Página principal
-├── ementa.html         # Ementa (otimizada para telemóvel / QR)
-├── qr-print.html       # Cartão imprimível com QR
-├── config.js           # Nome, morada, horário, cores, media, domínio
-├── menu.json           # Categorias e itens da ementa (pt/en)
-├── i18n/pt.js, en.js   # Textos da interface
-├── css/                # Estilos
-├── js/                 # i18n, horário, SEO, páginas
-├── images/             # Fotos e vídeos do café
-├── scripts/            # Geração de QR codes (Node)
-└── qr/                 # QR gerados (SVG + PNG)
-```
+**Local:** Av. Francisco Sá Carneiro 760, 4575-052 Alpendurada e Matos · **Tel.:** 255 619 414
 
-**Vite:** não é necessário — o site não tem bundling; servir os ficheiros tal como estão é suficiente para GitHub Pages ou Netlify.
+---
 
-## Editar a ementa
+## Funcionalidades
 
-1. Abra `menu.json`.
-2. Cada categoria tem `id`, `name.pt` / `name.en` e `items`.
-3. Itens: `name`, `description`, `price`, `tags` opcionais (`vegetarian`, `glutenFree`), `allergens` opcional com `pt`/`en`.
-4. Remova o prefixo `[EXEMPLO]` / `[SAMPLE]` quando tiver dados reais.
+- Página principal com hero a ecrã inteiro, sobre nós, galeria, sugestões, opiniões Google, localização e ligação à ementa
+- Ementa bilingue (PT/EN) com categorias comprimíveis, pensada para telemóvel e QR nas mesas
+- Galeria com mosaico editorial no desktop, carrossel no telemóvel e lightbox
+- Opiniões e classificação Google (atualizadas à mão em `config.js`)
+- Horário com estado **Aberto agora** / **Fechado** (fuso `Europe/Lisbon`, incluindo fecho após meia-noite)
+- Mapa ilustrado da zona (SVG gerado a partir do OpenStreetMap)
+- Transições entre páginas, header em ilha e tipografia própria (Cormorant + Manrope)
+- QR codes para a ementa (`qr/` + cartão imprimível)
 
-## Idioma (PT / EN)
+---
 
-- Botões **PT | EN** no header (sempre visíveis).
-- Primeira visita: idioma do browser; fallback **PT**.
-- Escolha guardada em `localStorage`.
-- URLs: `?lang=pt` ou `?lang=en` (ex.: `ementa.html?lang=en`).
-- Traduções da interface em `i18n/pt.js` e `i18n/en.js`.
+## Começar
 
-## Horário
-
-Definido em `config.js` → `openingHours`. O site mostra **Aberto agora** / **Fechado** com fuso `Europe/Lisbon`, incluindo encerramento após meia-noite.
-
-## Regenerar o mapa ilustrado
-
-O mapa da secção «Onde estamos» é um SVG gerado a partir do OpenStreetMap (como no Cafe-Preguiça):
-
-```bash
-cd scripts
-npm run mapa
-# se o Overpass falhar, repetir; ou usar dados em cache:
-npm run mapa:cache
-```
-
-## Gerar QR codes
-
-```bash
-cd scripts
-npm install
-npm run generate-qr
-# ou com domínio explícito:
-node generate-qr.mjs --domain https://oseudominio.pt
-```
-
-Ficheiros em `qr/`: `ementa.svg/png`, `ementa-pt`, `ementa-en`. Imprima mesas via `qr-print.html`.
-
-## Publicar
-
-- **GitHub Pages:** repositório → Settings → Pages → branch `main`, pasta `/ (root)`.
-- **Netlify:** arrastar a pasta ou ligar ao repo; sem comando de build.
-
-Para testar localmente (necessário para `fetch` do `menu.json`):
+É preciso um servidor local (o browser bloqueia `fetch` do `menu.json` em `file://`).
 
 ```bash
 npm install
 npm run dev
 ```
 
-Abre `http://localhost:5173` (Vite só serve em desenvolvimento; em produção use GitHub Pages/Netlify sem build).
+Abre [http://localhost:5173](http://localhost:5173). O Vite só serve em desenvolvimento; em produção publica-se a pasta tal como está.
 
-## Trocar de café
+---
 
-1. Editar `config.js` (nome, contactos, horário, `domain`, `social`, `media`).
-2. Substituir `menu.json` e imagens em `images/`.
-3. Regenerar QR com o novo domínio.
+## Estrutura
 
-## Media encontrada
+```
+├── index.html          # Página principal
+├── ementa.html         # Ementa (telemóvel / QR)
+├── qr-print.html       # Cartão imprimível com QR
+├── config.js           # Nome, morada, horário, cores, media, reviews, domínio
+├── menu.json           # Categorias e itens da ementa (pt/en)
+├── i18n/               # Textos da interface (pt.js, en.js)
+├── css/                # Estilos
+├── js/                 # i18n, horário, mapa, galeria, ementa, SEO…
+├── images/             # Fotos, vídeos e logo
+├── mapa/               # SVG ilustrado da zona
+├── scripts/            # QR codes e regeneração do mapa (Node)
+└── qr/                 # QR gerados (SVG + PNG)
+```
 
-Na pasta `images/`: **31 fotografias JPG** (interior do Café Avenida, pratos, ementa física) e **1 vídeo MP4**. O `config.js` referencia um subconjunto para hero, galeria e vídeo; pode apontar outros ficheiros UUID conforme preferir.
+---
+
+## Editar conteúdo
+
+### Dados do café — `config.js`
+
+Nome, logo, tagline, sobre nós, telefone, morada, coordenadas, horário, cores, domínio, redes sociais, hero, galeria, sugestões e críticas Google.
+
+| Campo | Notas |
+| --- | --- |
+| `openingHours` | `0` = domingo … `6` = sábado; `null` = fechado; `closeNextDay: true` se fecha na madrugada |
+| `domain` | URL pública sem barra final (QR + meta tags) |
+| `googleReviews` | `rating`, `count`, `placeId` — atualizar à mão |
+| `media.gallery` | Fotos do espaço; alts em `pt` / `en` |
+
+### Ementa — `menu.json`
+
+1. Cada categoria tem `id`, `name.pt` / `name.en` e `items`.
+2. Itens: `name`, `description`, `price`; opcionais `tags` (`vegetarian`, `glutenFree`) e `allergens` (`pt`/`en`).
+3. A página `ementa.html` lê este ficheiro em tempo de execução.
+
+### Interface — `i18n/`
+
+Textos fixos da UI (botões, secções, acessibilidade) em `i18n/pt.js` e `i18n/en.js`.
+
+### Imagens — `images/`
+
+Substituir ficheiros ou apontar novos caminhos em `config.js`. Preferir JPG/WebP razoáveis para a web; o hero e a galeria usam lazy-load onde faz sentido.
+
+---
+
+## Idioma (PT / EN)
+
+- Seletor no header (bandeira + código).
+- Primeira visita: idioma do browser; fallback **PT**.
+- Preferência guardada em `localStorage`.
+- Forçar via URL: `?lang=pt` ou `?lang=en` (ex.: `ementa.html?lang=en`).
+
+---
+
+## Mapa ilustrado
+
+```bash
+cd scripts
+npm install
+npm run mapa
+# se o Overpass falhar:
+npm run mapa:cache
+```
+
+Saída em `mapa/alpendurada.svg`. A posição do pin ajusta-se em `config.js` → `map.pinPosition`.
+
+---
+
+## QR codes
+
+1. Definir `domain` em `config.js`.
+2. Gerar:
+
+```bash
+cd scripts
+npm install
+npm run generate-qr
+# ou:
+node generate-qr.mjs --domain https://oseudominio.pt
+```
+
+Ficheiros em `qr/` (`ementa`, `ementa-pt`, `ementa-en` em SVG/PNG). Para imprimir mesas: abrir `qr-print.html` no browser.
+
+---
+
+## Publicar
+
+- **GitHub Pages:** Settings → Pages → branch `main`, pasta `/ (root)`.
+- **Netlify / similar:** ligar o repositório ou arrastar a pasta; **sem comando de build**.
+
+Antes de publicar, preencher em `config.js` o `domain`, email e links das redes sociais (ainda há placeholders de exemplo).
+
+---
+
+## Reutilizar noutro café
+
+1. Editar `config.js` (identidade, contactos, horário, media, reviews).
+2. Substituir `menu.json` e as imagens.
+3. Regenerar mapa e QR com o novo domínio.
+
+---
+
+## Créditos
+
+Site desenvolvido para o Café Avenida · [DevPlus](https://github.com/adriano2212)
