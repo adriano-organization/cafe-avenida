@@ -9,7 +9,7 @@
         overflow: hidden;
       }
       html.ca-loading body > :not(#ca-transicao) {
-        display: none !important;
+        visibility: hidden !important;
       }
       #ca-transicao {
         position: fixed;
@@ -35,7 +35,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,500;1,600&family=Manrope:wght@400..700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,500;1,600&family=Lora:ital,wght@0,500;1,500&family=Manrope:wght@400..700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/barra.css" />
@@ -141,6 +141,9 @@
         <p class="menu-intro__notice" data-i18n="menuPage.comingSoon">Em breve: cafetaria, pastelaria e sobremesas.</p>
       </div>
       <div class="menu-sections" id="menu-sections" data-menu-sections></div>
+      <footer class="menu-signature">
+        <img src="images/logo-linha.png" alt="Café Avenida" width="2200" height="637" loading="lazy" decoding="async" />
+      </footer>
     </main>
 
     <script src="config.js"></script>

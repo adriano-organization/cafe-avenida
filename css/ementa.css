@@ -105,7 +105,7 @@ body[data-page="ementa"] .pg-barra {
 }
 
 .menu-section:last-child:not(.is-collapsed) {
-  min-height: calc(100svh - var(--menu-nav-top) - 3.6rem - 4.5rem);
+  min-height: 0;
 }
 
 .menu-intro {
@@ -559,4 +559,17 @@ body[data-page="ementa"] .pg-barra {
     font-size: 0.68rem;
     letter-spacing: 0.1em;
   }
+}
+
+.menu-item__desc { font-family: var(--font-reading); font-weight: 500; }
+
+.menu-signature {
+  display: grid;
+  place-items: center;
+  padding: clamp(3rem, 8vw, 5rem) 1rem 0;
+}
+.menu-signature img {
+  width: min(100%, 25rem);
+  height: auto;
+  opacity: .9;
 }

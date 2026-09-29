@@ -142,7 +142,11 @@
     if (!grid) return;
     const photoLabel = i18n.t("suggestions.photoSoon");
     grid.innerHTML = "";
-    (cfg.suggestions || []).forEach((item) => {
+    const suggestions = cfg.suggestions || [];
+    const photos = suggestions.filter((item) => item.image).map((item) => ({
+      src: item.image, alt: localized(item.name), description: localized(item.description),
+    }));
+    suggestions.forEach((item) => {
       const card = document.createElement("article");
       card.className = "suggestion-card";
       const media = document.createElement("div");
@@ -158,7 +162,7 @@
         media.classList.add("is-zoomable");
         window.CafeLightbox?.bind(
           media,
-          () => window.CafeLightbox.open([{ src: item.image, alt: localized(item.name) }]),
+          () => window.CafeLightbox.open(photos, photos.findIndex((photo) => photo.src === item.image)),
           localized(item.name)
         );
       } else {
@@ -177,15 +181,21 @@
 
   function buildGallery() {
     const grid = document.querySelector("[data-gallery]");
+    const moreBtn = document.querySelector("[data-gallery-more]");
     if (!grid) return;
     grid.innerHTML = "";
+    grid.classList.remove("is-expanded");
+
     const gallery = cfg.media?.gallery || [];
     const photos = gallery
       .filter((item) => item.type !== "video")
       .map((item) => ({ src: item.src, alt: localized(item.alt) }));
+    const previewCount = 5;
+
     gallery.forEach((item, index) => {
       const figure = document.createElement("figure");
       figure.className = "gallery__item";
+      if (index >= previewCount) figure.classList.add("is-gallery-more");
 
       if (item.type === "video") {
         const video = document.createElement("video");
@@ -203,17 +213,34 @@
         const img = document.createElement("img");
         img.src = item.src;
         img.alt = localized(item.alt);
-        img.loading = index < 2 ? "eager" : "lazy";
+        img.loading = index < 4 ? "eager" : "lazy";
         img.decoding = "async";
         img.width = 800;
         img.height = 600;
         figure.appendChild(img);
+
         figure.classList.add("is-zoomable");
         const photoIndex = photos.findIndex((p) => p.src === item.src);
         window.CafeLightbox?.bind(figure, () => window.CafeLightbox.open(photos, photoIndex), img.alt);
       }
       grid.appendChild(figure);
     });
+
+    if (!moreBtn) return;
+    const extras = grid.querySelectorAll(".is-gallery-more").length;
+    moreBtn.hidden = extras === 0;
+    moreBtn.setAttribute("aria-expanded", "false");
+    grid.id = "gallery-photos";
+    moreBtn.setAttribute("aria-controls", grid.id);
+    moreBtn.textContent = i18n.t("gallery.more");
+    moreBtn.onclick = () => {
+      const open = grid.classList.toggle("is-expanded");
+      moreBtn.setAttribute("aria-expanded", String(open));
+      moreBtn.textContent = i18n.t(open ? "gallery.less" : "gallery.more");
+      if (!open) {
+        grid.closest("#galeria")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    };
   }
 
   function initReveal() {

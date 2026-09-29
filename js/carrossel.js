@@ -8,7 +8,6 @@
   const END_DWELL = 520;
   const RESUME_AFTER = 2200;
   const TRACKS = [
-    { selector: "[data-gallery]", speed: 78 },
     { selector: "[data-suggestions]", speed: 24 },
     { selector: "[data-reviews]", speed: 24 },
   ];

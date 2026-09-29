@@ -40,6 +40,8 @@ window.__i18n.en = {
     eyebrow: "The space",
     title: "Gallery",
     playVideo: "Play video",
+    more: "Show more photos",
+    less: "Show less",
   },
   lightbox: {
     open: "Enlarge photo",

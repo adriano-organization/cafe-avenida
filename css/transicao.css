@@ -444,7 +444,7 @@
 }
 
 .ca-tr--panfleto.ca-tr--abre.ca-tr--anim .ca-panfleto {
-  animation: ca-pan-assenta 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: ca-pan-assenta 0.72s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @keyframes ca-pan-assenta {
@@ -458,11 +458,11 @@
 
 /* Abrir: esquerda, depois direita, com overlap */
 .ca-tr--panfleto.ca-tr--abre.ca-tr--anim .ca-panfleto__folha--esq {
-  animation: ca-pan-abre-esq 0.58s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+  animation: ca-pan-abre-esq 0.46s cubic-bezier(0.22, 1, 0.36, 1) 0.10s both;
 }
 
 .ca-tr--panfleto.ca-tr--abre.ca-tr--anim .ca-panfleto__folha--dir {
-  animation: ca-pan-abre-dir 0.58s cubic-bezier(0.22, 1, 0.36, 1) 0.52s both;
+  animation: ca-pan-abre-dir 0.46s cubic-bezier(0.22, 1, 0.36, 1) 0.26s both;
 }
 
 @keyframes ca-pan-abre-esq {
@@ -501,11 +501,11 @@
 
 /* Fechar: direita, depois esquerda */
 .ca-tr--panfleto.ca-tr--fecha.ca-tr--anim .ca-panfleto__folha--dir {
-  animation: ca-pan-fecha-dir 0.52s cubic-bezier(0.55, 0.05, 0.3, 1) 0.18s both;
+  animation: ca-pan-fecha-dir 0.42s cubic-bezier(0.55, 0.05, 0.3, 1) 0.08s both;
 }
 
 .ca-tr--panfleto.ca-tr--fecha.ca-tr--anim .ca-panfleto__folha--esq {
-  animation: ca-pan-fecha-esq 0.52s cubic-bezier(0.55, 0.05, 0.3, 1) 0.5s both;
+  animation: ca-pan-fecha-esq 0.42s cubic-bezier(0.55, 0.05, 0.3, 1) 0.24s both;
 }
 
 @keyframes ca-pan-fecha-dir {
@@ -543,11 +543,11 @@
 }
 
 .ca-tr--panfleto.ca-tr--revela.ca-tr--anim .ca-panfleto {
-  animation: ca-pan-revela 0.88s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: ca-pan-revela 0.38s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .ca-tr--panfleto.ca-tr--revela.ca-tr--anim {
-  animation: ca-tr-fundo-sai 0.55s ease 0.28s forwards;
+  animation: ca-tr-fundo-sai 0.32s ease 0.04s forwards;
 }
 
 @keyframes ca-pan-revela {
@@ -557,9 +557,9 @@
     filter: blur(0);
   }
   100% {
-    transform: scale(1.38);
+    transform: scale(1.08);
     opacity: 0;
-    filter: blur(10px);
+    filter: blur(2px);
   }
 }
 
@@ -571,11 +571,11 @@
 
 /* Voltar ao início: miolo fechado desaparece */
 .ca-tr--panfleto.ca-tr--saida.ca-tr--anim .ca-panfleto {
-  animation: ca-pan-saida 0.5s cubic-bezier(0.55, 0.05, 0.3, 1) forwards;
+  animation: ca-pan-saida 0.30s cubic-bezier(0.55, 0.05, 0.3, 1) forwards;
 }
 
 .ca-tr--panfleto.ca-tr--saida.ca-tr--anim {
-  animation: ca-tr-fundo-sai 0.4s ease 0.12s forwards;
+  animation: ca-tr-fundo-sai 0.30s ease 0.02s forwards;
 }
 
 @keyframes ca-pan-saida {
@@ -596,3 +596,9 @@
     display: none;
   }
 }
+
+
+/* Não repor as dobras durante o desvanecimento final. */
+.ca-tr.ca-tr--anim.is-done { animation: none; }
+.ca-tr--saida.ca-tr--anim .ca-panfleto__folha--esq,
+.ca-tr--saida.ca-tr--anim .ca-panfleto__folha--dir { animation: none; }

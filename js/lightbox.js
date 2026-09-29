@@ -4,11 +4,13 @@
  */
 (function () {
   const i18n = window.CafeI18n;
-  let root, img, caption, counter, prevBtn, nextBtn, closeBtn;
+  let root, img, ambience, caption, description, counter, prevBtn, nextBtn, closeBtn;
   let items = [];
   let index = 0;
   let lastFocus = null;
   let touchX = null;
+  let touchY = null;
+  let closeTimer;
 
   function t(key, fallback) {
     const value = i18n?.t(key);
@@ -27,11 +29,14 @@
     root.setAttribute("role", "dialog");
     root.setAttribute("aria-modal", "true");
     root.innerHTML = `
-      <div class="lightbox__backdrop" data-lightbox-close></div>
+      <div class="lightbox__backdrop" data-lightbox-close>
+        <img class="lightbox__ambience" alt="" aria-hidden="true" />
+      </div>
+      <img class="lightbox__brand" src="images/logo-linha.png" alt="Café Avenida" width="2200" height="637" />
       <figure class="lightbox__figure">
         <img class="lightbox__img" alt="" />
         <figcaption class="lightbox__caption">
-          <span class="lightbox__text"></span>
+          <span class="lightbox__details"><span class="lightbox__text"></span><span class="lightbox__description" id="lightbox-description"></span></span>
           <span class="lightbox__counter"></span>
         </figcaption>
       </figure>
@@ -42,7 +47,11 @@
       </button>
     `;
     img = root.querySelector(".lightbox__img");
+    ambience = root.querySelector(".lightbox__ambience");
     caption = root.querySelector(".lightbox__text");
+    description = root.querySelector(".lightbox__description");
+    root.setAttribute("aria-describedby", "lightbox-description");
+    root.querySelector(".lightbox__caption").setAttribute("aria-live", "polite");
     counter = root.querySelector(".lightbox__counter");
     prevBtn = root.querySelector(".lightbox__btn--prev");
     nextBtn = root.querySelector(".lightbox__btn--next");
@@ -53,13 +62,14 @@
     root.querySelectorAll("[data-lightbox-close]").forEach((el) => el.addEventListener("click", close));
 
     root.addEventListener("touchstart", (e) => {
+      touchY = e.touches[0]?.clientY;
       touchX = e.touches.length === 1 ? e.touches[0].clientX : null;
     }, { passive: true });
     root.addEventListener("touchend", (e) => {
       if (touchX === null || items.length < 2) return;
       const dx = e.changedTouches[0].clientX - touchX;
       touchX = null;
-      if (Math.abs(dx) > 50) go(dx < 0 ? 1 : -1);
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(e.changedTouches[0].clientY - touchY)) go(dx < 0 ? 1 : -1);
     });
 
     document.addEventListener("keydown", onKey);
@@ -75,11 +85,17 @@
   function render() {
     const item = items[index];
     root.classList.remove("is-ready");
-    img.onload = () => root.classList.add("is-ready");
+    const ready = () => {
+      ambience.src = item.src;
+      root.classList.add("is-ready");
+    };
+    img.onload = ready;
     img.src = item.src;
     img.alt = item.alt || "";
-    if (img.complete) root.classList.add("is-ready");
+    if (img.complete && img.naturalWidth) ready();
     caption.textContent = item.alt || "";
+    description.textContent = item.description || "";
+    description.hidden = !item.description;
     root.setAttribute("aria-label", item.alt || "");
     const multiple = items.length > 1;
     counter.textContent = multiple ? `${index + 1} / ${items.length}` : "";
@@ -118,8 +134,9 @@
   function open(list, start = 0) {
     if (!list?.length) return;
     if (!root) build();
+    clearTimeout(closeTimer);
     items = list;
-    index = start;
+    index = Math.max(0, Math.min(start, list.length - 1));
     lastFocus = document.activeElement;
     labels();
     render();
@@ -132,9 +149,11 @@
   function close() {
     if (!root || root.hidden) return;
     root.classList.remove("is-open");
-    document.documentElement.classList.remove("lightbox-open");
-    root.hidden = true;
-    lastFocus?.focus?.();
+    closeTimer = setTimeout(() => {
+      root.hidden = true;
+      document.documentElement.classList.remove("lightbox-open");
+      lastFocus?.focus?.({ preventScroll: true });
+    }, window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 260);
   }
 
   function bind(el, onOpen, name) {

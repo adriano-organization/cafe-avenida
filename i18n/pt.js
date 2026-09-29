@@ -40,6 +40,8 @@ window.__i18n.pt = {
     eyebrow: "O espaço",
     title: "Galeria",
     playVideo: "Reproduzir vídeo",
+    more: "Ver mais fotos",
+    less: "Ver menos",
   },
   lightbox: {
     open: "Ampliar foto",

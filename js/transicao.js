@@ -8,6 +8,7 @@
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const NAV_KEY = "ca-nav-transition";
 
+  let navigating = false;
   let activeTimer = null;
   let activeRunId = 0;
 
@@ -24,9 +25,11 @@
   }
 
   function readNavFlag() {
-    const value = sessionStorage.getItem(NAV_KEY);
-    sessionStorage.removeItem(NAV_KEY);
-    return value;
+    try {
+      const value = sessionStorage.getItem(NAV_KEY);
+      sessionStorage.removeItem(NAV_KEY);
+      return value;
+    } catch { return null; }
   }
 
   function revealPage() {
@@ -43,10 +46,10 @@
   }
 
   function finishOverlay(overlay) {
+    navigating = false;
     clearActiveTimer();
     activeRunId += 1;
     if (overlay) {
-      overlay.classList.remove("ca-tr--anim");
       overlay.classList.add("is-done");
       overlay.dataset.saltar = "";
       overlay.style.opacity = "";
@@ -105,8 +108,8 @@
       onDone();
     };
 
-    const saltar = () => done();
-    const events = ["pointerdown", "keydown", "touchstart"];
+    const saltar = (event) => { if (event.key === "Escape") done(); };
+    const events = ["keydown"];
     const stopListen = () => events.forEach((ev) => window.removeEventListener(ev, saltar));
     events.forEach((ev) => window.addEventListener(ev, saltar, { passive: true }));
 
@@ -114,10 +117,10 @@
       requestAnimationFrame(() => {
         if (runId !== activeRunId) return;
         overlay.classList.add("ca-tr--anim");
+        activeTimer = window.setTimeout(done, ms);
       });
     });
 
-    activeTimer = window.setTimeout(done, ms);
   }
 
   function initEntry() {
@@ -143,13 +146,19 @@
       document.documentElement.style.overflow = "hidden";
       overlay.style.visibility = "visible";
       overlay.style.opacity = "1";
+      if (window.location.hash) {
+        requestAnimationFrame(() => {
+          const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+          target?.scrollIntoView({ behavior: "instant", block: "start" });
+        });
+      }
     };
 
     if (page === "home") {
       if (nav === "from-ementa") {
         setScene(overlay, "panfleto", "saida");
         uncover();
-        runTimed(overlay, 560, () => finishOverlay(overlay));
+        runTimed(overlay, 400, () => finishOverlay(overlay));
         return;
       }
       setScene(overlay, "portas");
@@ -161,11 +170,11 @@
       if (nav === "to-ementa-played") {
         setScene(overlay, "panfleto", "revela");
         uncover();
-        runTimed(overlay, 920, () => finishOverlay(overlay));
+        runTimed(overlay, 400, () => finishOverlay(overlay));
         return;
       }
       setScene(overlay, "panfleto", "abre");
-      runTimed(overlay, 1480, () => finishOverlay(overlay));
+      runTimed(overlay, 780, () => finishOverlay(overlay));
     }
   }
 
@@ -176,7 +185,9 @@
       return;
     }
 
-    sessionStorage.setItem(NAV_KEY, flag);
+    if (navigating) return;
+    navigating = true;
+    try { sessionStorage.setItem(NAV_KEY, flag); } catch { /* Navegação continua sem armazenamento. */ }
     loadLogo(overlay);
 
     setScene(overlay, scene, variant);
@@ -213,7 +224,7 @@
           scene: "panfleto",
           variant: "abre",
           flag: "to-ementa-played",
-          duration: 1480,
+          duration: 780,
         });
         return;
       }
@@ -223,7 +234,7 @@
           scene: "panfleto",
           variant: "fecha",
           flag: "from-ementa",
-          duration: 1320,
+          duration: 720,
         });
       }
     });
@@ -232,10 +243,10 @@
   /** Evita página em cache com overlay a meio da animação (voltar no browser). */
   function snapshotCleanStateForCache() {
     const overlay = document.getElementById("ca-transicao");
+    navigating = false;
     clearActiveTimer();
     activeRunId += 1;
     if (overlay) {
-      overlay.classList.remove("ca-tr--anim");
       overlay.classList.add("is-done");
       overlay.dataset.saltar = "";
     }
