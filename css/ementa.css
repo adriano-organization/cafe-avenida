@@ -297,7 +297,7 @@ body[data-page="ementa"] .pg-barra {
   font-size: 0.76rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-  color: color-mix(in srgb, var(--color-primary) 45%, var(--color-espresso));
+  color: var(--color-gold-text);
 }
 
 /* Figurinhas dos pratos, como na ementa impressa */
@@ -414,7 +414,7 @@ body[data-page="ementa"] .pg-barra {
   font-weight: 600;
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.01em;
-  color: color-mix(in srgb, var(--color-primary) 50%, var(--color-espresso));
+  color: var(--color-gold-text);
   white-space: nowrap;
 }
 
@@ -433,7 +433,7 @@ body[data-page="ementa"] .pg-barra {
   padding: 0.05rem 0.35rem;
   border-radius: 4px;
   background: color-mix(in srgb, var(--color-primary) 16%, transparent);
-  font-size: 0.62rem;
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-decoration: none;
@@ -444,9 +444,9 @@ body[data-page="ementa"] .pg-barra {
 .menu-item__desc {
   margin: 0.3rem 0 0;
   max-width: 34rem;
-  font-size: 0.86rem;
-  line-height: 1.5;
-  color: color-mix(in srgb, var(--color-text) 68%, transparent);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--color-espresso);
 }
 
 .menu-item__tags {
@@ -457,7 +457,7 @@ body[data-page="ementa"] .pg-barra {
 }
 
 .menu-tag {
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.03em;
@@ -526,7 +526,7 @@ body[data-page="ementa"] .pg-barra {
   }
 
   .menu-item__desc {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 
   .menu-section--figs-1 .menu-section__head {

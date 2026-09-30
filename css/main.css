@@ -1,6 +1,7 @@
 /* Design tokens — sobrescritos por config.js via inline custom properties */
 :root {
   --color-primary: #d4a85a;
+  --color-gold-text: #806026;
   --color-secondary: #4a382c;
   --color-accent: #9a7355;
   --color-background: #dad2c6;
@@ -133,7 +134,7 @@ a:hover {
   letter-spacing: 0.24em;
   text-transform: uppercase;
   font-weight: 600;
-  color: color-mix(in srgb, var(--color-primary) 70%, var(--color-espresso));
+  color: var(--color-gold-text);
 }
 
 .section__eyebrow::before {
@@ -419,7 +420,7 @@ a:hover {
   border: 1px solid color-mix(in srgb, var(--color-primary) 55%, transparent);
   border-radius: 999px;
   background: transparent;
-  color: color-mix(in srgb, var(--color-primary) 45%, var(--color-espresso));
+  color: var(--color-gold-text);
   font-family: var(--font-sans);
   font-size: 0.8rem;
   font-weight: 600;
@@ -1097,7 +1098,7 @@ html.lightbox-open body {
 .lightbox__figure { width: 100%; }
 @media (max-width: 40rem) {
   .lightbox__img { max-height: calc(100dvh - 19rem); }
-  .lightbox__description { font-size: .85rem; }
+  .lightbox__description { font-size: .95rem; }
 }
 
 /* Texto com mais presença; títulos, etiquetas douradas e botões mantêm as fontes. */
