@@ -100,6 +100,14 @@ window.__i18n.pt = {
     menuQr: "Ementa digital",
     madeBy: "Site feito pela",
   },
+  error: {
+    docTitle: "Página não encontrada",
+    eyebrow: "Erro 404",
+    title: "Esta página não está na ementa",
+    body: "Pedimos desculpa — o endereço pode estar errado ou o link já não existir. Volte ao café e escolha por onde quer começar.",
+    home: "Voltar ao início",
+    menu: "Ver a ementa",
+  },
   menuPage: {
     title: "Ementa",
     subtitle: "Toque numa categoria para navegar",

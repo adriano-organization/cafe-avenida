@@ -100,6 +100,14 @@ window.__i18n.en = {
     menuQr: "Digital menu",
     madeBy: "Site made by",
   },
+  error: {
+    docTitle: "Page not found",
+    eyebrow: "Error 404",
+    title: "This page isn’t on the menu",
+    body: "Sorry — the address may be wrong or the link no longer exists. Head back to the café and choose where to start.",
+    home: "Back to home",
+    menu: "View the menu",
+  },
   menuPage: {
     title: "Menu",
     subtitle: "Tap a category to browse",
