@@ -98,7 +98,7 @@ window.__i18n.en = {
   footer: {
     rights: "All rights reserved.",
     menuQr: "Digital menu",
-    madeBy: "Made by",
+    madeBy: "Site made by",
   },
   menuPage: {
     title: "Menu",

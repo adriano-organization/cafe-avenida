@@ -212,7 +212,7 @@
   display: block;
 }
 
-/* Alfinete (cabeça + ponta) — a ponta marca o sítio no mapa */
+/* Alfinete (cabeça + ponta) — a ponta marca o sítio no mapa; clique abre o Google Maps */
 .pg-onde__alfinete {
   position: absolute;
   left: 50%;
@@ -223,8 +223,25 @@
   width: var(--pin-w);
   translate: -50% calc(-100% - 0.1rem);
   z-index: 2;
-  pointer-events: none;
+  pointer-events: auto;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
   filter: drop-shadow(0 6px 14px rgba(26, 18, 12, 0.32));
+  transition: filter 220ms ease, translate 220ms ease;
+}
+
+.pg-onde__alfinete:hover,
+.pg-onde__alfinete:focus-visible {
+  filter: drop-shadow(0 8px 18px rgba(26, 18, 12, 0.42));
+  translate: -50% calc(-100% - 0.35rem);
+  outline: none;
+}
+
+.pg-onde__alfinete:focus-visible .pg-onde__alfinete-cabeca {
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--color-surface) 90%, transparent),
+    0 0 0 5px var(--color-primary);
 }
 
 .pg-onde__alfinete-cabeca {

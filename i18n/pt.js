@@ -98,7 +98,7 @@ window.__i18n.pt = {
   footer: {
     rights: "Todos os direitos reservados.",
     menuQr: "Ementa digital",
-    madeBy: "Feito por",
+    madeBy: "Site feito pela",
   },
   menuPage: {
     title: "Ementa",

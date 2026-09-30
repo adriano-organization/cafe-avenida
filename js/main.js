@@ -39,7 +39,9 @@
     });
 
     const placeLabel = encodeURIComponent(`${cfg.name}, ${cfg.address.full}`);
-    const mapsPlace = `https://www.google.com/maps/search/?api=1&query=${placeLabel}`;
+    const mapsPlace = cfg.googleReviews?.placeId
+      ? `https://www.google.com/maps/place/?q=place_id:${cfg.googleReviews.placeId}`
+      : `https://www.google.com/maps/search/?api=1&query=${placeLabel}`;
 
     document.querySelectorAll("[data-maps-open]").forEach((el) => {
       el.href = mapsPlace;

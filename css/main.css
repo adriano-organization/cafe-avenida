@@ -908,11 +908,95 @@ a:hover {
   text-align: center;
 }
 
+.site-footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.35rem 0;
+  color: color-mix(in srgb, #e8dfd4 78%, transparent);
+  line-height: 1.55;
+}
+
+.site-footer__sep {
+  margin: 0 0.4rem;
+  opacity: 0.55;
+}
+
+.site-footer__credit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: 0.1rem;
+  color: color-mix(in srgb, #e8dfd4 78%, transparent);
+  white-space: nowrap;
+}
+
+.site-footer__credit-logo {
+  display: inline-flex;
+  color: #f3ebe0;
+  line-height: 0;
+}
+
+.site-footer__credit-logo:hover,
+.site-footer__credit-logo:focus-visible {
+  color: #fff;
+  outline: none;
+}
+
+.site-footer__credit-name {
+  font-weight: 700;
+  color: #f3ebe0;
+  border-bottom: 1.5px solid #f26a1a;
+  padding-bottom: 0.05rem;
+  line-height: 1.1;
+}
+
+.site-footer__credit-name:hover,
+.site-footer__credit-name:focus-visible {
+  color: #fff;
+  outline: none;
+}
+
+.devplus-mark {
+  display: block;
+  height: 0.95rem;
+  width: auto;
+}
+
+.devplus-mark__plus {
+  fill: #f26a1a;
+  transform-origin: center;
+  transform-box: fill-box;
+  transition: transform 300ms ease;
+}
+
+.site-footer__credit:hover .devplus-mark__plus,
+.site-footer__credit:focus-within .devplus-mark__plus {
+  transform: rotate(90deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .devplus-mark__plus {
+    transition: none;
+  }
+
+  .site-footer__credit:hover .devplus-mark__plus,
+  .site-footer__credit:focus-within .devplus-mark__plus {
+    transform: none;
+  }
+}
+
 @media (min-width: 640px) {
   .site-footer__inner {
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     text-align: left;
+  }
+
+  .site-footer__legal {
+    justify-content: flex-end;
   }
 }
 
