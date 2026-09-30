@@ -123,17 +123,6 @@ a:hover {
   margin: 0 auto;
 }
 
-.js-reveal .section__inner {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 700ms ease, transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-
-.js-reveal .section__inner.is-visible {
-  opacity: 1;
-  transform: none;
-}
-
 .section__eyebrow {
   display: flex;
   align-items: center;
@@ -1204,15 +1193,6 @@ html::-webkit-scrollbar-thumb { background: #aa8b60; border-radius: 8px; }
 }
 /* Movimento breve, sem animações contínuas nem mudanças de disposição. */
 @media (prefers-reduced-motion: no-preference) {
-  .js-reveal .section__inner.is-visible .section__eyebrow::before {
-    transform-origin: left;
-    animation: avenida-line 800ms cubic-bezier(.22, 1, .36, 1) both;
-  }
-  .js-reveal .section__inner.is-visible .about-space {
-    animation: avenida-detail 650ms ease both;
-  }
-  .js-reveal .section__inner.is-visible .about-space:nth-child(2) { animation-delay: 100ms; }
-  .js-reveal .section__inner.is-visible .about-space:nth-child(3) { animation-delay: 200ms; }
   .about-space__icon { transition: transform 300ms ease, background-color 300ms ease; }
   .about-space:hover .about-space__icon {
     transform: translateY(-3px) rotate(-4deg);
@@ -1261,7 +1241,6 @@ html::-webkit-scrollbar-thumb { background: #aa8b60; border-radius: 8px; }
   .back-top { animation: avenida-detail 300ms ease; transition: transform 220ms ease; }
   .back-top:is(:hover, :focus-visible) { transform: translateY(-3px); }
   .back-top:is(:hover, :focus-visible) .back-top__steam { animation: cup-steam 1.2s ease-in-out infinite; }
-  .is-photo-revealed { animation: avenida-photo 650ms ease var(--reveal-delay, 0ms) backwards; }
   .suggestion-card__media img { transition: filter 400ms ease, transform 650ms ease; }
   .suggestion-card:is(:hover, :focus-within) .suggestion-card__media img { transform: scale(1.035); }
 }
@@ -1272,4 +1251,48 @@ html::-webkit-scrollbar-thumb { background: #aa8b60; border-radius: 8px; }
 @media (max-width: 40rem) {
   .back-top { width: 3.5rem; height: 4rem; }
   .back-top svg { width: 52px; height: 58px; }
+}
+
+/* Revelar cada elemento quando entra na zona visível. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero__media img {
+    transform: translateY(var(--hero-drift, 0px)) scale(1.09);
+  }
+  .is-scroll-revealed {
+    animation: scroll-rise 800ms cubic-bezier(.22, 1, .36, 1) var(--reveal-delay, 0ms) backwards;
+  }
+  .section__title.is-scroll-revealed {
+    animation-name: scroll-title;
+    animation-duration: 950ms;
+  }
+  .section__eyebrow.is-scroll-revealed::before {
+    transform-origin: left;
+    animation: avenida-line 900ms cubic-bezier(.22, 1, .36, 1) var(--reveal-delay, 0ms) backwards;
+  }
+  .gallery__item.is-scroll-revealed,
+  .pg-onde__mapa.is-scroll-revealed {
+    animation-name: scroll-photo;
+    animation-duration: 1000ms;
+  }
+  .gallery__item.is-scroll-revealed img {
+    animation: scroll-photo-scale 1200ms cubic-bezier(.22, 1, .36, 1) var(--reveal-delay, 0ms) backwards;
+  }
+  .review-card.is-scroll-revealed { animation-name: scroll-review; }
+}
+@keyframes scroll-rise {
+  from { opacity: 0; translate: 0 24px; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes scroll-title {
+  from { opacity: 0; translate: 0 20px; clip-path: inset(0 0 100% 0); }
+  to { opacity: 1; translate: 0 0; clip-path: inset(0); }
+}
+@keyframes scroll-photo {
+  from { opacity: .15; clip-path: inset(8% 0 12% 0 round 12px); translate: 0 26px; }
+  to { opacity: 1; clip-path: inset(0 round 12px); translate: 0 0; }
+}
+@keyframes scroll-photo-scale { from { scale: 1.08; } to { scale: 1; } }
+@keyframes scroll-review {
+  from { opacity: 0; translate: 0 22px; rotate: -1deg; }
+  to { opacity: 1; translate: 0 0; rotate: 0deg; }
 }

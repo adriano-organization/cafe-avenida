@@ -13,7 +13,11 @@
     function update() {
       queued = false;
       const edge = header.getBoundingClientRect().bottom;
-      const passedHero = hero.getBoundingClientRect().bottom <= edge;
+      const heroRect = hero.getBoundingClientRect();
+      const passedHero = heroRect.bottom <= edge;
+      if (!motion.matches && heroRect.bottom > 0) {
+        hero.style.setProperty('--hero-drift', `${Math.min(42, Math.max(0, -heroRect.top) * .065)}px`);
+      } else if (motion.matches) hero.style.removeProperty('--hero-drift');
       let current = null;
       if (passedHero) {
         const marker = edge + Math.min(120, innerHeight * .18);
@@ -51,17 +55,21 @@
       observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
           if (!entry.isIntersecting) return;
-          entry.target.classList.add('is-photo-revealed');
+          entry.target.classList.add('is-scroll-revealed');
           observer.unobserve(entry.target);
         });
-      }, { threshold: .12 });
-      document.querySelectorAll('.gallery__item, .suggestion-card').forEach((card, i) => {
-        card.style.setProperty('--reveal-delay', `${(i % 3) * 65}ms`);
-        observer.observe(card);
+      }, { threshold: .08, rootMargin: '0px 0px -24px 0px' });
+      const groups = document.querySelectorAll('.section__inner');
+      groups.forEach(group => {
+        const targets = group.querySelectorAll('.section__eyebrow, .section__title, .about__text, .section__lead, .about-space, .gallery__item, .suggestion-card, .review-card, .reviews-summary, .pg-onde__topo, .pg-onde__mapa, .pg-onde__horas');
+        targets.forEach((target, i) => {
+          target.style.setProperty('--reveal-delay', `${Math.min(i % 3, 2) * 85}ms`);
+          observer.observe(target);
+        });
       });
     }
     window.addEventListener('cafe:langchange', () => { revealPhotos(); schedule(); });
-    motion.addEventListener('change', revealPhotos);
+    motion.addEventListener('change', () => { revealPhotos(); schedule(); });
     revealPhotos();
     update();
   }

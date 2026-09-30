@@ -243,25 +243,6 @@
     };
   }
 
-  function initReveal() {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (!("IntersectionObserver" in window)) return;
-    const targets = document.querySelectorAll(".section__inner");
-    if (!targets.length) return;
-    document.documentElement.classList.add("js-reveal");
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting && entry.boundingClientRect.top > 0) return;
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        });
-      },
-      { rootMargin: "0px 0px -10% 0px", threshold: 0.08 }
-    );
-    targets.forEach((el) => observer.observe(el));
-  }
-
   function refreshHours() {
     window.CafeHours.renderHoursPanel(
       document.querySelector("[data-hours-panel]"),
@@ -282,7 +263,6 @@
     refreshHours();
     window.CafeMapa?.init(cfg);
     window.CafeSeo.applyPageMeta(cfg, i18n, "home");
-    initReveal();
 
     window.addEventListener("cafe:langchange", () => {
       fillConfigText();
