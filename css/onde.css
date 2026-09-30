@@ -52,24 +52,74 @@
   text-transform: uppercase;
   padding: 0.35rem 0.75rem;
   border-radius: 999px;
+  transition: background-color 280ms ease, color 280ms ease, box-shadow 280ms ease, opacity 280ms ease;
 }
 
 .pg-onde__status::before {
   content: "";
-  width: 0.45rem;
-  height: 0.45rem;
+  flex-shrink: 0;
+  width: 0.5rem;
+  height: 0.5rem;
   border-radius: 50%;
   background: currentColor;
+  box-shadow: 0 0 0 0 transparent;
 }
 
 .pg-onde__status.is-open {
-  background: color-mix(in srgb, #5e8a4f 16%, var(--color-surface));
-  color: #3f6a33;
+  background: color-mix(in srgb, #5e8a4f 18%, var(--color-surface));
+  color: #3a6b2e;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, #5e8a4f 28%, transparent),
+    0 0 14px color-mix(in srgb, #6fa85a 22%, transparent);
+  animation: pg-onde-status-breathe 2.6s ease-in-out infinite;
+}
+
+.pg-onde__status.is-open::before {
+  background: #4f9a3f;
+  box-shadow: 0 0 0 0 color-mix(in srgb, #5e8a4f 55%, transparent);
+  animation: pg-onde-status-dot 2.6s ease-in-out infinite;
 }
 
 .pg-onde__status.is-closed {
-  background: color-mix(in srgb, var(--color-primary) 14%, var(--color-surface));
-  color: var(--color-espresso);
+  background: color-mix(in srgb, var(--color-espresso) 10%, var(--color-surface));
+  color: color-mix(in srgb, var(--color-text) 48%, transparent);
+  opacity: 0.78;
+  box-shadow: none;
+  animation: none;
+}
+
+.pg-onde__status.is-closed::before {
+  background: color-mix(in srgb, var(--color-text) 38%, transparent);
+  box-shadow: none;
+  animation: none;
+}
+
+@keyframes pg-onde-status-breathe {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, #5e8a4f 22%, transparent),
+      0 0 8px color-mix(in srgb, #6fa85a 12%, transparent);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, #5e8a4f 42%, transparent),
+      0 0 18px color-mix(in srgb, #6fa85a 34%, transparent);
+  }
+}
+
+@keyframes pg-onde-status-dot {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 color-mix(in srgb, #5e8a4f 50%, transparent);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.12);
+    box-shadow: 0 0 0 0.35rem color-mix(in srgb, #5e8a4f 0%, transparent);
+    opacity: 1;
+  }
 }
 
 .pg-onde__acoes {
@@ -217,6 +267,17 @@
 @media (prefers-reduced-motion: reduce) {
   .pg-onde__alfinete-cabeca {
     animation: none;
+  }
+
+  .pg-onde__status.is-open,
+  .pg-onde__status.is-open::before {
+    animation: none;
+  }
+
+  .pg-onde__status.is-open {
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, #5e8a4f 32%, transparent),
+      0 0 12px color-mix(in srgb, #6fa85a 20%, transparent);
   }
 }
 
