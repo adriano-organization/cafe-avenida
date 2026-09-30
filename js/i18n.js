@@ -3,7 +3,7 @@
  */
 (function () {
   const STORAGE_KEY = "cafe-lang";
-  const SUPPORTED = ["pt", "en"];
+  const SUPPORTED = ["pt", "en", "fr"];
   const DEFAULT_LANG = "pt";
 
   function normalizeLang(value) {
@@ -74,7 +74,7 @@
         if (attr && key) el.setAttribute(attr, t(key));
       });
     });
-    document.documentElement.lang = currentLang === "pt" ? "pt-PT" : "en";
+    document.documentElement.lang = currentLang === "pt" ? "pt-PT" : currentLang;
     updateLangSwitcher();
     updateMenuLinks();
   }
@@ -117,7 +117,7 @@
     document.querySelectorAll("[data-lang-btn]").forEach((btn) => {
       btn.addEventListener("click", () => {
         setLang(btn.getAttribute("data-lang-btn"));
-        // Só o botão do outro idioma fica visível; o foco passa para ele.
+        // O foco passa para uma das outras línguas disponíveis.
         btn.parentElement?.querySelector("[data-lang-btn]:not(.is-active)")?.focus();
       });
     });

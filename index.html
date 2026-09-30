@@ -110,12 +110,15 @@
       </nav>
 
       <div class="pg-barra__idioma">
-        <div class="lang-switch" role="group" aria-label="Idioma">
+        <div class="lang-switch" role="group" aria-label="Idioma" data-i18n-attr="aria-label:nav.language">
           <button type="button" class="is-active" data-lang-btn="pt" aria-pressed="true" lang="pt-PT" aria-label="Português">
             <img src="images/bandeiras/pt.svg" alt="" width="24" height="16" /><span aria-hidden="true">PT</span>
           </button>
           <button type="button" data-lang-btn="en" aria-pressed="false" lang="en" aria-label="English">
             <img src="images/bandeiras/en.svg" alt="" width="24" height="16" /><span aria-hidden="true">EN</span>
+          </button>
+          <button type="button" data-lang-btn="fr" aria-pressed="false" lang="fr" aria-label="Français">
+            <img src="images/bandeiras/fr.svg" alt="" width="24" height="16" /><span aria-hidden="true">FR</span>
           </button>
         </div>
       </div>
@@ -213,6 +216,18 @@
           <h2 class="section__title" id="suggestions-title" data-i18n="suggestions.title">Sugestões</h2>
           <p class="section__lead" data-i18n="suggestions.lead">Três pratos da casa que vale a pena provar.</p>
           <div class="suggestions" data-suggestions></div>
+          <div class="chooser" data-chooser>
+            <button class="gallery__more chooser__toggle" data-chooser-toggle aria-expanded="false" aria-controls="suggestion-chooser" type="button" data-i18n="chooser.open">Não sabes o que escolher?</button>
+            <div class="chooser__panel" data-chooser-panel id="suggestion-chooser" hidden>
+              <h3 data-i18n="chooser.question">O que te apetece?</h3>
+              <div class="chooser__choices" role="group" data-i18n-attr="aria-label:chooser.question" aria-label="O que te apetece?">
+                <button type="button" data-choice="sweet" aria-pressed="false" data-i18n="chooser.sweet">Doce</button>
+                <button type="button" data-choice="savory" aria-pressed="false" data-i18n="chooser.savory">Salgado</button>
+                <button type="button" data-choice="drink" aria-pressed="false" data-i18n="chooser.drink">Bebida</button>
+              </div>
+              <div class="chooser__result" data-chooser-result role="status" aria-live="polite" hidden></div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -386,6 +401,7 @@
     <script src="js/branding.js"></script>
     <script src="i18n/pt.js"></script>
     <script src="i18n/en.js"></script>
+    <script src="i18n/fr.js"></script>
     <script src="js/i18n.js"></script>
     <script src="js/hours.js"></script>
     <script src="js/barra.js"></script>
@@ -393,6 +409,7 @@
     <script src="js/mapa.js"></script>
     <script src="js/lightbox.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/chooser.js"></script>
     <script src="js/carrossel.js"></script>
     <script src="js/experience.js"></script>
   </body>

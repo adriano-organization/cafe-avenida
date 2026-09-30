@@ -23,6 +23,7 @@
     <script src="js/branding.js"></script>
     <script src="i18n/pt.js"></script>
     <script src="i18n/en.js"></script>
+    <script src="i18n/fr.js"></script>
     <script src="js/i18n.js"></script>
     <script>
       (function () {
@@ -31,9 +32,9 @@
           window.CafeBranding.apply(window.CAFE_CONFIG);
           const lang = window.CafeI18n.getLang();
           const img = document.getElementById("qr-image");
-          if (img) img.src = `qr/ementa-${lang}.png`;
+          if (img) img.src = (lang === "fr" ? "qr/ementa.png" : `qr/ementa-${lang}.png`);
           window.addEventListener("cafe:langchange", (e) => {
-            if (img) img.src = `qr/ementa-${e.detail.lang}.png`;
+            if (img) img.src = (e.detail.lang === "fr" ? "qr/ementa.png" : `qr/ementa-${e.detail.lang}.png`);
             window.CafeI18n.applyTranslations();
           });
         }

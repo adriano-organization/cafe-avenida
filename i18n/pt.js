@@ -1,12 +1,13 @@
 window.__i18n = window.__i18n || {};
 window.__i18n.pt = {
+  chooser: {"open": "Não sabes o que escolher?", "question": "O que te apetece?", "sweet": "Doce", "savory": "Salgado", "drink": "Bebida", "try": "Experimenta isto", "another": "Outra sugestão", "menu": "Ver na ementa", "empty": "Novas sugestões a chegar em breve.", "close": "Fechar sugestões"},
   meta: {
     homeTitle: "Início",
     homeDescription: "Café local — boa comida, café e ambiente acolhedor.",
     menuTitle: "Ementa",
     menuDescription: "Consulte a nossa ementa — cafés, pastelaria, tostas e bebidas.",
   },
-  nav: {
+  nav: {language: "Idioma",
     backTop: "Voltar ao topo",
     home: "Início",
     about: "Sobre",
@@ -68,7 +69,7 @@ window.__i18n.pt = {
   suggestions: {
     eyebrow: "Da casa",
     title: "Sugestões",
-    lead: "Três pratos da casa que vale a pena provar.",
+    lead: "Sugestões da casa que vale a pena provar.",
     photoSoon: "Foto em breve",
   },
   hours: {
@@ -108,10 +109,10 @@ window.__i18n.pt = {
     home: "Voltar ao início",
     menu: "Ver a ementa",
   },
-  menuPage: {
+  menuPage: {categories: "Categorias da ementa",
     title: "Ementa",
     subtitle: "Toque numa categoria para navegar",
-    comingSoon: "Em breve: cafetaria, pastelaria e sobremesas.",
+    comingSoon: "Do primeiro café à sobremesa, escolhe o que te apetece.",
     sizes: { small: "Pequena", medium: "Média" },
     sizesShort: { small: "PQ", medium: "MD" },
     tags: {

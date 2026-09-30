@@ -153,7 +153,7 @@ body[data-page="home"] .pg-barra {
   }
 }
 
-/* Idioma: só aparece o botão do outro idioma */
+/* Mostrar as duas outras línguas disponíveis. */
 .pg-barra__idioma {
   margin-inline-start: auto;
   flex-shrink: 0;
@@ -163,6 +163,7 @@ body[data-page="home"] .pg-barra {
 
 .pg-barra__idioma .lang-switch {
   display: flex;
+  gap: .3rem;
 }
 
 .pg-barra__idioma .lang-switch button {

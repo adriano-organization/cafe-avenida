@@ -11,7 +11,7 @@
   }
 
   function formatPrice(value) {
-    return new Intl.NumberFormat(i18n.getLang() === "pt" ? "pt-PT" : "en-GB", {
+    return new Intl.NumberFormat(({ pt: "pt-PT", en: "en-GB", fr: "fr-FR" })[i18n.getLang()], {
       style: "currency",
       currency: "EUR",
     }).format(value);
@@ -52,7 +52,7 @@
     return `<span class="menu-item__price menu-item__price--sizes">${sizes}</span>`;
   }
 
-  function renderItems(category) {
+  function renderItems(category, heading = "h3") {
     if (!category.items?.length) {
       return `<p class="menu-empty">${i18n.t("menuPage.empty")}</p>`;
     }
@@ -62,7 +62,7 @@
         return `
       <article class="menu-item" id="item-${item.id}">
         <div class="menu-item__head">
-          <h3 class="menu-item__name">${localized(item.name)}</h3>
+          <${heading} class="menu-item__name">${localized(item.name)}</${heading}>
           <span class="menu-item__leader" aria-hidden="true"></span>
           ${renderPrice(item)}
         </div>
@@ -82,6 +82,19 @@
       )
       .join("");
     return `<div class="menu-section__figuras" aria-hidden="true">${figs}</div>`;
+  }
+
+  function renderSubcategories(category) {
+    return category.subcategories.map(sub => {
+      const note = localized(sub.note);
+      const figCount = Math.min(sub.figures?.length || 0, 2);
+      return `<section class="menu-subsection ${sub.items.length > 4 ? "menu-section--cols" : ""} ${figCount ? `menu-section--figs-${figCount}` : ""}" id="cat-${sub.id}" aria-labelledby="title-${sub.id}">
+        ${renderFigures(sub)}
+        <div class="menu-subsection__head"><h3 class="menu-subsection__title" id="title-${sub.id}">${localized(sub.name)}</h3></div>
+        ${note ? `<p class="menu-section__note">${note}</p>` : ""}
+        <div class="menu-section__items">${renderItems(sub, "h4")}</div>
+      </section>`;
+    }).join("");
   }
 
   function renderMenu() {
@@ -122,7 +135,7 @@
         <div class="menu-section__body" id="${bodyId}">
           <div class="menu-section__body-inner">
             ${note ? `<p class="menu-section__note">${note}</p>` : ""}
-            <div class="menu-section__items">${renderItems(cat)}</div>
+            ${cat.subcategories ? renderSubcategories(cat) : `<div class="menu-section__items">${renderItems(cat)}</div>`}
           </div>
         </div>`;
       sections.appendChild(section);
@@ -193,62 +206,60 @@
     const sections = [...document.querySelectorAll(".menu-section")];
     if (!nav || !links.length) return;
 
-    let currentId = links[0]?.getAttribute("href")?.slice(1) ?? "";
+    const controller = new AbortController();
+    const options = { passive: true, signal: controller.signal };
+    let manualNav = false;
+    let queued = 0;
+    const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    const setActive = (id) => {
-      if (!id || id === currentId) return;
-      currentId = id;
-      let active = null;
-      links.forEach((l) => {
-        const on = l.getAttribute("href") === `#${id}`;
-        l.classList.toggle("is-active", on);
-        if (on) active = l;
+    function sync() {
+      queued = 0;
+      const marker = document.querySelector(".menu-header").getBoundingClientRect().bottom + 32;
+      let current = sections[0];
+      for (const section of sections) {
+        if (section.getBoundingClientRect().top <= marker) current = section;
+      }
+      if (scrollY + innerHeight >= document.documentElement.scrollHeight - 8) current = sections.at(-1);
+      let active;
+      links.forEach(link => {
+        const on = link.hash === `#${current.id}`;
+        link.classList.toggle("is-active", on);
+        if (on) { link.setAttribute("aria-current", "location"); active = link; }
+        else link.removeAttribute("aria-current");
       });
-      if (!active) return;
-      const left = active.offsetLeft;
-      const right = left + active.offsetWidth;
-      const viewLeft = nav.scrollLeft;
-      const viewRight = viewLeft + nav.clientWidth;
-      if (left < viewLeft + 12 || right > viewRight - 12) {
-        active.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      if (manualNav || !active) return;
+      const navRect = nav.getBoundingClientRect();
+      const rect = active.getBoundingClientRect();
+      if (rect.left < navRect.left + 12 || rect.right > navRect.right - 12) {
+        nav.scrollTo({ left: nav.scrollLeft + rect.left - navRect.left - (nav.clientWidth - rect.width) / 2, behavior: reduced() ? "instant" : "smooth" });
       }
-    };
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) setActive(visible.target.id);
-      },
-      { rootMargin: "-28% 0px -58% 0px", threshold: [0, 0.15, 0.4] }
-    );
-    sections.forEach((s) => observer.observe(s));
-
-    const atBottom = () => {
-      const last = sections[sections.length - 1];
-      if (!last) return;
-      if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 8) {
-        setActive(last.id);
-      }
-    };
-    window.addEventListener("scroll", atBottom, { passive: true });
-
-    const onNavClick = (e) => {
-      const link = e.target.closest(".menu-nav__link");
-      if (!link) return;
-      const id = link.getAttribute("href")?.slice(1);
-      const section = id ? document.getElementById(id) : null;
-      if (section?.classList.contains("is-collapsed")) {
-        setCollapsed(section, false);
-      }
-    };
-    nav.addEventListener("click", onNavClick);
-
+    }
+    function schedule() { if (!queued) queued = requestAnimationFrame(sync); }
+    nav.addEventListener("pointerdown", () => { manualNav = true; }, options);
+    nav.addEventListener("touchstart", () => { manualNav = true; }, options);
+    nav.addEventListener("wheel", () => { manualNav = true; }, options);
+    nav.addEventListener("keydown", () => { manualNav = true; }, { signal: controller.signal });
+    window.addEventListener("scroll", () => { manualNav = false; schedule(); }, options);
+    window.addEventListener("resize", schedule, options);
+    nav.addEventListener("click", event => {
+      const link = event.target.closest(".menu-nav__link");
+      if (!link || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const section = document.getElementById(link.hash.slice(1));
+      if (!section) return;
+      event.preventDefault();
+      manualNav = false;
+      if (section.classList.contains("is-collapsed")) setCollapsed(section, false, true);
+      history.replaceState({}, "", link.hash);
+      section.scrollIntoView({ behavior: reduced() ? "instant" : "smooth", block: "start" });
+      schedule();
+    }, { signal: controller.signal });
+    const resizeObserver = new ResizeObserver(schedule);
+    resizeObserver.observe(document.querySelector("[data-menu-sections]"));
+    sync();
     navCleanup = () => {
-      observer.disconnect();
-      window.removeEventListener("scroll", atBottom);
-      nav.removeEventListener("click", onNavClick);
+      controller.abort();
+      resizeObserver.disconnect();
+      cancelAnimationFrame(queued);
     };
   }
 
@@ -256,6 +267,11 @@
     const res = await fetch("menu.json", { cache: "no-cache" });
     menuData = await res.json();
     renderMenu();
+    if (location.hash) {
+      requestAnimationFrame(() => {
+        document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView({ behavior: "instant", block: "start" });
+      });
+    }
   }
 
   function applyTheme() {

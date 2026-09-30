@@ -106,12 +106,15 @@
       </nav>
 
       <div class="pg-barra__idioma">
-        <div class="lang-switch" role="group" aria-label="Idioma">
+        <div class="lang-switch" role="group" aria-label="Idioma" data-i18n-attr="aria-label:nav.language">
           <button type="button" class="is-active" data-lang-btn="pt" aria-pressed="true" lang="pt-PT" aria-label="Português">
             <img src="images/bandeiras/pt.svg" alt="" width="24" height="16" /><span aria-hidden="true">PT</span>
           </button>
           <button type="button" data-lang-btn="en" aria-pressed="false" lang="en" aria-label="English">
             <img src="images/bandeiras/en.svg" alt="" width="24" height="16" /><span aria-hidden="true">EN</span>
+          </button>
+          <button type="button" data-lang-btn="fr" aria-pressed="false" lang="fr" aria-label="Français">
+            <img src="images/bandeiras/fr.svg" alt="" width="24" height="16" /><span aria-hidden="true">FR</span>
           </button>
         </div>
       </div>
@@ -131,14 +134,14 @@
 
     <header class="menu-header">
       <h1 class="visually-hidden" data-config="name">Café Avenida</h1>
-      <nav class="menu-nav" data-menu-nav aria-label="Categorias da ementa"></nav>
+      <nav class="menu-nav" data-menu-nav aria-label="Categorias da ementa" data-i18n-attr="aria-label:menuPage.categories"></nav>
     </header>
 
     <main class="menu-page">
       <div class="menu-intro">
         <p class="section__eyebrow menu-intro__eyebrow" data-config="name">Café Avenida</p>
         <h2 class="menu-intro__title" data-i18n="menuPage.title">Ementa</h2>
-        <p class="menu-intro__notice" data-i18n="menuPage.comingSoon">Em breve: cafetaria, pastelaria e sobremesas.</p>
+        <p class="menu-intro__notice" data-i18n="menuPage.comingSoon">Do primeiro café à sobremesa, escolhe o que te apetece.</p>
       </div>
       <div class="menu-sections" id="menu-sections" data-menu-sections></div>
       <footer class="menu-signature">
@@ -150,6 +153,7 @@
     <script src="js/branding.js"></script>
     <script src="i18n/pt.js"></script>
     <script src="i18n/en.js"></script>
+    <script src="i18n/fr.js"></script>
     <script src="js/i18n.js"></script>
     <script src="js/barra.js"></script>
     <script src="js/seo.js"></script>

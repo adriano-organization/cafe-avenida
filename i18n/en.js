@@ -1,12 +1,13 @@
 window.__i18n = window.__i18n || {};
 window.__i18n.en = {
+  chooser: {"open": "Not sure what to choose?", "question": "What are you in the mood for?", "sweet": "Sweet", "savory": "Savoury", "drink": "Drink", "try": "Give this a try", "another": "Another suggestion", "menu": "View on the menu", "empty": "New suggestions coming soon.", "close": "Close suggestions"},
   meta: {
     homeTitle: "Home",
     homeDescription: "Local café — good food, coffee and a welcoming atmosphere.",
     menuTitle: "Menu",
     menuDescription: "Browse our menu — coffee, pastries, toasts and drinks.",
   },
-  nav: {
+  nav: {language: "Language",
     backTop: "Back to top",
     home: "Home",
     about: "About",
@@ -68,7 +69,7 @@ window.__i18n.en = {
   suggestions: {
     eyebrow: "From the kitchen",
     title: "Suggestions",
-    lead: "Three house dishes worth trying.",
+    lead: "House favourites worth trying.",
     photoSoon: "Photo soon",
   },
   hours: {
@@ -108,10 +109,10 @@ window.__i18n.en = {
     home: "Back to home",
     menu: "View the menu",
   },
-  menuPage: {
+  menuPage: {categories: "Menu categories",
     title: "Menu",
     subtitle: "Tap a category to browse",
-    comingSoon: "Coming soon: coffee, pastries and desserts.",
+    comingSoon: "From your first coffee to dessert, choose what you fancy.",
     sizes: { small: "Small", medium: "Medium" },
     sizesShort: { small: "S", medium: "M" },
     tags: {

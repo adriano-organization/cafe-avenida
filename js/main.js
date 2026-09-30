@@ -79,7 +79,7 @@
       summary.hidden = true;
       return;
     }
-    const locale = i18n.getLang() === "pt" ? "pt-PT" : "en-GB";
+    const locale = ({ pt: "pt-PT", en: "en-GB", fr: "fr-FR" })[i18n.getLang()];
     const score = new Intl.NumberFormat(locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(
       google.rating
     );
@@ -144,7 +144,7 @@
     if (!grid) return;
     const photoLabel = i18n.t("suggestions.photoSoon");
     grid.innerHTML = "";
-    const suggestions = cfg.suggestions || [];
+    const suggestions = (cfg.suggestions || []).filter(item => item.featured !== false);
     const photos = suggestions.filter((item) => item.image).map((item) => ({
       src: item.image, alt: localized(item.name), description: localized(item.description),
     }));

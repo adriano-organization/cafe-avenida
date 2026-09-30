@@ -142,3 +142,18 @@ Antes de publicar, preencher em `config.js` o `domain`, email e links das redes 
 ## Créditos
 
 Site desenvolvido para o Café Avenida · [DevPlus](https://github.com/adriano2212)
+
+
+## Sugestões e idiomas
+
+O site e a ementa têm traduções em português, inglês e francês (`i18n/`, `config.js` e `menu.json`).
+
+Para acrescentar as fotografias das sugestões, editar `suggestions` em `config.js`:
+
+- `category`: `sweet` (doce), `savory` (salgado) ou `drink` (bebida).
+- `name` e `description`: textos com `pt`, `en` e `fr`.
+- `image`: caminho da fotografia; `imagePosition`: enquadramento opcional.
+- `featured: false`: só aparece no seletor “Não sabes o que escolher?”. Retirar esta propriedade para mostrar também nos cartões.
+- `menuId`: identificador de um produto de `menu.json`, para ligar diretamente à ementa.
+
+O seletor usa estas categorias automaticamente e evita repetir a última escolha quando existe mais de uma opção. Até chegarem as novas fotos, o Crepe Avenida e o cappuccino aparecem apenas no seletor, sem imagens inventadas.

@@ -573,3 +573,61 @@ body[data-page="ementa"] .pg-barra {
   height: auto;
   opacity: .9;
 }
+
+.menu-item { scroll-margin-top: calc(var(--menu-nav-top) + 4.5rem); }
+.menu-nav { overscroll-behavior-x: contain; }
+
+/* Grandes grupos com subcategorias claramente separadas. */
+.menu-subsection {
+  position: relative;
+  margin-top: 2rem;
+  scroll-margin-top: calc(var(--menu-nav-top) + 4.5rem);
+}
+.menu-subsection + .menu-subsection {
+  margin-top: 3rem;
+}
+.menu-subsection__head {
+  display: flex;
+  align-items: center;
+  min-height: 2.5rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-primary) 30%, transparent);
+}
+.menu-subsection__title {
+  margin: 0;
+  padding: .5rem 0 .7rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3.5vw, 1.8rem);
+  font-weight: 600;
+  color: var(--color-gold-text);
+}
+.menu-subsection.menu-section--figs-1 .menu-subsection__head {
+  min-height: 6rem;
+  padding-right: clamp(5.5rem, 17vw, 8rem);
+}
+.menu-subsection.menu-section--figs-2 .menu-subsection__head {
+  min-height: 7rem;
+  padding-right: clamp(9rem, 29vw, 13rem);
+}
+.menu-section.is-collapsed .menu-subsection .menu-section__figuras {
+  opacity: 1;
+}
+
+/* Uma fotografia pequena junto ao título de cada tipo de produto. */
+.menu-figura { width: 4.5rem; }
+.menu-figura__foto { border-width: 3px; }
+.menu-figura::after { inset: -4px -3px -3px -4px; }
+.menu-section__figuras { top: .1rem; right: .35rem; }
+.menu-section--figs-1 .menu-section__head,
+.menu-subsection.menu-section--figs-1 .menu-subsection__head {
+  min-height: 4.8rem;
+  padding-right: 5.5rem;
+}
+@media (max-width: 40rem) {
+  .menu-figura { width: 3.1rem; }
+  .menu-section--figs-1 .menu-section__head,
+  .menu-subsection.menu-section--figs-1 .menu-subsection__head {
+    min-height: 3.5rem;
+    padding-right: 4rem;
+  }
+}
+#cat-vinhos .menu-figura img { object-position: 80% center; }
