@@ -7,6 +7,7 @@ window.__i18n.en = {
     menuDescription: "Browse our menu — coffee, pastries, toasts and drinks.",
   },
   nav: {
+    backTop: "Back to top",
     home: "Home",
     about: "About",
     gallery: "Gallery",
@@ -33,6 +34,13 @@ window.__i18n.en = {
     ctaLocation: "Find us",
   },
   about: {
+    mainRoom: "Main room",
+    mainRoomText: "The space in our gallery, for a coffee, a meal or a good conversation.",
+    terrace: "Outdoor terrace",
+    terraceText: "A break in the fresh air, to slow down and enjoy the moment.",
+    games: "Games room",
+    gamesText: "Pool and darts to challenge your friends and keep the good times going.",
+
     eyebrow: "The café",
     title: "About us",
   },

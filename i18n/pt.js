@@ -7,6 +7,7 @@ window.__i18n.pt = {
     menuDescription: "Consulte a nossa ementa — cafés, pastelaria, tostas e bebidas.",
   },
   nav: {
+    backTop: "Voltar ao topo",
     home: "Início",
     about: "Sobre",
     gallery: "Galeria",
@@ -33,6 +34,13 @@ window.__i18n.pt = {
     ctaLocation: "Onde estamos",
   },
   about: {
+    mainRoom: "Salão principal",
+    mainRoomText: "O espaço que vês na galeria, para um café, uma refeição ou uma boa conversa.",
+    terrace: "Esplanada exterior",
+    terraceText: "Uma pausa ao ar livre, para saborear o momento sem pressa.",
+    games: "Salão de jogos",
+    gamesText: "Bilhar e dardos para desafiar os amigos e prolongar o convívio.",
+
     eyebrow: "O café",
     title: "Sobre nós",
   },

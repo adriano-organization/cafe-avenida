@@ -408,3 +408,12 @@ body[data-page="home"] .pg-barra {
     display: none;
   }
 }
+
+.pg-indice [aria-current="location"] { color: var(--barra-realce); }
+.pg-indice [aria-current="location"]::after { scale: 1 1; }
+@media (max-width: 57.99rem) {
+  .pg-indice [aria-current="location"] {
+    background: color-mix(in srgb, var(--color-primary) 15%, transparent);
+    box-shadow: inset 2px 0 var(--color-primary);
+  }
+}
