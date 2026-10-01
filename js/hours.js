@@ -65,6 +65,16 @@
     return `${slot.open} – ${slot.close}`;
   }
 
+  /** Acrescenta células com textContent (sem interpretar HTML vindo da configuração). */
+  function appendCells(row, cells) {
+    cells.forEach(([tag, text, scope]) => {
+      const cell = document.createElement(tag);
+      if (scope) cell.scope = scope;
+      cell.textContent = text;
+      row.appendChild(cell);
+    });
+  }
+
   function renderHoursPanel(container, schedule, i18n) {
     if (!container) return;
     const { day: todayIndex } = lisbonParts();
@@ -87,7 +97,7 @@
         const names = i18n.dayNames?.() ?? [];
         const dayName = names[d] ?? String(d);
         const slot = slotForDay(schedule, d);
-        li.innerHTML = `<span>${dayName}</span><span>${formatSlot(slot, i18n.t("hours.closed"))}</span>`;
+        appendCells(li, [["span", dayName], ["span", formatSlot(slot, i18n.t("hours.closed"))]]);
         list.appendChild(li);
       });
     }
@@ -100,7 +110,7 @@
         const names = i18n.dayNames?.() ?? [];
         const dayName = names[d] ?? String(d);
         const slot = slotForDay(schedule, d);
-        tr.innerHTML = `<th scope="row">${dayName}</th><td>${formatSlot(slot, i18n.t("hours.closed"))}</td>`;
+        appendCells(tr, [["th", dayName, "row"], ["td", formatSlot(slot, i18n.t("hours.closed"))]]);
         tbody.appendChild(tr);
       }
     }

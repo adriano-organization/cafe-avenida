@@ -10,6 +10,13 @@
     return obj?.[i18n.getLang()] ?? obj?.pt ?? "";
   }
 
+  const HTML_ESCAPES = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
+
+  /** Escapa texto de menu.json / i18n antes de o inserir em templates HTML. */
+  function esc(value) {
+    return String(value ?? "").replace(/[&<>"']/g, (ch) => HTML_ESCAPES[ch]);
+  }
+
   function formatPrice(value) {
     return new Intl.NumberFormat(({ pt: "pt-PT", en: "en-GB", fr: "fr-FR" })[i18n.getLang()], {
       style: "currency",
@@ -28,12 +35,12 @@
   function renderTags(item) {
     const tags = item.tags || [];
     const parts = tags.map(
-      (t) => `<span class="menu-tag menu-tag--${t}">${tagLabel(t)}</span>`
+      (t) => `<span class="menu-tag menu-tag--${esc(t)}">${esc(tagLabel(t))}</span>`
     );
     if (item.allergens) {
       const label = i18n.t("menuPage.tags.allergens");
       parts.push(
-        `<span class="menu-tag menu-tag--allergens" title="${localized(item.allergens)}">${label}</span>`
+        `<span class="menu-tag menu-tag--allergens" title="${esc(localized(item.allergens))}">${esc(label)}</span>`
       );
     }
     return parts.length ? `<div class="menu-item__tags">${parts.join("")}</div>` : "";
@@ -41,12 +48,12 @@
 
   function renderPrice(item) {
     if (!item.prices?.length) {
-      return `<span class="menu-item__price">${formatPrice(item.price)}</span>`;
+      return `<span class="menu-item__price">${esc(formatPrice(item.price))}</span>`;
     }
     const sizes = item.prices
       .map(
         (p) =>
-          `<span class="menu-item__size"><abbr class="menu-item__size-label" title="${i18n.t(`menuPage.sizes.${p.size}`)}">${i18n.t(`menuPage.sizesShort.${p.size}`)}</abbr> ${formatPrice(p.value)}</span>`
+          `<span class="menu-item__size"><abbr class="menu-item__size-label" title="${esc(i18n.t(`menuPage.sizes.${p.size}`))}">${esc(i18n.t(`menuPage.sizesShort.${p.size}`))}</abbr> ${esc(formatPrice(p.value))}</span>`
       )
       .join("");
     return `<span class="menu-item__price menu-item__price--sizes">${sizes}</span>`;
@@ -54,19 +61,19 @@
 
   function renderItems(category, heading = "h3") {
     if (!category.items?.length) {
-      return `<p class="menu-empty">${i18n.t("menuPage.empty")}</p>`;
+      return `<p class="menu-empty">${esc(i18n.t("menuPage.empty"))}</p>`;
     }
     return category.items
       .map((item) => {
         const desc = localized(item.description);
         return `
-      <article class="menu-item" id="item-${item.id}">
+      <article class="menu-item" id="item-${esc(item.id)}">
         <div class="menu-item__head">
-          <${heading} class="menu-item__name">${localized(item.name)}</${heading}>
+          <${heading} class="menu-item__name">${esc(localized(item.name))}</${heading}>
           <span class="menu-item__leader" aria-hidden="true"></span>
           ${renderPrice(item)}
         </div>
-        ${desc ? `<p class="menu-item__desc">${desc}</p>` : ""}
+        ${desc ? `<p class="menu-item__desc">${esc(desc)}</p>` : ""}
         ${renderTags(item)}
       </article>`;
       })
@@ -78,7 +85,7 @@
     const figs = category.figures
       .map(
         (src) =>
-          `<span class="menu-figura"><span class="menu-figura__foto"><img src="${src}" alt="" loading="lazy" decoding="async" /></span></span>`
+          `<span class="menu-figura"><span class="menu-figura__foto"><img src="${esc(src)}" alt="" loading="lazy" decoding="async" /></span></span>`
       )
       .join("");
     return `<div class="menu-section__figuras" aria-hidden="true">${figs}</div>`;
@@ -88,10 +95,10 @@
     return category.subcategories.map(sub => {
       const note = localized(sub.note);
       const figCount = Math.min(sub.figures?.length || 0, 2);
-      return `<section class="menu-subsection ${sub.items.length > 4 ? "menu-section--cols" : ""} ${figCount ? `menu-section--figs-${figCount}` : ""}" id="cat-${sub.id}" aria-labelledby="title-${sub.id}">
+      return `<section class="menu-subsection ${sub.items.length > 4 ? "menu-section--cols" : ""} ${figCount ? `menu-section--figs-${figCount}` : ""}" id="cat-${esc(sub.id)}" aria-labelledby="title-${esc(sub.id)}">
         ${renderFigures(sub)}
-        <div class="menu-subsection__head"><h3 class="menu-subsection__title" id="title-${sub.id}">${localized(sub.name)}</h3></div>
-        ${note ? `<p class="menu-section__note">${note}</p>` : ""}
+        <div class="menu-subsection__head"><h3 class="menu-subsection__title" id="title-${esc(sub.id)}">${esc(localized(sub.name))}</h3></div>
+        ${note ? `<p class="menu-section__note">${esc(note)}</p>` : ""}
         <div class="menu-section__items">${renderItems(sub, "h4")}</div>
       </section>`;
     }).join("");
@@ -125,16 +132,16 @@
       const bodyId = `${id}-body`;
       section.innerHTML = `
         ${renderFigures(cat)}
-        <button type="button" class="menu-section__head" aria-expanded="true" aria-controls="${bodyId}" data-menu-toggle>
+        <button type="button" class="menu-section__head" aria-expanded="true" aria-controls="${esc(bodyId)}" data-menu-toggle>
           <span class="menu-section__head-text">
             <span class="menu-section__num" aria-hidden="true">${String(index + 1).padStart(2, "0")}</span>
-            <h2 class="menu-section__title">${localized(cat.name)}</h2>
+            <h2 class="menu-section__title">${esc(localized(cat.name))}</h2>
           </span>
           <span class="menu-section__chevron" aria-hidden="true"></span>
         </button>
-        <div class="menu-section__body" id="${bodyId}">
+        <div class="menu-section__body" id="${esc(bodyId)}">
           <div class="menu-section__body-inner">
-            ${note ? `<p class="menu-section__note">${note}</p>` : ""}
+            ${note ? `<p class="menu-section__note">${esc(note)}</p>` : ""}
             ${cat.subcategories ? renderSubcategories(cat) : `<div class="menu-section__items">${renderItems(cat)}</div>`}
           </div>
         </div>`;
