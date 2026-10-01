@@ -132,6 +132,15 @@ Antes de publicar, preencher em `config.js` o `domain`, email e links das redes 
 
 ---
 
+## Segurança
+
+- **CSP:** cada página tem a mesma `<meta http-equiv="Content-Security-Policy">`. Não usar scripts inline nem `onclick=`: o código vai para `js/`. Ao alterar um `<style>` inline (ou o script do `<base>` no `404.html`), o hash na CSP tem de mudar — `npm test` indica o valor certo.
+- **Cabeçalhos HTTP:** `_headers` aplica HSTS, proteção contra clickjacking, `nosniff`, Referrer-Policy e Permissions-Policy **só no Netlify**. O GitHub Pages não permite cabeçalhos próprios; aí só vale a CSP da `<meta>`.
+- **Testes:** `npm test` (sem dependências) verifica CSP, cabeçalhos, escaping da ementa, segredos nos ficheiros publicados e terceiros. Corre também no GitHub Actions (`.github/workflows/seguranca.yml`) com `npm audit`.
+- **Tudo o que está no repositório é público** (o repositório e o site): nunca guardar aqui chaves, palavras-passe ou dados pessoais.
+
+---
+
 ## Reutilizar noutro café
 
 1. Editar `config.js` (identidade, contactos, horário, media, reviews).
