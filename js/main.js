@@ -34,8 +34,13 @@
       el.href = telHref;
     });
 
+    const email = cfg.email?.trim();
+    document.querySelectorAll("[data-mail-row]").forEach((el) => {
+      el.hidden = !email;
+    });
     document.querySelectorAll("[data-mail-link]").forEach((el) => {
-      el.href = `mailto:${cfg.email}`;
+      if (email) el.href = `mailto:${email}`;
+      else el.removeAttribute("href");
     });
 
     const placeLabel = encodeURIComponent(`${cfg.name}, ${cfg.address.full}`);

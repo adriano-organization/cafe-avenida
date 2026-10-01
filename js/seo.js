@@ -41,7 +41,7 @@
       "@type": "CafeOrCoffeeShop",
       name: cfg.name,
       telephone: cfg.phone,
-      email: cfg.email,
+      email: cfg.email?.trim() || undefined,
       url: cfg.domain,
       image: cfg.domain + "/" + (cfg.logo?.src || cfg.media?.hero?.image),
       address: {

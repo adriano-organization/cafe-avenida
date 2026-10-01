@@ -63,6 +63,7 @@ Nome, logo, tagline, sobre nós, telefone, morada, coordenadas, horário, cores,
 | --- | --- |
 | `openingHours` | `0` = domingo … `6` = sábado; `null` = fechado; `closeNextDay: true` se fecha na madrugada |
 | `domain` | URL pública sem barra final (QR + meta tags) |
+| `email` | Email real do café; vazio esconde o contacto. Nunca usar endereços de exemplo (`exemplo.pt` é um domínio real que recebe correio) |
 | `googleReviews` | `rating`, `count`, `placeId` — atualizar à mão |
 | `media.gallery` | Fotos do espaço; alts em `pt` / `en` |
 
