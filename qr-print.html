@@ -3,12 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- CSP igual em todas as páginas. Ao mudar um <script>/<style> inline, atualizar o hash (npm test indica o valor). -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-UuVM8p71BA9Kre17rHIaD76AwMLpbaKZAKGHR6FE+7Q='; style-src 'self' https://fonts.googleapis.com 'sha256-Ajhk23fZ/O+42Xb4A6mV7RCoS/L4wUE6a3+m+ADX2sQ=' 'sha256-8/xuEuKmb/1Mau2P1hluRIImozaxZXvftmdO2NNPHHs=' 'sha256-ye3fPO5XKg75LzBJV/no4GfmoebCxgmd7D+JdbBt1ww='; font-src https://fonts.gstatic.com; img-src 'self'; media-src 'self'; connect-src 'self'; frame-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <title>QR — Ementa</title>
     <link rel="stylesheet" href="css/qr-print.css" />
   </head>
   <body>
     <p class="no-print">
-      <button type="button" onclick="window.print()">Imprimir cartão</button>
+      <button type="button" data-print>Imprimir cartão</button>
     </p>
 
     <article class="print-sheet" id="qr-card">
@@ -25,25 +28,6 @@
     <script src="i18n/en.js"></script>
     <script src="i18n/fr.js"></script>
     <script src="js/i18n.js"></script>
-    <script>
-      (function () {
-        function init() {
-          window.CafeI18n.init();
-          window.CafeBranding.apply(window.CAFE_CONFIG);
-          const lang = window.CafeI18n.getLang();
-          const img = document.getElementById("qr-image");
-          if (img) img.src = (lang === "fr" ? "qr/ementa.png" : `qr/ementa-${lang}.png`);
-          window.addEventListener("cafe:langchange", (e) => {
-            if (img) img.src = (e.detail.lang === "fr" ? "qr/ementa.png" : `qr/ementa-${e.detail.lang}.png`);
-            window.CafeI18n.applyTranslations();
-          });
-        }
-        if (document.readyState === "loading") {
-          document.addEventListener("DOMContentLoaded", init);
-        } else {
-          init();
-        }
-      })();
-    </script>
+    <script src="js/qr-print.js"></script>
   </body>
 </html>
