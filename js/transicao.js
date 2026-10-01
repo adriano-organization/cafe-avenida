@@ -12,6 +12,133 @@
   let activeTimer = null;
   let activeRunId = 0;
 
+  // Animate a clipping wrapper so padding, grid rows and surrounding content move together.
+  window.CafeDisclosure = (content, setOpen, { timeScale = 1, followClose = null } = {}) => {
+    const wrapper = document.createElement('div');
+    wrapper.style.display = 'flow-root';
+    content.before(wrapper);
+    wrapper.append(content);
+    let animation;
+    let fades = [];
+    let stopFollowing = () => {};
+    let opened = false;
+    return next => {
+      stopFollowing();
+      const scrollStart = window.scrollY;
+      const destination = !next && followClose ? followClose() : null;
+      const start = wrapper.getBoundingClientRect().height;
+      const targets = content.matches('[data-gallery]')
+        ? [...content.querySelectorAll('.is-gallery-more')]
+        : [content];
+      const opacities = targets.map(target => getComputedStyle(target).opacity);
+      const wasHidden = content.hidden || (content.matches('[data-gallery]') && !content.classList.contains('is-expanded'));
+      animation?.cancel();
+      fades.forEach(fade => fade.cancel());
+      fades = [];
+      setOpen(next);
+      const end = wrapper.getBoundingClientRect().height;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        wrapper.style.overflow = '';
+        opened = next;
+        if (destination !== null) window.scrollTo({ top: destination, behavior: 'instant' });
+        return;
+      }
+      if (!next) setOpen(true);
+      wrapper.style.overflow = 'clip';
+      fades = targets.map((target, index) => target.animate([
+        { opacity: next && wasHidden ? 0 : opacities[index] },
+        { opacity: next ? 1 : 0 }
+      ], {
+        duration: (next ? 720 : 420) * timeScale,
+        delay: (next ? Math.min(index, 5) * 55 + 100 : 0) * timeScale,
+        easing: 'cubic-bezier(.4, 0, .2, 1)',
+        fill: 'both'
+      }));
+      animation = wrapper.animate([
+        { height: `${start}px` }, { height: `${end}px` }
+      ], { duration: 1100 * timeScale, delay: (next ? 0 : 120) * timeScale, easing: 'cubic-bezier(.4, 0, .2, 1)', fill: 'both' });
+      opened = next;
+      const current = animation;
+      let following = false;
+      if (destination !== null) {
+        following = true;
+        const root = document.documentElement;
+        const previousAnchor = root.style.overflowAnchor;
+        root.style.overflowAnchor = 'none';
+        let frame;
+        const inputs = ['wheel', 'touchstart', 'keydown'];
+        const stop = () => {
+          following = false;
+          cancelAnimationFrame(frame);
+          root.style.overflowAnchor = previousAnchor;
+          inputs.forEach(type => window.removeEventListener(type, stop));
+          stopFollowing = () => {};
+        };
+        stopFollowing = stop;
+        inputs.forEach(type => window.addEventListener(type, stop, { passive: true }));
+        // Use the height animation's eased progress, including its initial delay.
+        const follow = () => {
+          const progress = current.effect.getComputedTiming().progress ?? 0;
+          window.scrollTo({ top: scrollStart + (destination - scrollStart) * progress, behavior: 'instant' });
+          frame = requestAnimationFrame(follow);
+        };
+        follow();
+      }
+      current.onfinish = () => {
+        if (animation !== current) return;
+        // Finish at the exact destination only while automatic following is active.
+        const progress = current.effect.getComputedTiming().progress;
+        if (following && progress === 1) {
+          window.scrollTo({ top: destination, behavior: 'instant' });
+        }
+        stopFollowing();
+        setOpen(opened);
+        current.cancel();
+        fades.forEach(fade => fade.cancel());
+        fades = [];
+        wrapper.style.overflow = '';
+      };
+    };
+  };
+
+  let languageBusy = false;
+  window.CafeLanguageTransition = async change => {
+    if (languageBusy) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { change(); return; }
+    languageBusy = true;
+    const veil = document.createElement('div');
+    veil.className = 'ca-language';
+    veil.setAttribute('aria-hidden', 'true');
+    // Reuse the entrance frame without its glass doors.
+    for (const className of [
+      'ca-tr__caixilho ca-tr__caixilho--sup',
+      'ca-tr__caixilho ca-tr__caixilho--lat ca-tr__caixilho--lat-esq',
+      'ca-tr__caixilho ca-tr__caixilho--lat ca-tr__caixilho--lat-dir',
+      'ca-tr__soleira'
+    ]) {
+      const edge = document.createElement('div');
+      edge.className = className;
+      veil.append(edge);
+    }
+    const logo = document.createElement('img');
+    logo.src = window.CAFE_CONFIG?.logo?.src || 'images/logo.png';
+    logo.alt = '';
+    logo.className = 'ca-tr__logo';
+    const frame = document.createElement('div');
+    frame.className = 'ca-tr__logo-slot';
+    frame.append(logo);
+    veil.append(frame);
+    document.body.append(veil);
+    try {
+      await veil.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 400, easing: 'ease-in-out', fill: 'both' }).finished;
+      change();
+      await veil.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 500, delay: 1100, easing: 'ease-in-out', fill: 'both' }).finished;
+    } finally {
+      veil.remove();
+      languageBusy = false;
+    }
+  };
+
   function pageName(pathname) {
     const clean = pathname.replace(/\/$/, "");
     const last = clean.split("/").pop();

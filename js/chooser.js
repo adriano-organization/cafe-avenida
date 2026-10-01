@@ -42,9 +42,12 @@
       }
       result.append(copy);
     }
+    const disclose = window.CafeDisclosure(panel, open => { panel.hidden = !open; }, { timeScale: .5 });
     toggle.addEventListener('click', () => {
-      panel.hidden = !panel.hidden;
-      toggle.setAttribute('aria-expanded', String(!panel.hidden));
+      const open = toggle.getAttribute('aria-expanded') !== 'true';
+      toggle.setAttribute('aria-expanded', String(open));
+      panel.inert = !open;
+      disclose(open);
     });
     root.querySelectorAll('[data-choice]').forEach(button => button.addEventListener('click', () => pick(button.dataset.choice)));
     window.addEventListener('cafe:langchange', () => { if (selected) pick(selected, true); });

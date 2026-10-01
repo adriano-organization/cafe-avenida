@@ -602,3 +602,25 @@
 .ca-tr.ca-tr--anim.is-done { animation: none; }
 .ca-tr--saida.ca-tr--anim .ca-panfleto__folha--esq,
 .ca-tr--saida.ca-tr--anim .ca-panfleto__folha--dir { animation: none; }
+
+/* Brief logo-only transition while translations are applied. */
+.ca-language {
+  --ca-marco-x: 0.65%;
+  --ca-marco-y: 1.75%;
+  position: fixed;
+  inset: 0;
+  z-index: 10010;
+  display: grid;
+  place-items: center;
+  background: #dad2c6;
+}
+.ca-language .ca-tr__logo-slot {
+  animation: ca-language-logo 2000ms ease-in-out both;
+}
+@keyframes ca-language-logo {
+  0% { opacity: 0; transform: translateY(8px) scale(.94); }
+  22% { opacity: 1; transform: translateY(0) scale(1); }
+  52% { opacity: 1; transform: translateY(-5px) scale(1.055); }
+  78% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-3px) scale(.98); }
+}

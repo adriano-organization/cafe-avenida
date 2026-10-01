@@ -244,6 +244,7 @@ window.CAFE_CONFIG = {
     },
     {
       name: { pt: "Espetadinha do Mar", en: "Seafood skewer", fr: "Brochette de la mer" },
+      menuId: "espetada-mar",
       description: {
         pt: "Camarão, lulas e legumes grelhados, servida no espeto suspenso.",
         en: "Grilled prawns, squid and vegetables, served on a hanging skewer.", fr: "Crevettes, calamars et légumes grillés, servis sur une brochette suspendue.",
@@ -254,6 +255,7 @@ window.CAFE_CONFIG = {
     },
     {
       name: { pt: "Naco de Carne", en: "Beef steak", fr: "Pavé de bœuf" },
+      menuId: "naco-carne",
       description: {
         pt: "Naco grelhado no ponto, suculento e cheio de sabor.",
         en: "Grilled to order — juicy and full of flavour.", fr: "Grillé à votre goût, juteux et plein de saveur.",
@@ -264,6 +266,7 @@ window.CAFE_CONFIG = {
     },
     {
       name: { pt: "Espetada de Alcatra", en: "Rump steak skewer", fr: "Brochette de rumsteck" },
+      menuId: "espetada-alcatra",
       description: {
         pt: "Alcatra grelhada no espeto, com batata frita e salada.",
         en: "Grilled rump steak skewer with fries and salad.", fr: "Rumsteck grillé en brochette, accompagné de frites et de salade.",

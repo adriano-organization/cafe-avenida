@@ -55,15 +55,28 @@
       observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
           if (!entry.isIntersecting) return;
-          entry.target.classList.add('is-scroll-revealed');
+          if (entry.target.matches('[data-gallery]')) {
+            const gallery = entry.target;
+            const images = [...gallery.querySelectorAll('.gallery__item:not(.is-gallery-more) img')];
+            Promise.allSettled(images.map(image => image.decode())).then(() => {
+              gallery.classList.remove('is-photo-pending');
+              gallery.querySelectorAll('.gallery__item').forEach((photo, index) => {
+              photo.style.setProperty('--reveal-delay', `${Math.min(index, 4) * 70}ms`);
+              photo.classList.add('is-scroll-revealed');
+              });
+            });
+          } else entry.target.classList.add('is-scroll-revealed');
           observer.unobserve(entry.target);
         });
       }, { threshold: .08, rootMargin: '0px 0px -24px 0px' });
       const groups = document.querySelectorAll('.section__inner');
       groups.forEach(group => {
-        const targets = group.querySelectorAll('.section__eyebrow, .section__title, .about__text, .section__lead, .about-space, .gallery__item, .suggestion-card, .review-card, .reviews-summary, .pg-onde__topo, .pg-onde__mapa, .pg-onde__horas');
+        const targets = group.querySelectorAll('.section__eyebrow, .section__title, .about__text, .section__lead, .about-space, [data-gallery], .suggestion-card, .review-card, .reviews-summary, .pg-onde__topo, .pg-onde__mapa, .pg-onde__horas');
         targets.forEach((target, i) => {
-          target.style.setProperty('--reveal-delay', `${Math.min(i % 3, 2) * 85}ms`);
+          const siblings = [...target.parentElement.children].filter(el => el.className === target.className);
+          const order = target.matches('.suggestion-card, .review-card') ? siblings.indexOf(target) : i % 3;
+          target.style.setProperty('--reveal-delay', `${Math.min(Math.max(order, 0), 3) * 70}ms`);
+          if (target.matches('[data-gallery]') && !target.querySelector('.is-scroll-revealed')) target.classList.add('is-photo-pending');
           observer.observe(target);
         });
       });

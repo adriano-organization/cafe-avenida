@@ -116,9 +116,14 @@
   function bindLangButtons() {
     document.querySelectorAll("[data-lang-btn]").forEach((btn) => {
       btn.addEventListener("click", () => {
-        setLang(btn.getAttribute("data-lang-btn"));
-        // O foco passa para uma das outras línguas disponíveis.
-        btn.parentElement?.querySelector("[data-lang-btn]:not(.is-active)")?.focus();
+        const lang = btn.getAttribute("data-lang-btn");
+        if (lang === currentLang) return;
+        const change = () => {
+          setLang(lang);
+          btn.parentElement?.querySelector("[data-lang-btn]:not(.is-active)")?.focus({ preventScroll: true });
+        };
+        if (window.CafeLanguageTransition) window.CafeLanguageTransition(change);
+        else change();
       });
     });
   }

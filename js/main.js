@@ -177,6 +177,13 @@
       desc.className = "suggestion-card__desc";
       desc.textContent = localized(item.description);
       card.append(media, name, desc);
+      if (item.menuId) {
+        const link = document.createElement("a");
+        link.className = "suggestion-card__menu";
+        link.textContent = i18n.t("chooser.menu");
+        link.href = `ementa.html?lang=${i18n.getLang()}#item-${item.menuId}`;
+        card.appendChild(link);
+      }
       grid.appendChild(card);
     });
   }
@@ -185,8 +192,9 @@
     const grid = document.querySelector("[data-gallery]");
     const moreBtn = document.querySelector("[data-gallery-more]");
     if (!grid) return;
+    const wasExpanded = moreBtn?.getAttribute('aria-expanded') === 'true';
     grid.innerHTML = "";
-    grid.classList.remove("is-expanded");
+    grid.classList.toggle("is-expanded", wasExpanded);
 
     const gallery = cfg.media?.gallery || [];
     const photos = gallery
@@ -215,7 +223,7 @@
         const img = document.createElement("img");
         img.src = item.src;
         img.alt = localized(item.alt);
-        img.loading = index < 4 ? "eager" : "lazy";
+        img.loading = index < previewCount ? "eager" : "lazy";
         img.decoding = "async";
         img.width = 800;
         img.height = 600;
@@ -231,17 +239,23 @@
     if (!moreBtn) return;
     const extras = grid.querySelectorAll(".is-gallery-more").length;
     moreBtn.hidden = extras === 0;
-    moreBtn.setAttribute("aria-expanded", "false");
+    moreBtn.setAttribute("aria-expanded", String(wasExpanded));
     grid.id = "gallery-photos";
     moreBtn.setAttribute("aria-controls", grid.id);
-    moreBtn.textContent = i18n.t("gallery.more");
+    moreBtn.textContent = i18n.t(wasExpanded ? "gallery.less" : "gallery.more");
+    const disclose = grid._disclose || (grid._disclose = window.CafeDisclosure(grid, open => grid.classList.toggle('is-expanded', open), {
+      followClose: () => {
+        const section = grid.closest('#galeria');
+        const header = document.querySelector('.pg-barra');
+        const top = section.getBoundingClientRect().top + window.scrollY;
+        return Math.max(0, top - (header?.getBoundingClientRect().height || 0) - 16);
+      }
+    }));
     moreBtn.onclick = () => {
-      const open = grid.classList.toggle("is-expanded");
+      const open = moreBtn.getAttribute('aria-expanded') !== 'true';
+      disclose(open);
       moreBtn.setAttribute("aria-expanded", String(open));
       moreBtn.textContent = i18n.t(open ? "gallery.less" : "gallery.more");
-      if (!open) {
-        grid.closest("#galeria")?.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
     };
   }
 

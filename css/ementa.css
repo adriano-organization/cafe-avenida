@@ -574,7 +574,7 @@ body[data-page="ementa"] .pg-barra {
   opacity: .9;
 }
 
-.menu-item { scroll-margin-top: calc(var(--menu-nav-top) + 4.5rem); }
+.menu-item { scroll-margin-top: calc(var(--menu-nav-top) + 6rem); }
 .menu-nav { overscroll-behavior-x: contain; }
 
 /* Grandes grupos com subcategorias claramente separadas. */
