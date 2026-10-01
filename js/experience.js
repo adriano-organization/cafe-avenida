@@ -60,7 +60,7 @@
             const images = [...gallery.querySelectorAll('.gallery__item:not(.is-gallery-more) img')];
             Promise.allSettled(images.map(image => image.decode())).then(() => {
               gallery.classList.remove('is-photo-pending');
-              gallery.querySelectorAll('.gallery__item').forEach((photo, index) => {
+              gallery.querySelectorAll('.gallery__item:not(.is-gallery-more)').forEach((photo, index) => {
               photo.style.setProperty('--reveal-delay', `${Math.min(index, 4) * 70}ms`);
               photo.classList.add('is-scroll-revealed');
               });

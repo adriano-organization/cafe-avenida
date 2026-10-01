@@ -1,4 +1,4 @@
-/** Sugestões editáveis em config.js: category = sweet | savory | drink. */
+/** Sugestões editáveis em config.js: category = sweet | snack | meal | drink. */
 (function () {
   function init() {
     const root = document.querySelector('[data-chooser]');

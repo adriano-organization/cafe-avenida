@@ -229,9 +229,24 @@ window.CAFE_CONFIG = {
       },
     },
   ],
-  /** Categorias das sugestões: sweet, savory ou drink. featured: false aparece apenas no seletor. */
+  /** Categorias das sugestões: sweet, snack, meal ou drink. featured: false aparece apenas no seletor. */
   /** imagePosition: enquadramento da foto (valor de object-position). */
   suggestions: [
+    {
+      category: "snack", featured: false, menuId: "pao-chourico",
+      name: { pt: "Pão com chouriço", en: "Chouriço bread", fr: "Pain au chouriço" },
+      description: { pt: "Uma opção simples para petiscar.", en: "A simple bite to eat.", fr: "Une petite pause gourmande." }
+    },
+    {
+      category: "snack", featured: false, menuId: "pao-alho-bacon-queijo",
+      name: { pt: "Pão de alho, bacon e queijo", en: "Garlic bread, bacon and cheese", fr: "Pain à l’ail, au bacon et au fromage" },
+      description: { pt: "Para quando apetece um snack salgado.", en: "For when you fancy a savoury snack.", fr: "Pour une envie de snack salé." }
+    },
+    {
+      category: "snack", featured: false, menuId: "bolas-alheira",
+      name: { pt: "Bolas de alheira", en: "Alheira sausage balls", fr: "Boulettes d’alheira" },
+      description: { pt: "Uma entrada para começar ou partilhar.", en: "A starter to enjoy or share.", fr: "Une entrée à déguster ou à partager." }
+    },
     {
       category: "sweet", featured: false, menuId: "crepes-crepe-avenida",
       name: { pt: "Crepe Avenida", en: "Avenida crêpe", fr: "Crêpe Avenida" },
@@ -251,7 +266,7 @@ window.CAFE_CONFIG = {
       },
       image: "images/72a46fa8-8dee-4799-8f0f-1dbab267ffb4.JPG",
       imagePosition: "center 50%",
-      category: "savory",
+      category: "meal",
     },
     {
       name: { pt: "Naco de Carne", en: "Beef steak", fr: "Pavé de bœuf" },
@@ -262,7 +277,7 @@ window.CAFE_CONFIG = {
       },
       image: "images/3093472a-3822-42c9-b2d6-0d08839e3046.JPG",
       imagePosition: "center 45%",
-      category: "savory",
+      category: "meal",
     },
     {
       name: { pt: "Espetada de Alcatra", en: "Rump steak skewer", fr: "Brochette de rumsteck" },
@@ -273,7 +288,7 @@ window.CAFE_CONFIG = {
       },
       image: "images/espetada-alcatra.jpg",
       imagePosition: "center 35%",
-      category: "savory",
+      category: "meal",
     },
   ],
 };

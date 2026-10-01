@@ -18,6 +18,8 @@
     wrapper.style.display = 'flow-root';
     content.before(wrapper);
     wrapper.append(content);
+    const isGallery = content.matches('[data-gallery]');
+    let releaseLayout = () => {};
     let animation;
     let fades = [];
     let stopFollowing = () => {};
@@ -27,12 +29,12 @@
       const scrollStart = window.scrollY;
       const destination = !next && followClose ? followClose() : null;
       const start = wrapper.getBoundingClientRect().height;
-      const targets = content.matches('[data-gallery]')
-        ? [...content.querySelectorAll('.is-gallery-more')]
-        : [content];
+      // Gallery photos stay still: only the containing viewport is animated.
+      const targets = isGallery ? [] : [content];
       const opacities = targets.map(target => getComputedStyle(target).opacity);
       const wasHidden = content.hidden || (content.matches('[data-gallery]') && !content.classList.contains('is-expanded'));
       animation?.cancel();
+      releaseLayout();
       fades.forEach(fade => fade.cancel());
       fades = [];
       setOpen(next);
@@ -45,6 +47,20 @@
       }
       if (!next) setOpen(true);
       wrapper.style.overflow = 'clip';
+      if (isGallery) {
+        // Isolate the full-size grid from the changing wrapper height.
+        const previousHeight = content.style.height;
+        const previousContain = content.style.contain;
+        content.style.height = `${content.getBoundingClientRect().height}px`;
+        content.style.contain = 'layout';
+        wrapper.style.contain = 'layout';
+        releaseLayout = () => {
+          content.style.height = previousHeight;
+          content.style.contain = previousContain;
+          wrapper.style.contain = '';
+          releaseLayout = () => {};
+        };
+      }
       fades = targets.map((target, index) => target.animate([
         { opacity: next && wasHidden ? 0 : opacities[index] },
         { opacity: next ? 1 : 0 }
@@ -56,7 +72,7 @@
       }));
       animation = wrapper.animate([
         { height: `${start}px` }, { height: `${end}px` }
-      ], { duration: 1100 * timeScale, delay: (next ? 0 : 120) * timeScale, easing: 'cubic-bezier(.4, 0, .2, 1)', fill: 'both' });
+      ], { duration: 1100 * timeScale, delay: (next || isGallery ? 0 : 120) * timeScale, easing: 'cubic-bezier(.4, 0, .2, 1)', fill: 'both' });
       opened = next;
       const current = animation;
       let following = false;
@@ -94,6 +110,7 @@
         stopFollowing();
         setOpen(opened);
         current.cancel();
+        releaseLayout();
         fades.forEach(fade => fade.cancel());
         fades = [];
         wrapper.style.overflow = '';

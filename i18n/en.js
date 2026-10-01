@@ -1,6 +1,6 @@
 window.__i18n = window.__i18n || {};
 window.__i18n.en = {
-  chooser: {"open": "Not sure what to choose?", "question": "What are you in the mood for?", "sweet": "Sweet", "savory": "Savoury", "drink": "Drink", "try": "Give this a try", "another": "Another suggestion", "menu": "View on the menu", "empty": "New suggestions coming soon.", "close": "Close suggestions"},
+  chooser: {"open": "Not sure what to choose?", "question": "What are you in the mood for?", "sweet": "Sweet", "snack": "Snack", "meal": "Meal", "drink": "Drink", "try": "Give this a try", "another": "Another suggestion", "menu": "View on the menu", "empty": "New suggestions coming soon.", "close": "Close suggestions"},
   meta: {
     homeTitle: "Home",
     homeDescription: "Local café — good food, coffee and a welcoming atmosphere.",

@@ -1,6 +1,6 @@
 window.__i18n = window.__i18n || {};
 window.__i18n.pt = {
-  chooser: {"open": "Não sabes o que escolher?", "question": "O que te apetece?", "sweet": "Doce", "savory": "Salgado", "drink": "Bebida", "try": "Experimenta isto", "another": "Outra sugestão", "menu": "Ver na ementa", "empty": "Novas sugestões a chegar em breve.", "close": "Fechar sugestões"},
+  chooser: {"open": "Não sabes o que escolher?", "question": "O que te apetece?", "sweet": "Doce", "snack": "Snack", "meal": "Refeição", "drink": "Bebida", "try": "Experimenta isto", "another": "Outra sugestão", "menu": "Ver na ementa", "empty": "Novas sugestões a chegar em breve.", "close": "Fechar sugestões"},
   meta: {
     homeTitle: "Início",
     homeDescription: "Café local — boa comida, café e ambiente acolhedor.",
